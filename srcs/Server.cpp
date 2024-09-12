@@ -56,15 +56,10 @@ bool set_socket_non_blocking(int const &fd)
 
 void Server::accept_new_client()
 {
-    sockaddr_in clientAddress;
-    socklen_t clientAddressSize = sizeof(struct sockaddr_in);
-
-    int clientSocket = accept(this->_servSocket, (struct sockaddr *)&clientAddress, &clientAddressSize);
+    int clientSocket = accept(this->_servSocket, NULL, NULL);
 
     std::cout << green << "New client detected on socket : " << clientSocket << reset << std::endl;
     this->_clients[clientSocket] = Client(clientSocket);
-
-    std::cout << "TEST " << inet_ntoa() << std::endl;
 
     set_socket_non_blocking(clientSocket);
 
