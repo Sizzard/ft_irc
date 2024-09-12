@@ -1,11 +1,11 @@
 #include "../Includes/Client.hpp"
 
-Client::Client() : _fd(0), _isValidPass(false), _isIdentified(false), _negotiating(false)
+Client::Client() : _fd(0), _isIdentified(false)
 {
     return;
 }
 
-Client::Client(int fd) : _fd(fd), _isValidPass(false), _isIdentified(false), _negotiating(false)
+Client::Client(int fd) : _fd(fd), _isIdentified(false)
 {
     return;
 }
@@ -20,9 +20,7 @@ Client &Client::operator=(Client const &cpy)
 {
     this->_fd = cpy._fd;
     this->_buffer = cpy._buffer;
-    this->_isValidPass = cpy._isValidPass;
     this->_isIdentified = cpy._isIdentified;
-    this->_negotiating = cpy._negotiating;
     return *this;
 }
 
@@ -41,14 +39,19 @@ std::string const &Client::get_buffer()
     return this->_buffer;
 }
 
+void Client::set_toSend(std::string const &newToSend)
+{
+    this->_toSend = newToSend;
+}
+
 std::string const &Client::get_toSend()
 {
     return this->_toSend;
 }
 
-void Client::set_toSend(std::string const &newToSend)
+std::string const &Client::get_USER()
 {
-    this->_toSend = newToSend;
+    return this->_USER;
 }
 
 bool Client::capability_negotiation(std::vector<std::string> const &words)
@@ -57,8 +60,9 @@ bool Client::capability_negotiation(std::vector<std::string> const &words)
     {
         return FAILURE;
     }
+
     std::cout << "CAP LS OK" << std::endl;
-    this->_negotiating = true;
+
     return SUCCESS;
 }
 
@@ -66,24 +70,34 @@ bool Client::verify_password(std::vector<std::string> const &words, std::string 
 {
     if (words.size() != 2)
         return FAILURE;
-    std::cout << "PASS needs to be : " << password << " and is : " << words[1] << std::endl;
+
+    // std::cout << "PASS needs to be : " << password << " and is : " << words[1] << std::endl;
+
     if (words[0] == "PASS" && words[1] == password)
     {
         std::cout << "VALID PASS" << std::endl;
-        this->_isValidPass = true;
         return SUCCESS;
     }
+
     return FAILURE;
 }
 
-bool Client::verify_nick(std::vector<std::string> const &words)
+bool Client::verify_nick(std::vector<std::string> const &words, std::map<int, Client> const &serv)
 {
     if (words.size() != 2)
         return FAILURE;
-    std::cout << "NICK given : " << words[1] << std::endl;
-    if (words[0] == "NICK")
-        return SUCCESS;
-    return FAILURE;
+    if (words[0] != "NICK")
+        return FAILURE;
+
+    for (std::map<int, Client>::const_iterator it = serv.begin(); it != serv.end(); it++)
+    {
+        if (it->second._NICK == words[1])
+            return FAILURE;
+    }
+
+    // std::cout << "NICK given : " << words[1] << std::endl;
+
+    return SUCCESS;
 }
 
 bool Client::verify_user(std::vector<std::string> const &words)
@@ -101,7 +115,7 @@ bool Client::verify_user(std::vector<std::string> const &words)
     return SUCCESS;
 }
 
-void Client::handle_request(std::string const &password)
+void Client::first_connection(std::string const &password, std::map<int, Client> const &serv)
 {
     this->_connectionLog += this->_buffer;
 
@@ -109,6 +123,7 @@ void Client::handle_request(std::string const &password)
 
     std::vector<std::string> v = split(this->_connectionLog, "\r\n");
     std::cout << "Vector size is : " << v.size() << std::endl;
+
     // for (std::vector<std::string>::iterator it = v.begin(); it != v.end(); it++)
     // {
     //     std::cout << *it << std::endl;
@@ -124,7 +139,7 @@ void Client::handle_request(std::string const &password)
     {
         this->_toSend = ":Password incorrect";
     }
-    else if (verify_nick(split(v[2], " ")) == FAILURE)
+    else if (verify_nick(split(v[2], " "), serv) == FAILURE)
     {
         this->_toSend = ":No nickname given";
     }
@@ -135,7 +150,19 @@ void Client::handle_request(std::string const &password)
     else
     {
         this->_toSend = "Connection successfull !";
+        this->_connectionLog.clear();
+        this->_isIdentified = true;
+
         return;
     }
     this->_connectionLog.clear();
+}
+
+void Client::handle_request(std::string const &password, std::map<int, Client> const &serv)
+{
+    if (this->_isIdentified == false)
+        first_connection(password, serv);
+    else
+    {
+    }
 }

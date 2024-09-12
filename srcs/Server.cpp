@@ -56,10 +56,15 @@ bool set_socket_non_blocking(int const &fd)
 
 void Server::accept_new_client()
 {
-    int clientSocket = accept(this->_servSocket, NULL, NULL);
+    sockaddr_in clientAddress;
+    socklen_t clientAddressSize = sizeof(struct sockaddr_in);
+
+    int clientSocket = accept(this->_servSocket, (struct sockaddr *)&clientAddress, &clientAddressSize);
 
     std::cout << green << "New client detected on socket : " << clientSocket << reset << std::endl;
     this->_clients[clientSocket] = Client(clientSocket);
+
+    std::cout << "TEST " << inet_ntoa() << std::endl;
 
     set_socket_non_blocking(clientSocket);
 
@@ -166,7 +171,7 @@ bool Server::launch_server(int const &port, char const *password)
                     {
                         std::cout << "Message is finished :" << std::endl;
                         std::cout << this->_clients[CLIENT_ID].get_buffer() << std::endl;
-                        this->_clients[CLIENT_ID].handle_request(this->_password);
+                        this->_clients[CLIENT_ID].handle_request(this->_password, this->_clients);
                         std::cout << "Sending :\n"
                                   << this->_clients[CLIENT_ID].get_toSend() << std::endl;
                         write(CLIENT_ID, this->_clients[CLIENT_ID].get_toSend().c_str(), this->_clients[CLIENT_ID].get_toSend().size());
