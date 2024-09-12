@@ -12,12 +12,10 @@ private:
     std::map<int, Client> _clients;
 
     bool init_server(int ac, char **av);
-    bool launch_server(int const &port);
+    bool launch_server(int const &port, char const *password);
     void init_servAdrress(int const &port);
     void accept_new_client();
     void receive_message(int const &clientFd);
-    void handle_request(int const &fd);
-    bool capability_negotiation(std::vector<std::string> const &words, int const &fd);
     void close_server();
 
 public:

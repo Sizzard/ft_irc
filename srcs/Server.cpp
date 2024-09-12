@@ -1,4 +1,4 @@
-#include "Includes/Server.hpp"
+#include "../Includes/Server.hpp"
 
 bool g_sigint = false;
 
@@ -75,7 +75,7 @@ void Server::receive_message(int const &clientFd)
 
     read(clientFd, buff, sizeof(buff));
 
-    this->_clients[clientFd].set_buffer(buff);
+    this->_clients[clientFd].set_buffer(this->_clients[clientFd].get_buffer() + buff);
 
     std::cout << yellow << "Message from client number " << clientFd << std::endl
               << buff << reset << std::endl;
@@ -92,7 +92,7 @@ void Server::init_servAdrress(int const &port)
     bind(this->_servSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
 }
 
-bool Server::launch_server(int const &port)
+bool Server::launch_server(int const &port, char const *password)
 {
     this->_servSocket = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -126,6 +126,7 @@ bool Server::launch_server(int const &port)
     }
 
     std::vector<epoll_event> events(500);
+    this->_password = password;
 
     while (g_sigint == false)
     {
@@ -165,7 +166,11 @@ bool Server::launch_server(int const &port)
                     {
                         std::cout << "Message is finished :" << std::endl;
                         std::cout << this->_clients[CLIENT_ID].get_buffer() << std::endl;
-                        this->_clients[CLIENT_ID].handle_request();
+                        this->_clients[CLIENT_ID].handle_request(this->_password);
+                        std::cout << "Sending :\n"
+                                  << this->_clients[CLIENT_ID].get_toSend() << std::endl;
+                        write(CLIENT_ID, this->_clients[CLIENT_ID].get_toSend().c_str(), this->_clients[CLIENT_ID].get_toSend().size());
+                        this->_clients[CLIENT_ID].set_toSend("");
                     }
                     else
                     {
@@ -245,7 +250,7 @@ bool Server::start(int ac, char **av)
     if (init_server(ac, av) == FAILURE)
         return FAILURE;
 
-    launch_server(std::atoi(av[1]));
+    launch_server(std::atoi(av[1]), av[2]);
     close_server();
 
     return SUCCESS;

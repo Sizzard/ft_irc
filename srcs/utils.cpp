@@ -1,4 +1,4 @@
-#include "Includes/ft_irc.hpp"
+#include "../Includes/ft_irc.hpp"
 
 bool ends_with(std::string const &str, std::string const &ends)
 {

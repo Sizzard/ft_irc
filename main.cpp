@@ -5,5 +5,12 @@ int main(int ac, char **av)
 {
     Server ircserv;
 
-    ircserv.start(ac, av);
+    try
+    {
+        ircserv.start(ac, av);
+    }
+    catch (std::exception const &e)
+    {
+        std::cerr << red << e.what() << reset << std::endl;
+    }
 }
