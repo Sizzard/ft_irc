@@ -27,3 +27,18 @@ std::vector<std::string> split(std::string const &line, std::string const &to_sp
     }
     return v;
 }
+
+std::string get_time()
+{
+    std::string result;
+
+    time_t rawtime;
+    struct tm *timeinfo;
+    char buffer[80];
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+    strftime(buffer, 80, "Date: %a, %d %b %G %T %Z", timeinfo);
+    result = buffer;
+
+    return result;
+}

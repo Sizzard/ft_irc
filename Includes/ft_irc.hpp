@@ -30,3 +30,4 @@ const std::string reset("\033[0m");
 
 std::vector<std::string> split(std::string const &line, std::string const &to_split);
 bool ends_with(std::string const &str, std::string const &ends);
+std::string get_time();

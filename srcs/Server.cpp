@@ -56,10 +56,16 @@ bool set_socket_non_blocking(int const &fd)
 
 void Server::accept_new_client()
 {
-    int clientSocket = accept(this->_servSocket, NULL, NULL);
+    sockaddr_in clientAddress;
+    clientAddress.sin_family = AF_INET;
+    socklen_t len = sizeof(clientAddress);
 
-    std::cout << green << "New client detected on socket : " << clientSocket << reset << std::endl;
-    this->_clients[clientSocket] = Client(clientSocket);
+    int clientSocket = accept(this->_servSocket, (sockaddr *)&clientAddress, &len);
+
+    std::string ip = inet_ntoa(clientAddress.sin_addr);
+
+    std::cout << green << "New client detected : " + ip + " on socket : " << clientSocket << reset << std::endl;
+    this->_clients[clientSocket] = Client(clientSocket, ip);
 
     set_socket_non_blocking(clientSocket);
 
@@ -77,8 +83,21 @@ void Server::receive_message(int const &clientFd)
 
     this->_clients[clientFd].set_buffer(this->_clients[clientFd].get_buffer() + buff);
 
-    std::cout << yellow << "Message from client number " << clientFd << std::endl
-              << buff << reset << std::endl;
+    // std::cout << yellow << "Message from client number " << clientFd << std::endl
+    //           << buff << reset << std::endl;
+}
+
+void Server::send_message(int const &clientFd)
+{
+    if (this->_clients[clientFd].get_buffer() == "\r\n")
+        return;
+    if (this->_clients[clientFd].handle_request(this->_password, this->_clients) == SUCCESS)
+    {
+        std::cout << "Sending :\n"
+                  << this->_clients[clientFd].get_toSend() << std::endl;
+        write(clientFd, this->_clients[clientFd].get_toSend().c_str(), this->_clients[clientFd].get_toSend().size());
+        this->_clients[clientFd].set_toSend("");
+    }
 }
 
 void Server::init_servAdrress(int const &port)
@@ -88,6 +107,10 @@ void Server::init_servAdrress(int const &port)
     serverAddress.sin_family = AF_INET;
     serverAddress.sin_port = htons(port);
     serverAddress.sin_addr.s_addr = INADDR_ANY;
+
+    std::string test = inet_ntoa(serverAddress.sin_addr);
+
+    std::cout << test << std::endl;
 
     bind(this->_servSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
 }
@@ -161,16 +184,15 @@ bool Server::launch_server(int const &port, char const *password)
                 if (events[i].events & EPOLLOUT)
                 {
                     std::cout << cyan << "EPOLLOUT" << reset << std::endl;
-                    // std::cout << "Len is : " << this->_clients[CLIENT_ID]._buffer.size() << std::endl;
+
                     if (ends_with(this->_clients[CLIENT_ID].get_buffer(), "\r\n") == SUCCESS)
                     {
-                        std::cout << "Message is finished :" << std::endl;
-                        std::cout << this->_clients[CLIENT_ID].get_buffer() << std::endl;
-                        this->_clients[CLIENT_ID].handle_request(this->_password, this->_clients);
-                        std::cout << "Sending :\n"
-                                  << this->_clients[CLIENT_ID].get_toSend() << std::endl;
-                        write(CLIENT_ID, this->_clients[CLIENT_ID].get_toSend().c_str(), this->_clients[CLIENT_ID].get_toSend().size());
-                        this->_clients[CLIENT_ID].set_toSend("");
+                        std::cout << yellow << "Message is finished :" << std::endl;
+                        std::cout << this->_clients[CLIENT_ID].get_buffer() << reset << std::endl;
+
+                        send_message(CLIENT_ID);
+
+                        this->_clients[CLIENT_ID].set_buffer("");
                     }
                     else
                     {

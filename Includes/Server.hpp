@@ -16,6 +16,8 @@ private:
     void init_servAdrress(int const &port);
     void accept_new_client();
     void receive_message(int const &clientFd);
+    void send_message(int const &clientFd);
+
     void close_server();
 
 public:
