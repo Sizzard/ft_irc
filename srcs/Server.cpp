@@ -108,10 +108,6 @@ void Server::init_servAdrress(int const &port)
     serverAddress.sin_port = htons(port);
     serverAddress.sin_addr.s_addr = INADDR_ANY;
 
-    std::string test = inet_ntoa(serverAddress.sin_addr);
-
-    std::cout << test << std::endl;
-
     bind(this->_servSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
 }
 
