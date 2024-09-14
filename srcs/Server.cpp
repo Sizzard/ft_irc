@@ -75,13 +75,28 @@ void Server::accept_new_client()
     epoll_ctl(this->_epoll_fd, EPOLL_CTL_ADD, clientSocket, &clientEvent);
 }
 
+void Server::disconnect_client(int const &clientFd)
+{
+    std::cout << red << "Client disconnected" << reset << std::endl;
+    epoll_ctl(this->_epoll_fd, EPOLL_CTL_DEL, clientFd, NULL);
+    close(clientFd);
+    this->_clients.erase(clientFd);
+}
+
 void Server::receive_message(int const &clientFd)
 {
     char buff[1024] = {0};
 
-    read(clientFd, buff, sizeof(buff));
+    int bytesRead = read(clientFd, buff, sizeof(buff));
 
-    this->_clients[clientFd].set_buffer(this->_clients[clientFd].get_buffer() + buff);
+    if (bytesRead == 0)
+    {
+        disconnect_client(clientFd);
+    }
+    else
+    {
+        this->_clients[clientFd].set_buffer(this->_clients[clientFd].get_buffer() + buff);
+    }
 
     // std::cout << yellow << "Message from client number " << clientFd << std::endl
     //           << buff << reset << std::endl;
@@ -158,9 +173,7 @@ bool Server::launch_server(int const &port, char const *password)
             if (events[i].events & EPOLLRDHUP)
             {
                 std::cout << red << "EPOLLRDHUP\nClosing socket : " << CLIENT_ID << reset << std::endl;
-                epoll_ctl(this->_epoll_fd, EPOLL_CTL_DEL, CLIENT_ID, NULL);
-                close(CLIENT_ID);
-                this->_clients.erase(CLIENT_ID);
+                disconnect_client(CLIENT_ID);
             }
             else
             {

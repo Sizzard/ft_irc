@@ -44,7 +44,7 @@ public:
 #define RPL_CREATED() "003 " + this->_NICK + " :This server was created on " + get_time() + "\r\n"
 #define RPL_MYINFO() "004 " + this->_NICK + " :Version 1.0 itkol" + "\r\n"
 #define RPL_MOTDSTART() "375 " + this->_NICK + " :- " + this->_ip + " Message of the day - \r\n"
-#define RPL_MOTD() "372 " + this->_NICK + " :- Welcome to my IRC server Network, " + this->_NICK + "!" + this->_USER + "@" + this->_ip + "\r\n"
+#define RPL_MOTD() "372 " + this->_NICK + " :- " + cyan + "Welcome to my IRC server Network, " + this->_NICK + "!" + this->_USER + "@" + this->_ip + reset + "\r\n"
 #define RPL_ENDOFMOTD() "376 " + this->_NICK + " :End of MOTD command\r\n"
 
 #define ERR_UNKNOWNCOMMAND() "421 :Unknown command\r\n"

@@ -74,6 +74,8 @@ void Client::capability_negotiation(std::vector<std::string> const &words)
 
 void Client::verify_password(std::vector<std::string> const &words, std::string const &password)
 {
+    this->_isValidPass = false;
+
     if (words.size() != 2)
     {
         this->_toSend = ERR_NEEDMOREPARAMS();
@@ -153,7 +155,7 @@ void Client::first_connection(std::string const &password, std::map<int, Client>
                 this->_toSend = ERR_NEEDMOREPARAMS();
                 return;
             }
-            if (words[0] == "CAP")
+            else if (words[0] == "CAP")
             {
                 capability_negotiation(words);
             }
@@ -172,7 +174,6 @@ void Client::first_connection(std::string const &password, std::map<int, Client>
             else
             {
                 std::cout << "Words[0] is : " << words[0] << std::endl;
-                std::cout << ERR_UNKNOWNCOMMAND() << std::endl;
                 this->_toSend = ERR_UNKNOWNCOMMAND();
                 return;
             }
@@ -185,13 +186,7 @@ void Client::first_connection(std::string const &password, std::map<int, Client>
     if (this->_isValidPass == true && this->_NICK.empty() == false && this->_USER.empty() == false)
     {
         this->_isIdentified = true;
-        this->_toSend = RPL_WELCOME();
-        this->_toSend += RPL_YOURHOST();
-        this->_toSend += RPL_CREATED();
-        this->_toSend += RPL_MYINFO();
-        this->_toSend += RPL_MOTDSTART();
-        this->_toSend += RPL_MOTD();
-        this->_toSend += RPL_ENDOFMOTD();
+        this->_toSend = RPL_WELCOME() + RPL_YOURHOST() + RPL_CREATED() + RPL_MYINFO() + RPL_MOTDSTART() + RPL_MOTD() + RPL_ENDOFMOTD() + reset;
     }
     return;
 }

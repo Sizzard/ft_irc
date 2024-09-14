@@ -15,6 +15,7 @@ private:
     bool launch_server(int const &port, char const *password);
     void init_servAdrress(int const &port);
     void accept_new_client();
+    void disconnect_client(int const &clientFd);
     void receive_message(int const &clientFd);
     void send_message(int const &clientFd);
 
