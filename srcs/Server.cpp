@@ -5,7 +5,7 @@ bool g_sigint = false;
 void sigint_handler(int signal)
 {
     g_sigint = true;
-    std::cout << red << "SIGINT detected " << reset << std::endl;
+    std::cout << RED << "SIGINT detected " << RESET << std::endl;
     (void)signal;
 }
 
@@ -56,6 +56,7 @@ bool set_socket_non_blocking(int const &fd)
 
 void Server::accept_new_client()
 {
+
     sockaddr_in clientAddress;
     clientAddress.sin_family = AF_INET;
     socklen_t len = sizeof(clientAddress);
@@ -64,7 +65,7 @@ void Server::accept_new_client()
 
     std::string ip = inet_ntoa(clientAddress.sin_addr);
 
-    std::cout << green << "New client detected : " + ip + " on socket : " << clientSocket << reset << std::endl;
+    std::cout << GREEN << "New client detected : " + ip + " on socket : " << clientSocket << RESET << std::endl;
     this->_clients[clientSocket] = Client(clientSocket, ip);
 
     set_socket_non_blocking(clientSocket);
@@ -77,7 +78,7 @@ void Server::accept_new_client()
 
 void Server::disconnect_client(int const &clientFd)
 {
-    std::cout << red << "Client disconnected" << reset << std::endl;
+    std::cout << RED << "Client disconnected" << RESET << std::endl;
     epoll_ctl(this->_epoll_fd, EPOLL_CTL_DEL, clientFd, NULL);
     close(clientFd);
     this->_clients.erase(clientFd);
@@ -98,8 +99,8 @@ void Server::receive_message(int const &clientFd)
         this->_clients[clientFd].set_buffer(this->_clients[clientFd].get_buffer() + buff);
     }
 
-    // std::cout << yellow << "Message from client number " << clientFd << std::endl
-    //           << buff << reset << std::endl;
+    // std::cout << YELLOW << "Message from client number " << clientFd << std::endl
+    //           << buff << RESET << std::endl;
 }
 
 void Server::send_message(int const &clientFd)
@@ -130,7 +131,7 @@ bool Server::launch_server(int const &port, char const *password)
 {
     this->_servSocket = socket(AF_INET, SOCK_STREAM, 0);
 
-    std::cout << green << "Launching IRC server on port " << port << " on socket : " << this->_servSocket << reset << std::endl;
+    std::cout << GREEN << "Launching IRC server on port " << port << " on socket : " << this->_servSocket << RESET << std::endl;
 
     set_socket_non_blocking(this->_servSocket);
 
@@ -172,14 +173,14 @@ bool Server::launch_server(int const &port, char const *password)
         {
             if (events[i].events & EPOLLRDHUP)
             {
-                std::cout << red << "EPOLLRDHUP\nClosing socket : " << CLIENT_ID << reset << std::endl;
+                std::cout << RED << "EPOLLRDHUP\nClosing socket : " << CLIENT_ID << RESET << std::endl;
                 disconnect_client(CLIENT_ID);
             }
             else
             {
                 if (events[i].events & EPOLLIN)
                 {
-                    std::cout << green << "EPOLLIN" << reset << std::endl;
+                    std::cout << GREEN << "EPOLLIN" << RESET << std::endl;
 
                     if (CLIENT_ID == this->_servSocket)
                     {
@@ -192,12 +193,12 @@ bool Server::launch_server(int const &port, char const *password)
                 }
                 if (events[i].events & EPOLLOUT)
                 {
-                    std::cout << cyan << "EPOLLOUT" << reset << std::endl;
+                    std::cout << CYAN << "EPOLLOUT" << RESET << std::endl;
 
                     if (ends_with(this->_clients[CLIENT_ID].get_buffer(), "\r\n") == SUCCESS)
                     {
-                        std::cout << yellow << "Message is finished :" << std::endl;
-                        std::cout << this->_clients[CLIENT_ID].get_buffer() << reset << std::endl;
+                        std::cout << YELLOW << "Message is finished :" << std::endl;
+                        std::cout << this->_clients[CLIENT_ID].get_buffer() << RESET << std::endl;
 
                         send_message(CLIENT_ID);
 
@@ -269,7 +270,7 @@ void Server::close_server()
 {
     for (std::map<int, Client>::iterator it = this->_clients.begin(); it != this->_clients.end(); it++)
     {
-        std::cout << red << "Closing socket : " << it->first << reset << std::endl;
+        std::cout << RED << "Closing socket : " << it->first << RESET << std::endl;
         close(it->first);
     }
     close(this->_epoll_fd);

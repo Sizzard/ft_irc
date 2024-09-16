@@ -11,6 +11,6 @@ int main(int ac, char **av)
     }
     catch (std::exception const &e)
     {
-        std::cerr << red << e.what() << reset << std::endl;
+        std::cerr << RED << e.what() << RESET << std::endl;
     }
 }
