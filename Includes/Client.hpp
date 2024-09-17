@@ -2,10 +2,6 @@
 
 #include "ft_irc.hpp"
 
-class Client;
-
-typedef void (Client::*CommandFunction)(const vector<string> &, const map<int, Client> &);
-
 class Client
 {
 private:
@@ -14,26 +10,11 @@ private:
     bool _isValidPass;
     bool _isIdentified;
 
-    map<string, CommandFunction> _cmdMap;
-
+    vector<char> _charBuffer;
     string _buffer;
     string _NICK;
     string _USER;
     string _toSend;
-
-    void first_connection(string const &password, map<int, Client> const &serv);
-    void capability_negotiation(vector<string> const &words);
-    void verify_password(vector<string> const &words, string const &password);
-    void verify_nick(vector<string> const &words, map<int, Client> const &serv);
-    void verify_user(vector<string> const &words);
-
-    void normal_request(const map<int, Client> &serv);
-
-    map<string, CommandFunction> const create_map();
-    map<string, CommandFunction> const &get_command_map();
-
-    void ping(vector<string> const &words, map<int, Client> const &serv);
-    void nick(vector<string> const &words, map<int, Client> const &serv);
 
 public:
     Client();
@@ -42,13 +23,29 @@ public:
     Client &operator=(Client const &cpy);
     ~Client();
 
+    void set_ip(int newIp);
+    string const &get_ip();
+
+    void set_is_valid_pass(bool newIsValidPass);
+    bool const &get_is_valid_pass();
+
+    void set_is_identified(bool newIsIdentified);
+    bool const &get_is_identified();
+
+    void push_back_charBuffer(char c);
+    vector<char> const &get_charBuffer();
+    void charBuffer_clear();
+
+    void assign_buffer();
     void set_buffer(string newBuffer);
     string const &get_buffer();
 
-    void set_toSend(string const &newToSend);
-    string const &get_toSend();
+    void set_to_send(string const &newToSend);
+    string const &get_to_send();
 
+    void set_NICK(string const &newNICK);
+    string const &get_NICK();
+
+    void set_USER(string const &newUSER);
     string const &get_USER();
-
-    bool handle_request(string const &password, map<int, Client> const &serv);
 };

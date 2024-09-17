@@ -15,6 +15,7 @@
 #include <sys/epoll.h>
 #include <arpa/inet.h>
 
+using std::cerr;
 using std::cout;
 using std::endl;
 using std::map;
@@ -32,19 +33,23 @@ using std::vector;
 #define SUCCESS 0
 #define FAILURE 1
 
+#define BUFFER_SIZE 1024
+
 #define CLIENT_ID events[i].data.fd
+#define CLIENT this->_clients[clientFd]
 
 std::vector<std::string> split(std::string const &line, std::string const &to_split);
+std::vector<std::string> split_first_word(std::string const &line, std::string const &to_split);
 bool ends_with(std::string const &str, std::string const &ends);
 std::string get_time();
 
-#define RPL_WELCOME() "001 " + this->_NICK + " :Welcome to my IRC server Network, " + this->_NICK + "!" + this->_USER + "@" + this->_ip + "\r\n"
-#define RPL_YOURHOST() "002 " + this->_NICK + " :Your host is " + this->_ip + ", running version 1.0" + "\r\n"
-#define RPL_CREATED() "003 " + this->_NICK + " :This server was created on " + get_time() + "\r\n"
-#define RPL_MYINFO() "004 " + this->_NICK + " :Version 1.0 itkol" + "\r\n"
-#define RPL_MOTDSTART() "375 " + this->_NICK + " :- " + this->_ip + " Message of the day - \r\n"
-#define RPL_MOTD() "372 " + this->_NICK + " :- " + CYAN + "Welcome to my IRC server Network, " + this->_NICK + "!" + this->_USER + "@" + this->_ip + RESET + "\r\n"
-#define RPL_ENDOFMOTD() "376 " + this->_NICK + " :End of MOTD command\r\n"
+#define RPL_WELCOME() "001 " + CLIENT.get_NICK() + " :Welcome to my IRC server Network, " + CLIENT.get_NICK() + "!" + CLIENT.get_USER() + "@" + CLIENT.get_ip() + "\r\n"
+#define RPL_YOURHOST() "002 " + CLIENT.get_NICK() + " :Your host is " + CLIENT.get_ip() + ", running version 1.0" + "\r\n"
+#define RPL_CREATED() "003 " + CLIENT.get_NICK() + " :This server was created on " + get_time() + "\r\n"
+#define RPL_MYINFO() "004 " + CLIENT.get_NICK() + " :Version 1.0 itkol" + "\r\n"
+#define RPL_MOTDSTART() "375 " + CLIENT.get_NICK() + " :- " + CLIENT.get_ip() + " Message of the day - \r\n"
+#define RPL_MOTD() "372 " + CLIENT.get_NICK() + " :- " + CYAN + "Welcome to my IRC server Network, " + CLIENT.get_NICK() + "!" + CLIENT.get_USER() + "@" + CLIENT.get_ip() + RESET + "\r\n"
+#define RPL_ENDOFMOTD() "376 " + CLIENT.get_NICK() + " :End of MOTD command\r\n"
 
 #define ERR_UNKNOWNCOMMAND() "421 :Unknown command\r\n"
 #define ERR_NONICKNAMEGIVEN() "431 :No nickname given\r\n"
