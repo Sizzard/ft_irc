@@ -28,15 +28,15 @@ private:
     void send_message(int const &clientFd);
 
     void first_connection(int const &clientFd, string const &password);
-    void CAP(int const &clientFd, vector<string> const &words);
-    void PASS(int const &clientFd, vector<string> const &words, string const &password);
-    void USER(int const &clientFd, vector<string> const &words);
 
     bool handle_request(int const &clientFd, string const &password);
     void normal_request(int const &clientFd);
 
-    void PING(int const &clientFd, vector<string> const &words);
+    void CAP(int const &clientFd, vector<string> const &words);
     void NICK(int const &clientFd, vector<string> const &words);
+    void PASS(int const &clientFd, vector<string> const &words, string const &password);
+    void PING(int const &clientFd, vector<string> const &words);
+    void USER(int const &clientFd, vector<string> const &words);
 
     void close_server();
 
