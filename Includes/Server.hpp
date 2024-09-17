@@ -22,19 +22,21 @@ private:
     bool launch_server(int const &port, char const *password);
     void init_servAdrress(int const &port);
     void loop_server(vector<epoll_event> events);
+
     void accept_new_client();
     void disconnect_client(int const &clientFd);
+
     void receive_message(int const &clientFd);
     void send_message(int const &clientFd);
 
-    void first_connection(int const &clientFd, string const &password);
+    bool handle_request(int const &clientFd);
 
-    bool handle_request(int const &clientFd, string const &password);
+    void first_connection(int const &clientFd);
     void normal_request(int const &clientFd);
 
     void CAP(int const &clientFd, vector<string> const &words);
     void NICK(int const &clientFd, vector<string> const &words);
-    void PASS(int const &clientFd, vector<string> const &words, string const &password);
+    void PASS(int const &clientFd, vector<string> const &words);
     void PING(int const &clientFd, vector<string> const &words);
     void USER(int const &clientFd, vector<string> const &words);
 

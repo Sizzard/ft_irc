@@ -17,8 +17,10 @@ Server::Server() : _cmdMap(create_map())
 map<string, CommandFunction> const Server::create_map()
 {
     map<string, CommandFunction> map;
-    map["PING"] = &Server::PING;
+    map["CAP"] = &Server::CAP;
     map["NICK"] = &Server::NICK;
+    map["PASS"] = &Server::PASS;
+    map["PING"] = &Server::PING;
     map["USER"] = &Server::USER;
     return map;
 }
@@ -61,18 +63,6 @@ bool set_socket_non_blocking(int const &fd)
     }
 
     return SUCCESS;
-}
-
-void Server::PING(int const &clientFd, vector<string> const &words)
-{
-    if (words.size() != 2)
-    {
-        APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
-    }
-    else
-    {
-        APPEND_CLIENT_TO_SEND("PONG " + words[1]);
-    }
 }
 
 void Server::accept_new_client()
@@ -135,7 +125,7 @@ void Server::send_message(int const &clientFd)
 {
     if (CLIENT.get_buffer() == "\r\n")
         return;
-    if (this->handle_request(clientFd, this->_password) == SUCCESS)
+    if (this->handle_request(clientFd) == SUCCESS)
     {
         cout << "Sending :\n"
              << CLIENT.get_to_send() << endl;
@@ -155,93 +145,7 @@ void Server::init_servAdrress(int const &port)
     bind(this->_servSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
 }
 
-/*-----------------------------------------------------------------------------------------------*/
-
-void Server::CAP(int const &clientFd, vector<string> const &words)
-{
-    if (words.size() < 2)
-    {
-        APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
-        return;
-    }
-    else if (words[0] == "CAP" && words[1] == "LS")
-    {
-        cout << "CAP LS OK" << endl;
-        return;
-    }
-    APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
-    return;
-}
-
-void Server::PASS(int const &clientFd, vector<string> const &words, string const &password)
-{
-    CLIENT.set_is_valid_pass(false);
-
-    if (words.size() != 2)
-    {
-        APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
-        return;
-    }
-
-    // cout << "PASS needs to be : " << password << " and is : " << words[1] << endl;
-
-    if (words[0] == "PASS" && words[1] == password)
-    {
-        cout << "VALID PASS" << endl;
-        CLIENT.set_is_valid_pass(true);
-        return;
-    }
-
-    APPEND_CLIENT_TO_SEND(ERR_PASSWDMISMATCH());
-    return;
-}
-
-void Server::NICK(int const &clientFd, vector<string> const &words)
-{
-    if (words.size() != 2)
-    {
-        APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
-        return;
-    }
-
-    if (*words[1].begin() == '#')
-    {
-        APPEND_CLIENT_TO_SEND(ERR_ERRONEUSNICKNAME());
-        return;
-    }
-
-    for (map<int, Client>::iterator it = this->_clients.begin(); it != this->_clients.end(); it++)
-    {
-        if (it->second.get_NICK() == words[1])
-        {
-            APPEND_CLIENT_TO_SEND(ERR_NICKNAMEINUSE());
-            return;
-        }
-    }
-
-    CLIENT.set_NICK(words[1]);
-    cout << "NICK given : " << words[1] << endl;
-
-    return;
-}
-
-void Server::USER(int const &clientFd, vector<string> const &words)
-{
-    if (words.size() < 5)
-    {
-        cout << "Wrong USER" << endl;
-        APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
-        return;
-    }
-    if (words[0] == "USER")
-    {
-        CLIENT.set_USER(words[1]);
-        cout << "USER is : " << CLIENT.get_USER() << endl;
-    }
-    return;
-}
-
-void Server::first_connection(int const &clientFd, string const &password)
+void Server::first_connection(int const &clientFd)
 {
     vector<string> v = split(CLIENT.get_buffer(), "\r\n");
 
@@ -268,7 +172,7 @@ void Server::first_connection(int const &clientFd, string const &password)
             }
             else if (words[0] == "PASS")
             {
-                PASS(clientFd, words, password);
+                PASS(clientFd, words);
             }
             else if (words[0] == "NICK")
             {
@@ -336,11 +240,11 @@ void Server::normal_request(int const &clientFd)
     }
 }
 
-bool Server::handle_request(int const &clientFd, string const &password)
+bool Server::handle_request(int const &clientFd)
 {
     if (CLIENT.get_is_identified() == false)
     {
-        first_connection(clientFd, password);
+        first_connection(clientFd);
     }
     else
     {

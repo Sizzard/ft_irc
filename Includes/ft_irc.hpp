@@ -79,9 +79,8 @@ std::string get_time();
                        CYAN + "⠀⠀⠀⠉⠁⠀⠀⠛⠶⢤⣤⣤⣴⣖⣒⡒⠲⣤⣄⠀⢀⡏⠀⠀⢸⣇⡾⠁⠀⠀⠀⠙⢶⡀⠀⠀⠀⠀⠸⣿⠀⠀⢸⡇⠀⠀⠀⠀⢸⠁⠀⠉⢲⡴⠊⠀⠀⠀⠀⠈⠣⡽⣿⣿\n" +                                     \
                        CYAN + "⡀⠀⠀⠀⠀⠒⠂⠆⠀⠀⠀⠀⠀⠈⠉⠉⠓⠲⣬⣦⣟⡁⠀⠀⣨⣿⣿⣦⡚⣻⣤⠀⠀⢻⡆⠀⠀⠀⢰⣿⠀⠀⠀⠹⡄⠀⠀⠀⢸⠀⣀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠁⢾⣿\n" +                                     \
                        CLIENT.get_NICK() + "!" + CLIENT.get_USER() + "@" + CLIENT.get_ip() + RESET + "\r\n"
-#define RPL_ENDOFMOTD() "376 " + CLIENT.get_NICK() + " :End of MOTD command\r\n"
-
-#define ERR_UNKNOWNCOMMAND() "421 :Unknown command\r\n"
+#define RPL_ENDOFMOTD() "376 " + CLIENT.get_NICK() + " :End of /MOTD\r\n"
+#define ERR_UNKNOWNCOMMAND() "421 " + CLIENT.get_NICK() + " :Unknown command\r\n"
 #define ERR_NONICKNAMEGIVEN() "431 :No nickname given\r\n"
 #define ERR_ERRONEUSNICKNAME() "431 :Erroneus nickname\r\n"
 #define ERR_NICKNAMEINUSE() "433 :Nickname is already in use\r\n"
