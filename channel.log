@@ -1,0 +1,124 @@
+<< CAP LS
+<< NICK Sizzard
+<< USER facarval facarval open.ircnet.net :Fabio Carvalho Lopes
+>> :openirc.snt.utwente.nl 020 * :Please wait while we process your connection.
+>> :openirc.snt.utwente.nl 433 * Sizzard :Nickname is already in use.
+<< NICK Sizzard_
+>> :openirc.snt.utwente.nl 001 Sizzard_ :Welcome to the Internet Relay Network Sizzard_!~facarval@62.210.34.44
+<< MODE Sizzard_ +i
+<< WHOIS Sizzard
+>> :openirc.snt.utwente.nl 002 Sizzard_ :Your host is openirc.snt.utwente.nl, running version 2.11.2p3+0PNv1.06
+>> :openirc.snt.utwente.nl 003 Sizzard_ :This server was created Tue May 25 2021 at 22:15:05 CEST
+>> :openirc.snt.utwente.nl 004 Sizzard_ openirc.snt.utwente.nl 2.11.2p3+0PNv1.06 aoOirw abeiIklmnoOpqrRstv
+>> :openirc.snt.utwente.nl 005 Sizzard_ RFC2812 PREFIX=(ov)@+ CHANTYPES=#&!+ MODES=3 CHANLIMIT=#&!+:42 NICKLEN=15 TOPICLEN=255 KICKLEN=255 MAXLIST=beIR:64 CHANNELLEN=50 IDCHAN=!:5 CHANMODES=beIR,k,l,imnpstaqrzZ :are supported by this server
+>> :openirc.snt.utwente.nl 005 Sizzard_ PENALTY FNC EXCEPTS=e INVEX=I CASEMAPPING=ascii NETWORK=IRCnet :are supported by this server
+>> :openirc.snt.utwente.nl 042 Sizzard_ 0PNTAA015 :your unique ID
+>> :openirc.snt.utwente.nl 251 Sizzard_ :There are 17844 users and 2 services on 31 servers
+>> :openirc.snt.utwente.nl 252 Sizzard_ 54 :operators online
+>> :openirc.snt.utwente.nl 253 Sizzard_ 42 :unknown connections
+>> :openirc.snt.utwente.nl 254 Sizzard_ 9634 :channels formed
+>> :openirc.snt.utwente.nl 255 Sizzard_ :I have 1743 users, 0 services and 1 servers
+>> :openirc.snt.utwente.nl 265 Sizzard_ 1743 1839 :Current local users 1743, max 1839
+>> :openirc.snt.utwente.nl 266 Sizzard_ 17844 19147 :Current global users 17844, max 19147
+>> :openirc.snt.utwente.nl 375 Sizzard_ :- openirc.snt.utwente.nl Message of the Day - 
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- 18/9/2024 10:02
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- This open IRCnet server is provided by:
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-             ___           ___           ___     
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-            /\  \         /\__\         /\  \    
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-           /::\  \       /::|  |        \:\  \   
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-          /:/\ \  \     /:|:|  |         \:\  \  
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-         _\:\~\ \  \   /:/|:|  |__       /::\  \ 
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-        /\ \:\ \ \__\ /:/ |:| /\__\     /:/\:\__\
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-        \:\ \:\ \/__/ \/__|:|/:/  /    /:/  \/__/
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-         \:\ \:\__\       |:/:/  /    /:/  /     
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-          \:\/:/  /       |::/  /    /:/  /      
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-           \::/  /        /:/  /    /:/  /
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-            \/__/         \/__/     \/__/
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-                 openirc.snt.utwente.nl  
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-       Open to all users on IPv4/IPv6 ports 6660-6669
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- ----------------------------------------------------------
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- ] We scan for open proxies on connect. If you do not wish
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-   to be scanned, please do not connect to this server.
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- 
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- ] IRCnet provides no nick/channel registration services.
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- 
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- ] This server provides EXPERIMENTAL ip cloaks for users.
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-   Read more and sign up at https://cloak.ircnet.ovh
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- 
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- ] To avoid opless channels, you are encouraged to use the
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-   channel reop mode +R (otherwise unfixable).
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- 
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- ] Usage of /list for listing all channels is deprecated.
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-   Please use "/squery alis help" instead. You can also
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-   use http://www.ircnet.info to list and search channels.
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- 
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- ] Rules:
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-   * We reserve the right to deny service to anyone at any
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-     time and for any reason.
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-   * Mass advertising/link spam is not allowed.
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-   * Clients connected for the purpose of stealing nicks
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-     are not allowed.
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-   * General limits (request changes via /admin):
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-       3 clients per host   (without ident)
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-       3 clients per person (with ident)
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-      20 clients per /24    (IPv4)
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-      10 clients per /48    (IPv6)
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-   * If your IP range offers services to other people
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-     (e.g., shell providers) you must let us know.
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-   * Limits and rules for shell providers:
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-     * 3 clients per person
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-     * identd is required and no ident spoofing, no
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-       changing an ident after a ban, and no giving a
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-       person multiple usernames
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-   * Breaking these rules will result in a ban from ALL
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-     open servers.
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- 
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- ] Links:
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-   * Server and channel lists: http://www.ircnet.info
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-   * Random open server (dns round-robins):
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-     -  open.ircnet.net      (All open servers)
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-     -  ssl.ircnet.ovh       (SSL/TLS support)
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-     -  irc.cloak.ircnet.ovh (Cloak support)
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-     -  ssl.cloak.ircnet.ovh (Cloak and SSL/TLS support)
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-    * Webchat available at:
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-     -  https://webchat.ircnet.net (qwebirc)
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-     -  https://ircnet.chat/       (The Lounge)
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- 
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- ] If you require any further information, join #ircnet
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- ----------------------------------------------------------
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-              IRC is a privilege, not a right!
+>> :openirc.snt.utwente.nl 372 Sizzard_ :-        Respect others and enjoy your stay on IRCnet.
+>> :openirc.snt.utwente.nl 372 Sizzard_ :- ----------------------------------------------------------
+>> :openirc.snt.utwente.nl 376 Sizzard_ :End of MOTD command.
+>> :Sizzard_ MODE Sizzard_ :+i
+>> :openirc.snt.utwente.nl 311 Sizzard_ Sizzard ~facarval 62.210.34.44 * :Fabio Carvalho Lopes
+--> nickfind event whois
+>> :openirc.snt.utwente.nl 312 Sizzard_ Sizzard openirc.snt.utwente.nl :SNT at University of Twente, The Netherlands
+--> event empty
+>> :openirc.snt.utwente.nl 317 Sizzard_ Sizzard 36 1726651994 :seconds idle, signon time
+--> event empty
+>> :openirc.snt.utwente.nl 318 Sizzard_ Sizzard :End of WHOIS list.
+--> event empty
+<< PING openirc.snt.utwente.nl
+>> :openirc.snt.utwente.nl PONG openirc.snt.utwente.nl :openirc.snt.utwente.nl
+--> lag pong
+<< JOIN #bonjour
+>> :Sizzard_!~facarval@62.210.34.44 JOIN :#bonjour
+>> :openirc.snt.utwente.nl 353 Sizzard_ = #bonjour :@Sizzard_ 
+>> :openirc.snt.utwente.nl 366 Sizzard_ #bonjour :End of NAMES list.
+<< MODE #bonjour
+>> :openirc.snt.utwente.nl 324 Sizzard_ #bonjour + 
+--> chanquery mode
+<< WHO #bonjour
+>> :openirc.snt.utwente.nl 352 Sizzard_ #bonjour ~facarval 62.210.34.44 openirc.snt.utwente.nl Sizzard_ H@ :0 0PNT Fabio Carvalho Lopes
+--> silent event who
+>> :openirc.snt.utwente.nl 315 Sizzard_ #bonjour :End of WHO list.
+--> chanquery who end
+<< MODE #bonjour b
+>> :openirc.snt.utwente.nl 368 Sizzard_ #bonjour :End of Channel Ban List
+--> chanquery ban end
+<< PRIVMSG #bonjour :salut les gars
+<< INVITE lebgdu77 #bonjour
+<< INVITE lebgdu77 et
+>> :openirc.snt.utwente.nl 401 Sizzard_ lebgdu77 :No such nick/channel
+>> :openirc.snt.utwente.nl 401 Sizzard_ lebgdu77 :No such nick/channel

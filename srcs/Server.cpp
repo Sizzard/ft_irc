@@ -9,7 +9,7 @@ void sigint_handler(int signal)
     (void)signal;
 }
 
-Server::Server() : _cmdMap(create_map())
+Server::Server() : _servSocket(0), _epoll_fd(0), _cmdMap(create_map())
 {
     return;
 }
@@ -22,6 +22,7 @@ map<string, CommandFunction> const Server::create_map()
     map["PASS"] = &Server::PASS;
     map["PING"] = &Server::PING;
     map["USER"] = &Server::USER;
+    map["QUIT"] = &Server::QUIT;
     return map;
 }
 
@@ -41,6 +42,15 @@ Server &Server::operator=(Server const &cpy)
 
 Server::~Server()
 {
+    for (map<int, Client>::iterator it = this->_clients.begin(); it != this->_clients.end(); it++)
+    {
+        cout << RED << "Closing socket : " << it->first << RESET << endl;
+        close(it->first);
+    }
+    if (this->_epoll_fd)
+        close(this->_epoll_fd);
+    if (this->_servSocket)
+        close(this->_servSocket);
     return;
 }
 
@@ -76,20 +86,20 @@ void Server::accept_new_client()
 
     string ip = inet_ntoa(clientAddress.sin_addr);
 
-    cout << GREEN << "New client detected : " + ip + " on socket : " << clientSocket << RESET << endl;
-    this->_clients[clientSocket] = Client(clientSocket, ip);
-
     set_socket_non_blocking(clientSocket);
 
     epoll_event clientEvent;
     clientEvent.data.fd = clientSocket;
-    clientEvent.events = EPOLLIN | EPOLLOUT | EPOLLRDHUP;
+    clientEvent.events = EPOLLIN | EPOLLRDHUP;
     epoll_ctl(this->_epoll_fd, EPOLL_CTL_ADD, clientSocket, &clientEvent);
+
+    cout << GREEN << "New client detected : " + ip + " on socket : " << clientSocket << RESET << endl;
+    this->_clients[clientSocket] = Client(clientSocket, ip, clientEvent);
 }
 
 void Server::disconnect_client(int const &clientFd)
 {
-    cout << RED << "Client disconnected" << RESET << endl;
+    cout << RED << "Client disconnected on socket : " << clientFd << RESET << endl;
     epoll_ctl(this->_epoll_fd, EPOLL_CTL_DEL, clientFd, NULL);
     close(clientFd);
     this->_clients.erase(clientFd);
@@ -116,6 +126,8 @@ void Server::receive_message(int const &clientFd)
     }
     CLIENT.assign_buffer();
 
+    CLIENT.add_epollout(this->_epoll_fd);
+
     // cout << YELLOW << "Message from client number " << clientFd << " of len : " << bytesRead << endl;
     // write(1, buff, bytesRead);
     // cout << RESET << endl;
@@ -123,18 +135,48 @@ void Server::receive_message(int const &clientFd)
 
 void Server::send_message(int const &clientFd)
 {
+
     if (CLIENT.get_buffer() == "\r\n")
         return;
-    if (this->handle_request(clientFd) == SUCCESS)
+
+    if (CLIENT.get_to_send().empty() == true)
     {
-        cout << "Sending :\n"
+        this->handle_request(clientFd);
+        cout << "Sending  :\n"
              << CLIENT.get_to_send() << endl;
-        write(clientFd, CLIENT.get_to_send().c_str(), CLIENT.get_to_send().size());
-        CLIENT.set_to_send("");
+    }
+
+    CLIENT.set_buffer("");
+    CLIENT.charBuffer_clear();
+
+    int toSend = BUFFER_SIZE < CLIENT.get_to_send().size() ? BUFFER_SIZE : CLIENT.get_to_send().size();
+
+    int bytesSent = write(clientFd, CLIENT.get_to_send().c_str(), toSend);
+
+    CLIENT.erase_to_send(0, bytesSent);
+
+    if (toSend < BUFFER_SIZE)
+    {
+        CLIENT.remove_epollout(this->_epoll_fd);
+    }
+
+    // cout << "Bytes sent : " << bytesSent << endl
+    //      << "rest to send : " << CLIENT.get_to_send() << endl;
+
+    if (bytesSent == -1 || bytesSent != toSend)
+    {
+        cerr << "Can't send all data" << endl;
+        disconnect_client(clientFd);
+        return;
+    }
+
+    if (CLIENT.get_quit() == true)
+    {
+        disconnect_client(clientFd);
     }
 }
 
-void Server::init_servAdrress(int const &port)
+bool Server::init_servAdrress(int const &port)
 {
     sockaddr_in serverAddress;
 
@@ -142,7 +184,12 @@ void Server::init_servAdrress(int const &port)
     serverAddress.sin_port = htons(port);
     serverAddress.sin_addr.s_addr = INADDR_ANY;
 
-    bind(this->_servSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
+    if (bind(this->_servSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress)))
+    {
+        cerr << RED << "Address already in use" << RESET << endl;
+        return (FAILURE);
+    }
+    return SUCCESS;
 }
 
 void Server::first_connection(int const &clientFd)
@@ -158,9 +205,18 @@ void Server::first_connection(int const &clientFd)
     }
     else
     {
-        for (vector<string>::iterator it = v.begin(); it != v.end(); it++)
+        for (size_t i = 0; i < v.size(); i++)
         {
-            vector<string> words = split(*it, " ");
+            vector<string> words;
+
+            if (v[i].compare(0, 4, "PASS") == 0 || v[i].compare(0, 4, "QUIT") == 0 || v[i].compare(0, 4, "PING") == 0)
+            {
+                words = split_first_word(v[i], " ");
+            }
+            else
+            {
+                words = split(v[i], " ");
+            }
             if (words.size() == 0)
             {
                 APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
@@ -215,9 +271,18 @@ void Server::normal_request(int const &clientFd)
     }
     else
     {
-        for (vector<string>::iterator it = v.begin(); it != v.end(); it++)
+        for (size_t i = 0; i < v.size(); i++)
         {
-            vector<string> words = split(*it, " ");
+            vector<string> words;
+
+            if (v[i].compare(0, 4, "PASS") == 0 || v[i].compare(0, 4, "QUIT") == 0 || v[i].compare(0, 4, "PING") == 0)
+            {
+                words = split_first_word(v[i], " ");
+            }
+            else
+            {
+                words = split(v[i], " ");
+            }
             if (words.size() == 0)
             {
                 APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
@@ -240,7 +305,7 @@ void Server::normal_request(int const &clientFd)
     }
 }
 
-bool Server::handle_request(int const &clientFd)
+void Server::handle_request(int const &clientFd)
 {
     if (CLIENT.get_is_identified() == false)
     {
@@ -250,7 +315,7 @@ bool Server::handle_request(int const &clientFd)
     {
         normal_request(clientFd);
     }
-    return SUCCESS;
+    return;
 }
 
 void Server::loop_server(vector<epoll_event> events)
@@ -259,13 +324,13 @@ void Server::loop_server(vector<epoll_event> events)
 
     while (g_sigint == false)
     {
-        int n = epoll_wait(this->_epoll_fd, events.data(), events.size(), -1);
+        int n = epoll_wait(this->_epoll_fd, events.data(), events.size(), 1000);
 
         for (int i = 0; i < n; ++i)
         {
             if (events[i].events & EPOLLRDHUP)
             {
-                cout << RED << "EPOLLRDHUP\nClosing socket : " << CLIENT_ID << RESET << endl;
+                cout << RED << "EPOLLRDHUP" << RESET << endl;
                 disconnect_client(CLIENT_ID);
                 cout << "Waiting on connection ..." << endl;
             }
@@ -283,27 +348,26 @@ void Server::loop_server(vector<epoll_event> events)
                     {
                         receive_message(CLIENT_ID);
                     }
+                    cout << "Waiting on connection ..." << endl;
                 }
                 if (events[i].events & EPOLLOUT)
                 {
 
-                    // cout << CYAN << "EPOLLOUT" << RESET << endl;
+                    cout << CYAN << "EPOLLOUT" << RESET << endl;
 
-                    if (ends_with(this->_clients[CLIENT_ID].get_buffer(), "\r\n") == SUCCESS)
+                    if (ends_with(this->_clients[CLIENT_ID].get_buffer(), "\r\n") == SUCCESS || this->_clients[CLIENT_ID].get_to_send().empty() == false)
                     {
                         cout << YELLOW << "Message is finished :" << endl;
                         cout << this->_clients[CLIENT_ID].get_buffer() << RESET << endl;
 
                         send_message(CLIENT_ID);
 
-                        this->_clients[CLIENT_ID].set_buffer("");
-                        this->_clients[CLIENT_ID].charBuffer_clear();
                         cout << "Waiting on connection ..." << endl;
                     }
-                    else
-                    {
-                        // cout << "Message not finished" << endl;
-                    }
+                    // else
+                    // {
+                    // cout << "Message not finished" << endl;
+                    // }
                 }
             }
         }
@@ -321,7 +385,10 @@ bool Server::launch_server(int const &port, char const *password)
     int opt = 1;
     setsockopt(this->_servSocket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 
-    init_servAdrress(port);
+    if (init_servAdrress(port))
+    {
+        return FAILURE;
+    }
 
     listen(this->_servSocket, 5);
 
@@ -401,24 +468,12 @@ bool Server::init_server(int ac, char **av)
     return SUCCESS;
 }
 
-void Server::close_server()
-{
-    for (map<int, Client>::iterator it = this->_clients.begin(); it != this->_clients.end(); it++)
-    {
-        cout << RED << "Closing socket : " << it->first << RESET << endl;
-        close(it->first);
-    }
-    close(this->_epoll_fd);
-    close(this->_servSocket);
-}
-
 bool Server::start(int ac, char **av)
 {
     if (init_server(ac, av) == FAILURE)
         return FAILURE;
 
     launch_server(atoi(av[1]), av[2]);
-    close_server();
 
     return SUCCESS;
 }

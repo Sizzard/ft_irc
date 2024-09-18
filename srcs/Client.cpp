@@ -1,11 +1,11 @@
 #include "../Includes/Client.hpp"
 
-Client::Client() : _fd(0), _ip(""), _isValidPass(false), _isIdentified(false)
+Client::Client() : _fd(0), _ip(""), _isValidPass(false), _isIdentified(false), _quit(false)
 {
     return;
 }
 
-Client::Client(int fd, string ip) : _fd(fd), _ip(ip), _isValidPass(false), _isIdentified(false)
+Client::Client(int fd, string ip, epoll_event clientEvent) : _fd(fd), _ip(ip), _isValidPass(false), _isIdentified(false), _quit(false), _event(clientEvent)
 {
     return;
 }
@@ -22,7 +22,8 @@ Client &Client::operator=(Client const &cpy)
     this->_ip = cpy._ip;
     this->_isValidPass = cpy._isValidPass;
     this->_isIdentified = cpy._isIdentified;
-    this->_buffer = cpy._buffer;
+    this->_quit = cpy._quit;
+    this->_event = cpy._event;
     return *this;
 }
 
@@ -71,6 +72,11 @@ string const &Client::get_buffer()
     return this->_buffer;
 }
 
+void Client::erase_to_send(size_t pos, size_t len)
+{
+    this->_toSend.erase(pos, len);
+}
+
 void Client::set_to_send(string const &newToSend)
 {
     this->_toSend = newToSend;
@@ -101,6 +107,16 @@ string const &Client::get_USER()
     return this->_USER;
 }
 
+void Client::set_network(string const &newNetwork)
+{
+    this->_network = newNetwork;
+}
+
+string const &Client::get_network()
+{
+    return this->_network;
+}
+
 void Client::set_is_valid_pass(bool newIsValidPass)
 {
     this->_isValidPass = newIsValidPass;
@@ -119,4 +135,26 @@ void Client::set_is_identified(bool newIsIdentified)
 bool const &Client::get_is_identified()
 {
     return this->_isIdentified;
+}
+
+void Client::set_quit(bool newQuit)
+{
+    this->_quit = newQuit;
+}
+
+bool const &Client::get_quit()
+{
+    return this->_quit;
+}
+
+void Client::add_epollout(int const &epoll_fd)
+{
+    this->_event.events |= EPOLLOUT;
+    epoll_ctl(epoll_fd, EPOLL_CTL_MOD, this->_fd, &this->_event);
+}
+
+void Client::remove_epollout(int const &epoll_fd)
+{
+    this->_event.events = this->_event.events & ~EPOLLOUT;
+    epoll_ctl(epoll_fd, EPOLL_CTL_MOD, this->_fd, &this->_event);
 }

@@ -20,7 +20,7 @@ private:
 
     bool init_server(int ac, char **av);
     bool launch_server(int const &port, char const *password);
-    void init_servAdrress(int const &port);
+    bool init_servAdrress(int const &port);
     void loop_server(vector<epoll_event> events);
 
     void accept_new_client();
@@ -29,7 +29,7 @@ private:
     void receive_message(int const &clientFd);
     void send_message(int const &clientFd);
 
-    bool handle_request(int const &clientFd);
+    void handle_request(int const &clientFd);
 
     void first_connection(int const &clientFd);
     void normal_request(int const &clientFd);
@@ -39,8 +39,8 @@ private:
     void PASS(int const &clientFd, vector<string> const &words);
     void PING(int const &clientFd, vector<string> const &words);
     void USER(int const &clientFd, vector<string> const &words);
-
-    void close_server();
+    void QUIT(int const &clientFd, vector<string> const &words);
+    void JOIN(int const &clientFd, vector<string> const &words);
 
 public:
     Server();

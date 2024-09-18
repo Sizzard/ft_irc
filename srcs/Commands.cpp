@@ -79,6 +79,7 @@ void Server::USER(int const &clientFd, vector<string> const &words)
     if (words[0] == "USER")
     {
         CLIENT.set_USER(words[1]);
+        CLIENT.set_network(words[3]);
         cout << "USER is : " << CLIENT.get_USER() << endl;
     }
     return;
@@ -94,4 +95,39 @@ void Server::PING(int const &clientFd, vector<string> const &words)
     {
         APPEND_CLIENT_TO_SEND("PONG " + words[1]);
     }
+    return;
+}
+
+void Server::QUIT(int const &clientFd, vector<string> const &words)
+{
+
+    if (words.size() == 1)
+    {
+        APPEND_CLIENT_TO_SEND(CLIENT_SOURCE + " QUIT :\r\n");
+    }
+    else
+    {
+        APPEND_CLIENT_TO_SEND(CLIENT_SOURCE + " QUIT :" + words[1] + "\r\n");
+    }
+
+    CLIENT.set_quit(true);
+    return;
+}
+
+void Server::JOIN(int const &clientFd, vector<string> const &words)
+{
+    if (words.size() != 2)
+    {
+        APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
+        return;
+    }
+
+    if (words[1].empty() == true)
+    {
+        APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
+        return;
+    }
+
+    APPEND_CLIENT_TO_SEND(":" + CLIENT.get_NICK() + " JOIN " + words[1] + "\r\n");
+    return;
 }

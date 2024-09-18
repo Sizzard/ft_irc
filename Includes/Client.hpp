@@ -9,16 +9,19 @@ private:
     string _ip;
     bool _isValidPass;
     bool _isIdentified;
+    bool _quit;
+    epoll_event _event;
 
     vector<char> _charBuffer;
     string _buffer;
     string _NICK;
     string _USER;
+    string _network;
     string _toSend;
 
 public:
     Client();
-    Client(int fd, string ip);
+    Client(int fd, string ip, epoll_event clientEvent);
     Client(Client const &to_cpy);
     Client &operator=(Client const &cpy);
     ~Client();
@@ -32,6 +35,9 @@ public:
     void set_is_identified(bool newIsIdentified);
     bool const &get_is_identified();
 
+    void set_quit(bool newQuit);
+    bool const &get_quit();
+
     void push_back_charBuffer(char c);
     vector<char> const &get_charBuffer();
     void charBuffer_clear();
@@ -40,6 +46,7 @@ public:
     void set_buffer(string newBuffer);
     string const &get_buffer();
 
+    void erase_to_send(size_t pos, size_t len);
     void set_to_send(string const &newToSend);
     string const &get_to_send();
 
@@ -48,4 +55,10 @@ public:
 
     void set_USER(string const &newUSER);
     string const &get_USER();
+
+    void set_network(string const &newNetwork);
+    string const &get_network();
+
+    void remove_epollout(int const &epoll_fd);
+    void add_epollout(int const &epoll_fd);
 };
