@@ -10,6 +10,7 @@ private:
     bool _isValidPass;
     bool _isIdentified;
     bool _quit;
+    bool _inChannel;
     epoll_event _event;
 
     vector<char> _charBuffer;
@@ -38,6 +39,9 @@ public:
     void set_quit(bool newQuit);
     bool const &get_quit();
 
+    void set_inChannel(bool newInChannel);
+    bool const &get_in_channel();
+
     void push_back_charBuffer(char c);
     vector<char> const &get_charBuffer();
     void charBuffer_clear();
@@ -61,4 +65,5 @@ public:
 
     void remove_epollout(int const &epoll_fd);
     void add_epollout(int const &epoll_fd);
+    epoll_event &get_epoll_event();
 };

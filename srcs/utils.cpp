@@ -7,6 +7,18 @@ bool ends_with(string const &str, string const &ends)
     return (str.compare(str.size() - ends.size(), ends.size(), ends));
 }
 
+vector<string> analyse_command(vector<string> const &v, size_t const &i)
+{
+    if (v[i].compare(0, 4, "PASS") == 0 || v[i].compare(0, 4, "QUIT") == 0 || v[i].compare(0, 4, "PING") == 0 || v[i].compare(0, 7, "PRIVMSG") == 0)
+    {
+        return split_first_word(v[i], " ");
+    }
+    else
+    {
+        return split(v[i], " ");
+    }
+}
+
 vector<string> split(string const &line, string const &to_split)
 {
     vector<string> v;

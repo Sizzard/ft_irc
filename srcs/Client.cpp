@@ -1,11 +1,11 @@
 #include "../Includes/Client.hpp"
 
-Client::Client() : _fd(0), _ip(""), _isValidPass(false), _isIdentified(false), _quit(false)
+Client::Client() : _fd(0), _ip(""), _isValidPass(false), _isIdentified(false), _quit(false), _inChannel(false)
 {
     return;
 }
 
-Client::Client(int fd, string ip, epoll_event clientEvent) : _fd(fd), _ip(ip), _isValidPass(false), _isIdentified(false), _quit(false), _event(clientEvent)
+Client::Client(int fd, string ip, epoll_event clientEvent) : _fd(fd), _ip(ip), _isValidPass(false), _isIdentified(false), _quit(false), _inChannel(false), _event(clientEvent)
 {
     return;
 }
@@ -23,6 +23,7 @@ Client &Client::operator=(Client const &cpy)
     this->_isValidPass = cpy._isValidPass;
     this->_isIdentified = cpy._isIdentified;
     this->_quit = cpy._quit;
+    this->_inChannel = cpy._inChannel;
     this->_event = cpy._event;
     return *this;
 }
@@ -137,6 +138,16 @@ bool const &Client::get_is_identified()
     return this->_isIdentified;
 }
 
+void Client::set_inChannel(bool newInChannel)
+{
+    this->_inChannel = newInChannel;
+}
+
+bool const &Client::get_in_channel()
+{
+    return this->_inChannel;
+}
+
 void Client::set_quit(bool newQuit)
 {
     this->_quit = newQuit;
@@ -157,4 +168,9 @@ void Client::remove_epollout(int const &epoll_fd)
 {
     this->_event.events = this->_event.events & ~EPOLLOUT;
     epoll_ctl(epoll_fd, EPOLL_CTL_MOD, this->_fd, &this->_event);
+}
+
+epoll_event &Client::get_epoll_event()
+{
+    return this->_event;
 }

@@ -23,6 +23,8 @@ map<string, CommandFunction> const Server::create_map()
     map["PING"] = &Server::PING;
     map["USER"] = &Server::USER;
     map["QUIT"] = &Server::QUIT;
+    map["JOIN"] = &Server::JOIN;
+    map["PRIVMSG"] = &Server::PRIVMSG;
     return map;
 }
 
@@ -97,10 +99,31 @@ void Server::accept_new_client()
     this->_clients[clientSocket] = Client(clientSocket, ip, clientEvent);
 }
 
+void Server::quit_all_channels(int const &clientFd)
+{
+    if (CLIENT.get_in_channel() == true)
+    {
+        for (map<string, Channels>::iterator it = this->_channels.begin(); it != this->_channels.end(); it++)
+        {
+            map<int, string> const m = it->second.get_users();
+            for (map<int, string>::const_iterator ite = m.begin(); ite != m.end(); ite++)
+            {
+                if (ite->first == clientFd)
+                {
+                    it->second.remove_users(clientFd);
+                }
+            }
+        }
+    }
+    CLIENT.set_inChannel(false);
+    return;
+}
+
 void Server::disconnect_client(int const &clientFd)
 {
     cout << RED << "Client disconnected on socket : " << clientFd << RESET << endl;
-    epoll_ctl(this->_epoll_fd, EPOLL_CTL_DEL, clientFd, NULL);
+    quit_all_channels(clientFd);
+    epoll_ctl(this->_epoll_fd, EPOLL_CTL_DEL, clientFd, &this->_clients[clientFd].get_epoll_event());
     close(clientFd);
     this->_clients.erase(clientFd);
 }
@@ -126,8 +149,18 @@ void Server::receive_message(int const &clientFd)
     }
     CLIENT.assign_buffer();
 
-    CLIENT.add_epollout(this->_epoll_fd);
-
+    cout << CLIENT.get_buffer() << endl;
+    if (ends_with(CLIENT.get_buffer(), "\r\n") == SUCCESS)
+    {
+        if (CLIENT.get_buffer() == "\r\n")
+            return;
+        cout << "Message received on socket " << clientFd << " :" << endl;
+        this->handle_request(clientFd);
+    }
+    if (CLIENT.get_to_send().empty() == false)
+    {
+        CLIENT.add_epollout(this->_epoll_fd);
+    }
     // cout << YELLOW << "Message from client number " << clientFd << " of len : " << bytesRead << endl;
     // write(1, buff, bytesRead);
     // cout << RESET << endl;
@@ -137,17 +170,13 @@ void Server::send_message(int const &clientFd)
 {
 
     if (CLIENT.get_buffer() == "\r\n")
-        return;
-
-    if (CLIENT.get_to_send().empty() == true)
     {
-        this->handle_request(clientFd);
-        cout << "Sending  :\n"
-             << CLIENT.get_to_send() << endl;
+        // cout << "BONJOUR" << endl;
+        return;
     }
 
-    CLIENT.set_buffer("");
-    CLIENT.charBuffer_clear();
+    cout << "Sending to socket " << clientFd << " :\n"
+         << CLIENT.get_to_send() << endl;
 
     int toSend = BUFFER_SIZE < CLIENT.get_to_send().size() ? BUFFER_SIZE : CLIENT.get_to_send().size();
 
@@ -209,14 +238,8 @@ void Server::first_connection(int const &clientFd)
         {
             vector<string> words;
 
-            if (v[i].compare(0, 4, "PASS") == 0 || v[i].compare(0, 4, "QUIT") == 0 || v[i].compare(0, 4, "PING") == 0)
-            {
-                words = split_first_word(v[i], " ");
-            }
-            else
-            {
-                words = split(v[i], " ");
-            }
+            words = analyse_command(v, i);
+
             if (words.size() == 0)
             {
                 APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
@@ -275,14 +298,8 @@ void Server::normal_request(int const &clientFd)
         {
             vector<string> words;
 
-            if (v[i].compare(0, 4, "PASS") == 0 || v[i].compare(0, 4, "QUIT") == 0 || v[i].compare(0, 4, "PING") == 0)
-            {
-                words = split_first_word(v[i], " ");
-            }
-            else
-            {
-                words = split(v[i], " ");
-            }
+            words = analyse_command(v, i);
+
             if (words.size() == 0)
             {
                 APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
@@ -315,6 +332,9 @@ void Server::handle_request(int const &clientFd)
     {
         normal_request(clientFd);
     }
+
+    CLIENT.set_buffer("");
+    CLIENT.charBuffer_clear();
     return;
 }
 
@@ -324,7 +344,7 @@ void Server::loop_server(vector<epoll_event> events)
 
     while (g_sigint == false)
     {
-        int n = epoll_wait(this->_epoll_fd, events.data(), events.size(), 1000);
+        int n = epoll_wait(this->_epoll_fd, events.data(), events.size(), 10);
 
         for (int i = 0; i < n; ++i)
         {
@@ -355,19 +375,12 @@ void Server::loop_server(vector<epoll_event> events)
 
                     cout << CYAN << "EPOLLOUT" << RESET << endl;
 
-                    if (ends_with(this->_clients[CLIENT_ID].get_buffer(), "\r\n") == SUCCESS || this->_clients[CLIENT_ID].get_to_send().empty() == false)
-                    {
-                        cout << YELLOW << "Message is finished :" << endl;
-                        cout << this->_clients[CLIENT_ID].get_buffer() << RESET << endl;
+                    cout << YELLOW << "Message is finished :" << endl;
+                    cout << this->_clients[CLIENT_ID].get_buffer() << RESET << endl;
 
-                        send_message(CLIENT_ID);
+                    send_message(CLIENT_ID);
 
-                        cout << "Waiting on connection ..." << endl;
-                    }
-                    // else
-                    // {
-                    // cout << "Message not finished" << endl;
-                    // }
+                    cout << "Waiting on connection ..." << endl;
                 }
             }
         }

@@ -2,6 +2,7 @@
 
 #include "ft_irc.hpp"
 #include "Client.hpp"
+#include "Channels.hpp"
 
 class Server;
 
@@ -12,9 +13,10 @@ class Server
 private:
     int _servSocket;
     int _epoll_fd;
-    std::string _password;
-    std::map<int, Client> _clients;
-    std::map<std::string, CommandFunction> _cmdMap;
+    string _password;
+    map<int, Client> _clients;
+    map<string, CommandFunction> _cmdMap;
+    map<string, Channels> _channels;
 
     map<string, CommandFunction> const create_map();
 
@@ -34,6 +36,8 @@ private:
     void first_connection(int const &clientFd);
     void normal_request(int const &clientFd);
 
+    void quit_all_channels(int const &clientFd);
+
     void CAP(int const &clientFd, vector<string> const &words);
     void NICK(int const &clientFd, vector<string> const &words);
     void PASS(int const &clientFd, vector<string> const &words);
@@ -41,6 +45,7 @@ private:
     void USER(int const &clientFd, vector<string> const &words);
     void QUIT(int const &clientFd, vector<string> const &words);
     void JOIN(int const &clientFd, vector<string> const &words);
+    void PRIVMSG(int const &clientFd, vector<string> const &words);
 
 public:
     Server();
