@@ -41,13 +41,13 @@ void Server::PASS(int const &clientFd, vector<string> const &words)
 
 void Server::NICK(int const &clientFd, vector<string> const &words)
 {
-    if (words.size() != 2)
+    if (words.size() < 2)
     {
         APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
         return;
     }
 
-    if (*words[1].begin() == '#')
+    if (*words[1].begin() == '#' || *words[1].begin() == ':')
     {
         APPEND_CLIENT_TO_SEND(ERR_ERRONEUSNICKNAME());
         return;
@@ -103,11 +103,23 @@ void Server::QUIT(int const &clientFd, vector<string> const &words)
 
     if (words.size() == 1)
     {
-        APPEND_CLIENT_TO_SEND(CLIENT_SOURCE + " QUIT :\r\n");
+        APPEND_CLIENT_TO_SEND("+" + CLIENT_SOURCE + " QUIT :\r\n");
     }
     else
     {
-        APPEND_CLIENT_TO_SEND(CLIENT_SOURCE + " QUIT " + words[1] + "\r\n");
+        APPEND_CLIENT_TO_SEND(":" + CLIENT_SOURCE + " QUIT " + words[1] + "\r\n");
+    }
+
+    for (vector<string>::const_iterator it = CLIENT.get_inChannel().begin(); it != CLIENT.get_inChannel().end(); it++)
+    {
+        for (map<int, string>::iterator m = this->_channels[*it].get_users().begin(); m != this->_channels[*it].get_users().end(); m++)
+        {
+            if (m->first != clientFd)
+            {
+                this->_clients[m->first].set_to_send(this->_clients[m->first].get_to_send() + ":" + CLIENT_SOURCE + " QUIT " + words[1] + "\r\n");
+                this->_clients[m->first].add_epollout(this->_epoll_fd);
+            }
+        }
     }
 
     CLIENT.set_quit(true);
@@ -127,15 +139,27 @@ void Server::JOIN(int const &clientFd, vector<string> const &words)
         APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
         return;
     }
-    if (this->_channels.find(words[1]) == this->_channels.end())
-    {
-        this->_channels[words[1]] = Channels();
-    }
-    this->_channels[words[1]].add_users(clientFd, CLIENT.get_NICK());
-    CLIENT.set_inChannel(true);
-    APPEND_CLIENT_TO_SEND(":" + CLIENT_SOURCE + " JOIN :" + words[1] + "\r\n");
-    APPEND_CLIENT_TO_SEND(RPL_NAMREPLY() + RPL_ENDOFNAMES());
 
+    vector<string> channelsToJoin = split(words[1], ",");
+
+    for (size_t i = 0; i < channelsToJoin.size(); i++)
+    {
+        cout << YELLOW << channelsToJoin[i] << RESET << endl;
+        if (this->_channels.find(channelsToJoin[i]) == this->_channels.end())
+        {
+            this->_channels[channelsToJoin[i]] = Channels();
+        }
+        for (map<int, string>::iterator it = this->_channels[channelsToJoin[i]].get_users().begin(); it != this->_channels[channelsToJoin[i]].get_users().end(); it++)
+        {
+            Client &client = this->_clients[it->first];
+            client.set_to_send(client.get_to_send() + ":" + CLIENT_SOURCE + " JOIN :" + channelsToJoin[i] + "\r\n");
+            client.add_epollout(this->_epoll_fd);
+        }
+        CLIENT.add_to_inChannel(channelsToJoin[i]);
+        this->_channels[channelsToJoin[i]].add_users(clientFd, CLIENT.get_NICK());
+        APPEND_CLIENT_TO_SEND(":" + CLIENT_SOURCE + " JOIN :" + channelsToJoin[i] + "\r\n");
+        APPEND_CLIENT_TO_SEND(RPL_NAMREPLY() + RPL_ENDOFNAMES());
+    }
     return;
 }
 

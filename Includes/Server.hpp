@@ -15,8 +15,9 @@ private:
     int _epoll_fd;
     string _password;
     map<int, Client> _clients;
-    map<string, CommandFunction> _cmdMap;
     map<string, Channels> _channels;
+
+    map<string, CommandFunction> _cmdMap;
 
     map<string, CommandFunction> const create_map();
 
@@ -57,3 +58,4 @@ public:
 };
 
 #define APPEND_CLIENT_TO_SEND(buff) CLIENT.set_to_send(CLIENT.get_to_send() + buff)
+#define APPEND_CLIENT_FD_TO_SEND(fd, buff) this->_clients[it->first].set_to_send()

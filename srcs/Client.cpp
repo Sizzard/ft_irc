@@ -138,12 +138,21 @@ bool const &Client::get_is_identified()
     return this->_isIdentified;
 }
 
-void Client::set_inChannel(bool newInChannel)
+void Client::add_to_inChannel(string newInChannel)
 {
-    this->_inChannel = newInChannel;
+    this->_inChannel.push_back(newInChannel);
 }
 
-bool const &Client::get_in_channel()
+void Client::remove_to_inChannel(string const &InChannelToRemove)
+{
+    vector<string>::iterator it = std::find(this->_inChannel.begin(), this->_inChannel.end(), InChannelToRemove);
+    if (it != this->_inChannel.end())
+    {
+        this->_inChannel.erase(it);
+    }
+}
+
+vector<string> const &Client::get_inChannel()
 {
     return this->_inChannel;
 }
@@ -157,6 +166,16 @@ bool const &Client::get_quit()
 {
     return this->_quit;
 }
+
+// string const &Client::get_quitMsg()
+// {
+//     return this->_quitMsg;
+// }
+
+// void Client::set_quitMsg(string newQuitMsg)
+// {
+//     this->_quitMsg = newQuitMsg;
+// }
 
 void Client::add_epollout(int const &epoll_fd)
 {

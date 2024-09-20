@@ -101,7 +101,7 @@ void Server::accept_new_client()
 
 void Server::quit_all_channels(int const &clientFd)
 {
-    if (CLIENT.get_in_channel() == true)
+    if (CLIENT.get_inChannel().empty() == false)
     {
         for (map<string, Channels>::iterator it = this->_channels.begin(); it != this->_channels.end(); it++)
         {
@@ -111,11 +111,12 @@ void Server::quit_all_channels(int const &clientFd)
                 if (ite->first == clientFd)
                 {
                     it->second.remove_users(clientFd);
+                    CLIENT.remove_to_inChannel(it->first);
                 }
             }
         }
     }
-    CLIENT.set_inChannel(false);
+    // CLIENT.set_inChannel(false);
     return;
 }
 
@@ -149,36 +150,28 @@ void Server::receive_message(int const &clientFd)
     }
     CLIENT.assign_buffer();
 
-    cout << CLIENT.get_buffer() << endl;
     if (ends_with(CLIENT.get_buffer(), "\r\n") == SUCCESS)
     {
         if (CLIENT.get_buffer() == "\r\n")
             return;
-        cout << "Message received on socket " << clientFd << " :" << endl;
+        cout << "Message received on socket : " << clientFd << endl
+             << YELLOW << CLIENT.get_buffer() << RESET << endl;
+
         this->handle_request(clientFd);
     }
     if (CLIENT.get_to_send().empty() == false)
     {
         CLIENT.add_epollout(this->_epoll_fd);
     }
-    // cout << YELLOW << "Message from client number " << clientFd << " of len : " << bytesRead << endl;
-    // write(1, buff, bytesRead);
-    // cout << RESET << endl;
 }
 
 void Server::send_message(int const &clientFd)
 {
 
-    if (CLIENT.get_buffer() == "\r\n")
-    {
-        // cout << "BONJOUR" << endl;
-        return;
-    }
+    int toSend = BUFFER_SIZE < CLIENT.get_to_send().size() ? BUFFER_SIZE : CLIENT.get_to_send().size();
 
     cout << "Sending to socket " << clientFd << " :\n"
-         << CLIENT.get_to_send() << endl;
-
-    int toSend = BUFFER_SIZE < CLIENT.get_to_send().size() ? BUFFER_SIZE : CLIENT.get_to_send().size();
+         << CLIENT.get_to_send().substr(0, toSend) << endl;
 
     int bytesSent = write(clientFd, CLIENT.get_to_send().c_str(), toSend);
 
@@ -307,7 +300,6 @@ void Server::normal_request(int const &clientFd)
             }
             else
             {
-                cout << "Authentified : Words[0] is : " << words[0] << endl;
                 map<string, CommandFunction>::iterator it = this->_cmdMap.find(words[0]);
                 if (it == this->_cmdMap.end())
                 {
@@ -375,7 +367,6 @@ void Server::loop_server(vector<epoll_event> events)
 
                     cout << CYAN << "EPOLLOUT" << RESET << endl;
 
-                    cout << YELLOW << "Message is finished :" << endl;
                     cout << this->_clients[CLIENT_ID].get_buffer() << RESET << endl;
 
                     send_message(CLIENT_ID);

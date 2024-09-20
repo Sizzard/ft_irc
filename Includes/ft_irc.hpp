@@ -50,8 +50,8 @@ std::string get_time();
 #define RPL_YOURHOST() ":" + CLIENT_SOURCE + " 002 " + CLIENT.get_NICK() + " :Your host is " + CLIENT.get_ip() + ", running version 1.0" + "\r\n"
 #define RPL_CREATED() ":" + CLIENT_SOURCE + " 003 " + CLIENT.get_NICK() + " :This server was created on " + get_time() + "\r\n"
 #define RPL_MYINFO() ":" + CLIENT_SOURCE + " 004 " + CLIENT.get_NICK() + " :Version 1.0 itkol" + "\r\n"
-#define RPL_NAMREPLY() ":" + CLIENT_SOURCE + " 353 " + CLIENT.get_NICK() + " = " + words[1] + " :" + this->_channels[words[1]].append_all_users() + "\r\n"
-#define RPL_ENDOFNAMES() ":" + CLIENT_SOURCE + " 366 " + CLIENT.get_NICK() + words[1] + " :End of /NAMES list.\r\n"
+#define RPL_NAMREPLY() ":" + CLIENT_SOURCE + " 353 " + CLIENT.get_NICK() + " = " + channelsToJoin[i] + " :" + this->_channels[channelsToJoin[i]].append_all_users() + "\r\n"
+#define RPL_ENDOFNAMES() ":" + CLIENT_SOURCE + " 366 " + CLIENT.get_NICK() + " " + channelsToJoin[i] + " :End of /NAMES list.\r\n"
 #define RPL_MOTDSTART() ":" + CLIENT_SOURCE + " 375 " + CLIENT.get_NICK() + " :- " + CLIENT.get_ip() + " Message of the day - \r\n"
 #define RPL_MOTD() ":" + CLIENT_SOURCE + " 372 " + CLIENT.get_NICK() + " :- \r\n" +                                \
                        CYAN + "             ⣀⣤⣤⣤⣤⣄⣀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⢿⣷⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n" + RESET +     \

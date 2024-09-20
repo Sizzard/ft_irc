@@ -10,7 +10,7 @@ private:
     bool _isValidPass;
     bool _isIdentified;
     bool _quit;
-    bool _inChannel;
+    vector<string> _inChannel;
     epoll_event _event;
 
     vector<char> _charBuffer;
@@ -39,8 +39,9 @@ public:
     void set_quit(bool newQuit);
     bool const &get_quit();
 
-    void set_inChannel(bool newInChannel);
-    bool const &get_in_channel();
+    void add_to_inChannel(string newInChannel);
+    void remove_to_inChannel(string const &InChannelToRemove);
+    vector<string> const &get_inChannel();
 
     void push_back_charBuffer(char c);
     vector<char> const &get_charBuffer();
@@ -62,6 +63,9 @@ public:
 
     void set_network(string const &newNetwork);
     string const &get_network();
+
+    void set_quitMsg(string newQuitMsg);
+    string const &get_quitMsg();
 
     void remove_epollout(int const &epoll_fd);
     void add_epollout(int const &epoll_fd);
