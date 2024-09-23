@@ -25,6 +25,7 @@ map<string, CommandFunction> const Server::create_map()
     map["QUIT"] = &Server::QUIT;
     map["JOIN"] = &Server::JOIN;
     map["PRIVMSG"] = &Server::PRIVMSG;
+    map["TOPIC"] = &Server::TOPIC;
     return map;
 }
 
@@ -120,6 +121,18 @@ void Server::quit_all_channels(int const &clientFd)
     return;
 }
 
+void Server::send_to_all_clients_in_chan(int const &clientFd, string const &channelName, string const &message)
+{
+    for (map<int, string>::iterator m = this->_channels[channelName].get_users().begin(); m != this->_channels[channelName].get_users().end(); m++)
+    {
+        if (m->first != clientFd)
+        {
+            this->_clients[m->first].set_to_send(this->_clients[m->first].get_to_send() + message);
+            this->_clients[m->first].add_epollout(this->_epoll_fd);
+        }
+    }
+}
+
 void Server::disconnect_client(int const &clientFd)
 {
     cout << RED << "Client disconnected on socket : " << clientFd << RESET << endl;
@@ -153,7 +166,11 @@ void Server::receive_message(int const &clientFd)
     if (ends_with(CLIENT.get_buffer(), "\r\n") == SUCCESS)
     {
         if (CLIENT.get_buffer() == "\r\n")
+        {
+            CLIENT.charBuffer_clear();
+            CLIENT.set_buffer("");
             return;
+        }
         cout << "Message received on socket : " << clientFd << endl
              << YELLOW << CLIENT.get_buffer() << RESET << endl;
 

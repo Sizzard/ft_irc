@@ -7,6 +7,7 @@ class Channels
 
 private:
     string _topic;
+    string password;
     map<int, string> _users;
 
 public:

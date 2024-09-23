@@ -37,6 +37,8 @@ private:
     void first_connection(int const &clientFd);
     void normal_request(int const &clientFd);
 
+    void send_to_all_clients_in_chan(int const &clientFd, string const &channelName, string const &message);
+
     void quit_all_channels(int const &clientFd);
 
     void CAP(int const &clientFd, vector<string> const &words);
@@ -47,6 +49,7 @@ private:
     void QUIT(int const &clientFd, vector<string> const &words);
     void JOIN(int const &clientFd, vector<string> const &words);
     void PRIVMSG(int const &clientFd, vector<string> const &words);
+    void TOPIC(int const &clientFd, vector<string> const &words);
 
 public:
     Server();

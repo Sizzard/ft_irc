@@ -105,6 +105,7 @@ void Server::QUIT(int const &clientFd, vector<string> const &words)
     {
         APPEND_CLIENT_TO_SEND("+" + CLIENT_SOURCE + " QUIT :\r\n");
     }
+
     else
     {
         APPEND_CLIENT_TO_SEND(":" + CLIENT_SOURCE + " QUIT " + words[1] + "\r\n");
@@ -112,14 +113,7 @@ void Server::QUIT(int const &clientFd, vector<string> const &words)
 
     for (vector<string>::const_iterator it = CLIENT.get_inChannel().begin(); it != CLIENT.get_inChannel().end(); it++)
     {
-        for (map<int, string>::iterator m = this->_channels[*it].get_users().begin(); m != this->_channels[*it].get_users().end(); m++)
-        {
-            if (m->first != clientFd)
-            {
-                this->_clients[m->first].set_to_send(this->_clients[m->first].get_to_send() + ":" + CLIENT_SOURCE + " QUIT " + words[1] + "\r\n");
-                this->_clients[m->first].add_epollout(this->_epoll_fd);
-            }
-        }
+        send_to_all_clients_in_chan(clientFd, *it, ":" + CLIENT_SOURCE + " QUIT " + (words.size() == 1 ? "" : words[1]) + "\r\n");
     }
 
     CLIENT.set_quit(true);
@@ -128,13 +122,7 @@ void Server::QUIT(int const &clientFd, vector<string> const &words)
 
 void Server::JOIN(int const &clientFd, vector<string> const &words)
 {
-    if (words.size() != 2)
-    {
-        APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
-        return;
-    }
-
-    if (words[1].empty() == true)
+    if (words.size() != 2 || words[1].empty() == true)
     {
         APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
         return;
@@ -158,6 +146,8 @@ void Server::JOIN(int const &clientFd, vector<string> const &words)
         CLIENT.add_to_inChannel(channelsToJoin[i]);
         this->_channels[channelsToJoin[i]].add_users(clientFd, CLIENT.get_NICK());
         APPEND_CLIENT_TO_SEND(":" + CLIENT_SOURCE + " JOIN :" + channelsToJoin[i] + "\r\n");
+        if (this->_channels[channelsToJoin[i]].get_topic().empty() != true)
+            APPEND_CLIENT_TO_SEND(RPL_TOPIC(channelsToJoin[i]));
         APPEND_CLIENT_TO_SEND(RPL_NAMREPLY() + RPL_ENDOFNAMES());
     }
     return;
@@ -165,37 +155,106 @@ void Server::JOIN(int const &clientFd, vector<string> const &words)
 
 void Server::PRIVMSG(int const &clientFd, vector<string> const &words)
 {
-    if (words.size() < 2)
+    if (words.size() < 2 || words[1].empty() == true)
     {
         APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
+        CLIENT.add_epollout(this->_epoll_fd);
         return;
     }
 
     vector<string> channel_message = split_first_word(words[1], " ");
 
-    map<string, Channels>::iterator it = this->_channels.find(channel_message[0]);
-    if (it == this->_channels.end())
+    if (channel_message.size() < 2)
     {
-        for (map<int, Client>::iterator it = this->_clients.begin(); it != this->_clients.end(); it++)
+        APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
+        CLIENT.add_epollout(this->_epoll_fd);
+        return;
+    }
+
+    vector<string> toSend = split(channel_message[0], ",");
+
+    for (vector<string>::iterator ite = toSend.begin(); ite != toSend.end(); ite++)
+    {
+        map<string, Channels>::iterator it = this->_channels.find(*ite);
+        if (it == this->_channels.end())
         {
-            if (it->second.get_NICK() == channel_message[0])
+            bool clientExist = false;
+            for (map<int, Client>::iterator it = this->_clients.begin(); it != this->_clients.end(); it++)
             {
-                this->_clients[it->first].set_to_send(this->_clients[it->first].get_to_send() + ":" + CLIENT_SOURCE + " PRIVMSG " + channel_message[0] + " " + channel_message[1] + "\r\n");
-                this->_clients[it->first].add_epollout(this->_epoll_fd);
+                if (it->second.get_NICK() == *ite)
+                {
+                    this->_clients[it->first].set_to_send(this->_clients[it->first].get_to_send() + ":" + CLIENT_SOURCE + " PRIVMSG " + *ite + " " + channel_message[1] + "\r\n");
+                    this->_clients[it->first].add_epollout(this->_epoll_fd);
+                    clientExist = true;
+                }
+            }
+            if (clientExist == false)
+            {
+                APPEND_CLIENT_TO_SEND(ERR_NOSUCHNICK());
+            }
+        }
+        else
+        {
+            send_to_all_clients_in_chan(clientFd, *ite, ":" + CLIENT_SOURCE + " PRIVMSG " + *ite + " " + channel_message[1] + "\r\n");
+        }
+    }
+}
+
+void Server::TOPIC(int const &clientFd, vector<string> const &words)
+{
+    CLIENT.add_epollout(this->_epoll_fd);
+
+    if (words.size() == 1 || words[1].empty() == true)
+    {
+        APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
+        return;
+    }
+
+    vector<string> channel = split_first_word(words[1], " ");
+
+    if (channel.size() == 0)
+    {
+        APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
+        return;
+    }
+
+    vector<string> map = CLIENT.get_inChannel();
+
+    if (channel.size() == 1)
+    {
+        // cout << "TEST 2: " << channel[0] << endl;
+
+        for (vector<string>::iterator it = map.begin(); it != map.end(); it++)
+        {
+            // cout << "TEST 3: " << channel[0] << endl;
+            if (channel[0] == *it)
+            {
+                if (this->_channels[*it].get_topic().empty() == true)
+                    APPEND_CLIENT_TO_SEND(RPL_NOTOPIC(*it));
+                else
+                    APPEND_CLIENT_TO_SEND(RPL_TOPIC(*it));
                 return;
             }
         }
-        APPEND_CLIENT_TO_SEND(ERR_NOSUCHNICK());
+        APPEND_CLIENT_TO_SEND(ERR_NOTONCHANNEL());
     }
     else
     {
-        map<int, string> m = this->_channels[channel_message[0]].get_users();
-        for (map<int, string>::iterator it = m.begin(); it != m.end(); it++)
+        if (channel[1] == ":")
         {
-            if (clientFd != it->first)
+            this->_channels[channel[0]].set_topic("");
+        }
+        else
+        {
+            for (vector<string>::iterator it = map.begin(); it != map.end(); it++)
             {
-                this->_clients[it->first].set_to_send(this->_clients[it->first].get_to_send() + ":" + CLIENT_SOURCE + " PRIVMSG " + channel_message[0] + " " + channel_message[1] + "\r\n");
-                this->_clients[it->first].add_epollout(this->_epoll_fd);
+                channel[1] = channel[1].substr(1);
+                if (channel[0] == *it)
+                {
+                    this->_channels[channel[0]].set_topic(channel[1]);
+                    send_to_all_clients_in_chan(clientFd, channel[0], RPL_TOPIC(channel[0]));
+                    APPEND_CLIENT_TO_SEND(RPL_TOPIC(channel[0]));
+                }
             }
         }
     }

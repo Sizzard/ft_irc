@@ -9,7 +9,7 @@ bool ends_with(string const &str, string const &ends)
 
 vector<string> analyse_command(vector<string> const &v, size_t const &i)
 {
-    if (v[i].compare(0, 4, "PASS") == 0 || v[i].compare(0, 4, "QUIT") == 0 || v[i].compare(0, 4, "PING") == 0 || v[i].compare(0, 7, "PRIVMSG") == 0)
+    if (v[i].compare(0, 4, "PASS") == 0 || v[i].compare(0, 4, "QUIT") == 0 || v[i].compare(0, 4, "PING") == 0 || v[i].compare(0, 7, "PRIVMSG") == 0 || v[i].compare(0, 5, "TOPIC") == 0)
     {
         return split_first_word(v[i], " ");
     }
@@ -42,19 +42,19 @@ vector<string> split_first_word(string const &line, string const &to_split)
 {
     vector<string> v;
 
+    if (line.empty() == true)
+        return v;
+
     size_t begin = line.find_first_not_of(to_split, 0);
     size_t end = line.find_first_of(to_split, begin);
     if (begin > line.length())
         return v;
     string word = line.substr(begin, end - begin);
     v.push_back(word);
-    if (end == string::npos)
+    if (end != string::npos)
     {
-        v.push_back("");
-        return v;
+        v.push_back(line.substr(end + 1));
     }
-    v.push_back(line.substr(end + 1));
-
     return v;
 }
 
