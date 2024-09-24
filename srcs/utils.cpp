@@ -58,6 +58,27 @@ vector<string> split_first_word(string const &line, string const &to_split)
     return v;
 }
 
+map<string, char> split_mode(string const &line)
+{
+    map<string, char> m;
+
+    size_t end = 0;
+
+    for (size_t i = 0; end != string::npos; i++)
+    {
+        size_t begin = line.find_first_not_of("+-", i);
+        end = line.find_first_of("+-", begin);
+        if (begin > line.length())
+            break;
+        string word = line.substr(begin, end - begin);
+        if (m.find(word) == m.end())
+            m[word] = line[begin - 1];
+        i = end;
+    }
+
+    return m;
+}
+
 string get_time()
 {
     string result;
@@ -71,4 +92,14 @@ string get_time()
     result = buffer;
 
     return result;
+}
+
+string const get_epoch_time(time_t time)
+{
+    std::stringstream ss;
+    string res;
+    ss << time;
+    ss >> res;
+
+    return res;
 }

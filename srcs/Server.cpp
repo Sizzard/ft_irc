@@ -26,6 +26,8 @@ map<string, CommandFunction> const Server::create_map()
     map["JOIN"] = &Server::JOIN;
     map["PRIVMSG"] = &Server::PRIVMSG;
     map["TOPIC"] = &Server::TOPIC;
+    map["MODE"] = &Server::MODE;
+    map["DEBUG"] = &Server::DEBUG;
     return map;
 }
 
@@ -102,32 +104,41 @@ void Server::accept_new_client()
 
 void Server::quit_all_channels(int const &clientFd)
 {
-    if (CLIENT.get_inChannel().empty() == false)
+    vector<string> toErase;
+
+    if (CLIENT.get_channelList().empty() == false)
     {
         for (map<string, Channels>::iterator it = this->_channels.begin(); it != this->_channels.end(); it++)
         {
-            map<int, string> const m = it->second.get_users();
-            for (map<int, string>::const_iterator ite = m.begin(); ite != m.end(); ite++)
+            mapPair const m = it->second.get_users();
+            if (m.find(clientFd) != it->second.get_users().end())
             {
-                if (ite->first == clientFd)
+                it->second.remove_users(clientFd);
+                CLIENT.remove_from_channelList(it->first);
+
+                if (this->_channels[it->first].get_users().empty() == true)
                 {
-                    it->second.remove_users(clientFd);
-                    CLIENT.remove_to_inChannel(it->first);
+                    toErase.push_back(it->first);
                 }
             }
         }
     }
-    // CLIENT.set_inChannel(false);
+
+    for (vector<string>::iterator it = toErase.begin(); it != toErase.end(); it++)
+    {
+        cout << RED << "Nobody in channel " << *it << " anymore, deleting it" << RESET << endl;
+        this->_channels.erase(*it);
+    }
     return;
 }
 
 void Server::send_to_all_clients_in_chan(int const &clientFd, string const &channelName, string const &message)
 {
-    for (map<int, string>::iterator m = this->_channels[channelName].get_users().begin(); m != this->_channels[channelName].get_users().end(); m++)
+    for (mapPair::const_iterator m = this->_channels[channelName].get_users().begin(); m != this->_channels[channelName].get_users().end(); m++)
     {
         if (m->first != clientFd)
         {
-            this->_clients[m->first].set_to_send(this->_clients[m->first].get_to_send() + message);
+            this->_clients[m->first].append_to_send(message);
             this->_clients[m->first].add_epollout(this->_epoll_fd);
         }
     }
@@ -410,6 +421,8 @@ bool Server::launch_server(int const &port, char const *password)
     {
         return FAILURE;
     }
+
+    this->_creationTime = get_time();
 
     listen(this->_servSocket, 5);
 

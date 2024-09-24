@@ -10,7 +10,7 @@ private:
     bool _isValidPass;
     bool _isIdentified;
     bool _quit;
-    vector<string> _inChannel;
+    vector<string> _channelList;
     epoll_event _event;
 
     vector<char> _charBuffer;
@@ -39,9 +39,9 @@ public:
     void set_quit(bool newQuit);
     bool const &get_quit();
 
-    void add_to_inChannel(string newInChannel);
-    void remove_to_inChannel(string const &InChannelToRemove);
-    vector<string> const &get_inChannel();
+    void add_to_channelList(string newInChannel);
+    void remove_from_channelList(string const &InChannelToRemove);
+    vector<string> const &get_channelList();
 
     void push_back_charBuffer(char c);
     vector<char> const &get_charBuffer();
@@ -53,6 +53,7 @@ public:
 
     void erase_to_send(size_t pos, size_t len);
     void set_to_send(string const &newToSend);
+    void append_to_send(string const &newToAppend);
     string const &get_to_send();
 
     void set_NICK(string const &newNICK);
@@ -63,9 +64,6 @@ public:
 
     void set_network(string const &newNetwork);
     string const &get_network();
-
-    void set_quitMsg(string newQuitMsg);
-    string const &get_quitMsg();
 
     void remove_epollout(int const &epoll_fd);
     void add_epollout(int const &epoll_fd);

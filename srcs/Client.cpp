@@ -1,11 +1,11 @@
 #include "../Includes/Client.hpp"
 
-Client::Client() : _fd(0), _ip(""), _isValidPass(false), _isIdentified(false), _quit(false), _inChannel(false)
+Client::Client() : _fd(0), _ip(""), _isValidPass(false), _isIdentified(false), _quit(false), _channelList(false)
 {
     return;
 }
 
-Client::Client(int fd, string ip, epoll_event clientEvent) : _fd(fd), _ip(ip), _isValidPass(false), _isIdentified(false), _quit(false), _inChannel(false), _event(clientEvent)
+Client::Client(int fd, string ip, epoll_event clientEvent) : _fd(fd), _ip(ip), _isValidPass(false), _isIdentified(false), _quit(false), _channelList(false), _event(clientEvent)
 {
     return;
 }
@@ -23,7 +23,7 @@ Client &Client::operator=(Client const &cpy)
     this->_isValidPass = cpy._isValidPass;
     this->_isIdentified = cpy._isIdentified;
     this->_quit = cpy._quit;
-    this->_inChannel = cpy._inChannel;
+    this->_channelList = cpy._channelList;
     this->_event = cpy._event;
     return *this;
 }
@@ -83,6 +83,11 @@ void Client::set_to_send(string const &newToSend)
     this->_toSend = newToSend;
 }
 
+void Client::append_to_send(string const &newToAppend)
+{
+    this->_toSend += newToAppend;
+}
+
 string const &Client::get_to_send()
 {
     return this->_toSend;
@@ -138,23 +143,23 @@ bool const &Client::get_is_identified()
     return this->_isIdentified;
 }
 
-void Client::add_to_inChannel(string newInChannel)
+void Client::add_to_channelList(string newInChannel)
 {
-    this->_inChannel.push_back(newInChannel);
+    this->_channelList.push_back(newInChannel);
 }
 
-void Client::remove_to_inChannel(string const &InChannelToRemove)
+void Client::remove_from_channelList(string const &InChannelToRemove)
 {
-    vector<string>::iterator it = std::find(this->_inChannel.begin(), this->_inChannel.end(), InChannelToRemove);
-    if (it != this->_inChannel.end())
+    vector<string>::iterator it = std::find(this->_channelList.begin(), this->_channelList.end(), InChannelToRemove);
+    if (it != this->_channelList.end())
     {
-        this->_inChannel.erase(it);
+        this->_channelList.erase(it);
     }
 }
 
-vector<string> const &Client::get_inChannel()
+vector<string> const &Client::get_channelList()
 {
-    return this->_inChannel;
+    return this->_channelList;
 }
 
 void Client::set_quit(bool newQuit)
@@ -166,16 +171,6 @@ bool const &Client::get_quit()
 {
     return this->_quit;
 }
-
-// string const &Client::get_quitMsg()
-// {
-//     return this->_quitMsg;
-// }
-
-// void Client::set_quitMsg(string newQuitMsg)
-// {
-//     this->_quitMsg = newQuitMsg;
-// }
 
 void Client::add_epollout(int const &epoll_fd)
 {

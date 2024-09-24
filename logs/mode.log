@@ -1,0 +1,62 @@
+<< CAP LS
+<< NICK user1
+<< USER facarval facarval irc.dal.net :flugubra
+>> :serenity.fl.us.dal.net NOTICE AUTH :*** Looking up your hostname...
+>> :serenity.fl.us.dal.net NOTICE AUTH :*** Checking Ident
+>> :serenity.fl.us.dal.net NOTICE AUTH :*** Found your hostname
+>> :serenity.fl.us.dal.net NOTICE AUTH :*** No Ident response
+>> :serenity.fl.us.dal.net 001 user1 :Welcome to the DALnet IRC Network user1!~facarval@62.210.34.129
+<< MODE user1 +i
+>> :serenity.fl.us.dal.net 002 user1 :Your host is serenity.fl.us.dal.net, running version bahamut-2.2.2
+>> :serenity.fl.us.dal.net 003 user1 :This server was created Tue 23 Aug UTC at 2022 04:42:56 AM
+>> :serenity.fl.us.dal.net 004 user1 serenity.fl.us.dal.net bahamut-2.2.2 aAbcCdefFghHiIjkKmnoOPrRsSwxXy AbceiIjklLmMnoOpPrRsStv beIjklov
+>> :serenity.fl.us.dal.net 005 user1 NETWORK=DALnet SAFELIST MAXBANS=200 MAXCHANNELS=50 CHANNELLEN=32 KICKLEN=307 NICKLEN=30 TOPICLEN=307 MODES=6 CHANTYPES=# CHANLIMIT=#:50 PREFIX=(ohv)@%+ STATUSMSG=@%+ :are available on this server
+>> :serenity.fl.us.dal.net 005 user1 CASEMAPPING=ascii WATCH=128 SILENCE=10 ELIST=cmntu EXCEPTS INVEX CHANMODES=beI,k,jl,ciPAmMnOprRsSt MAXLIST=b:200,e:100,I:100 TARGMAX=DCCALLOW:,JOIN:,KICK:4,KILL:20,NOTICE:20,PART:,PRIVMSG:20,WHOIS:,WHOWAS: :are available on this server
+>> :serenity.fl.us.dal.net 251 user1 :There are 60 users and 7003 invisible on 36 servers
+>> :serenity.fl.us.dal.net 252 user1 76 :IRC Operators online
+>> :serenity.fl.us.dal.net 254 user1 3640 :channels formed
+>> :serenity.fl.us.dal.net 255 user1 :I have 247 clients and 1 servers
+>> :serenity.fl.us.dal.net 265 user1 :Current local users: 247 Max: 1393
+>> :serenity.fl.us.dal.net 266 user1 :Current global users: 7063 Max: 12060
+>> :serenity.fl.us.dal.net NOTICE user1 :*** Notice -- motd was last changed at 30/11/2020 19:09
+>> :serenity.fl.us.dal.net 375 user1 :- serenity.fl.us.dal.net Message of the Day - 
+>> :serenity.fl.us.dal.net 372 user1 :-30/11/2020 19:09
+>> :serenity.fl.us.dal.net 372 user1 :- serenity.fl.us.dal.net
+>> :serenity.fl.us.dal.net 372 user1 :- sponsored by: Kape, Inc & Datapacket.com
+>> :serenity.fl.us.dal.net 372 user1 :- admin: Mustang
+>> :serenity.fl.us.dal.net 372 user1 :- 
+>> :serenity.fl.us.dal.net 372 user1 :- Please abide by DALnet's Acceptable Use Policy:
+>> :serenity.fl.us.dal.net 372 user1 :- https://www.dal.net/aup
+>> :serenity.fl.us.dal.net 372 user1 :- 
+>> :serenity.fl.us.dal.net 372 user1 :- 
+>> :serenity.fl.us.dal.net 376 user1 :End of /MOTD command.
+>> :user1 MODE user1 :+iH
+<< PING serenity.fl.us.dal.net
+>> :serenity.fl.us.dal.net PONG serenity.fl.us.dal.net :user1
+--> lag pong
+<< PING serenity.fl.us.dal.net
+>> :serenity.fl.us.dal.net PONG serenity.fl.us.dal.net :user1
+--> lag pong
+<< JOIN #42
+>> :user1!~facarval@5ff7-21f9-60b4-e1b5-6318.210.62.ip JOIN :#42
+>> :serenity.fl.us.dal.net 353 user1 = #42 :@user1 
+>> :serenity.fl.us.dal.net 366 user1 #42 :End of /NAMES list.
+<< MODE #42
+>> :serenity.fl.us.dal.net 324 user1 #42 + 
+--> chanquery mode
+<< WHO #42
+>> :serenity.fl.us.dal.net 329 user1 #42 1727186973
+--> event 329
+>> :serenity.fl.us.dal.net 352 user1 #42 ~facarval 5ff7-21f9-60b4-e1b5-6318.210.62.ip serenity.fl.us.dal.net user1 H@ :0 flugubra
+--> silent event who
+>> :serenity.fl.us.dal.net 315 user1 #42 :End of /WHO list.
+--> chanquery who end
+<< MODE #42 b
+>> :serenity.fl.us.dal.net 368 user1 #42 :End of Channel Ban List
+--> chanquery ban end
+<< MODE o
+>> :serenity.fl.us.dal.net 403 user1 o :No such channel
+<< MODE #42 +o
+<< MODE #42 +oi
+>> :user1!~facarval@5ff7-21f9-60b4-e1b5-6318.210.62.ip MODE #42 +i 
+<< QUIT :leaving

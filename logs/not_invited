@@ -1,0 +1,114 @@
+<< CAP LS
+<< NICK user2
+<< USER facarval facarval irc.dal.net :flugubra
+>> :bitcoin.uk.eu.dal.net NOTICE AUTH :*** Looking up your hostname...
+>> :bitcoin.uk.eu.dal.net NOTICE AUTH :*** Found your hostname
+>> :bitcoin.uk.eu.dal.net 001 user2 :Welcome to the DALnet IRC Network user2!~facarval@62.210.34.129
+<< MODE user2 +i
+>> :bitcoin.uk.eu.dal.net 002 user2 :Your host is bitcoin.uk.eu.dal.net, running version bahamut-2.2.2
+>> :bitcoin.uk.eu.dal.net 003 user2 :This server was created Sat 8 Oct 2022 at 14:41:03 BST
+>> :bitcoin.uk.eu.dal.net 004 user2 bitcoin.uk.eu.dal.net bahamut-2.2.2 aAbcCdefFghHiIjkKmnoOPrRsSwxXy AbceiIjklLmMnoOpPrRsStv beIjklov
+>> :bitcoin.uk.eu.dal.net 005 user2 NETWORK=DALnet SAFELIST MAXBANS=200 MAXCHANNELS=50 CHANNELLEN=32 KICKLEN=307 NICKLEN=30 TOPICLEN=307 MODES=6 CHANTYPES=# CHANLIMIT=#:50 PREFIX=(ohv)@%+ STATUSMSG=@%+ :are available on this server
+>> :bitcoin.uk.eu.dal.net 005 user2 CASEMAPPING=ascii WATCH=128 SILENCE=10 ELIST=cmntu EXCEPTS INVEX CHANMODES=beI,k,jl,ciPAmMnOprRsSt MAXLIST=b:200,e:100,I:100 TARGMAX=DCCALLOW:,JOIN:,KICK:4,KILL:20,NOTICE:20,PART:,PRIVMSG:20,WHOIS:,WHOWAS: :are available on this server
+>> :bitcoin.uk.eu.dal.net 251 user2 :There are 60 users and 6999 invisible on 36 servers
+>> :bitcoin.uk.eu.dal.net 252 user2 75 :IRC Operators online
+>> :bitcoin.uk.eu.dal.net 254 user2 3634 :channels formed
+>> :bitcoin.uk.eu.dal.net 255 user2 :I have 327 clients and 1 servers
+>> :bitcoin.uk.eu.dal.net 265 user2 :Current local users: 327 Max: 4001
+>> :bitcoin.uk.eu.dal.net 266 user2 :Current global users: 7059 Max: 12809
+>> :bitcoin.uk.eu.dal.net NOTICE user2 :*** Notice -- motd was last changed at 9/11/2017 12:51
+>> :bitcoin.uk.eu.dal.net 375 user2 :- bitcoin.uk.eu.dal.net Message of the Day - 
+>> :bitcoin.uk.eu.dal.net 372 user2 :-9/11/2017 12:51
+>> :bitcoin.uk.eu.dal.net 372 user2 :-                 [ bitcoin.uk.eu.dal.net    ]
+>> :bitcoin.uk.eu.dal.net 372 user2 :- 
+>> :bitcoin.uk.eu.dal.net 372 user2 :-                 [ Accessible via...        ]
+>> :bitcoin.uk.eu.dal.net 372 user2 :-                 [ ipv4: bitcoin.dal.net    ]
+>> :bitcoin.uk.eu.dal.net 372 user2 :- 
+>> :bitcoin.uk.eu.dal.net 372 user2 :- Thank you to Private Internet Access (https://www.privateinternetaccess.com) 
+>> :bitcoin.uk.eu.dal.net 372 user2 :- for sponsoring this server.
+>> :bitcoin.uk.eu.dal.net 372 user2 :- 
+>> :bitcoin.uk.eu.dal.net 372 user2 :- Welcome to DALnet!  By connecting to this network, you agree to abide
+>> :bitcoin.uk.eu.dal.net 372 user2 :- by its acceptable use policy, available here: http://www.dal.net/aup
+>> :bitcoin.uk.eu.dal.net 372 user2 :- 
+>> :bitcoin.uk.eu.dal.net 372 user2 :- Server Policies:
+>> :bitcoin.uk.eu.dal.net 372 user2 :- 
+>> :bitcoin.uk.eu.dal.net 372 user2 :-    *   We reserve the right to deny access to this server without
+>> :bitcoin.uk.eu.dal.net 372 user2 :-        warning or explanation
+>> :bitcoin.uk.eu.dal.net 372 user2 :-    *   No malicious bots, including flood and nick/channel chasers
+>> :bitcoin.uk.eu.dal.net 372 user2 :-    *   No channel filler bots/clients/psybncs
+>> :bitcoin.uk.eu.dal.net 372 user2 :-          - A channel filler is a client, bnc, or bot which is
+>> :bitcoin.uk.eu.dal.net 372 user2 :-            connected just to fill a channel and make it look
+>> :bitcoin.uk.eu.dal.net 372 user2 :-            bigger
+>> :bitcoin.uk.eu.dal.net 372 user2 :-    *   Operator impersonation, spamming, or any other abuse will
+>> :bitcoin.uk.eu.dal.net 372 user2 :-        cause you to be banned from this server
+>> :bitcoin.uk.eu.dal.net 372 user2 :-    *   Abide by DALnet's AUP (www.dal.net/aup)
+>> :bitcoin.uk.eu.dal.net 372 user2 :-    *   Please have fun and enjoy DALnet!
+>> :bitcoin.uk.eu.dal.net 372 user2 :- 
+>> :bitcoin.uk.eu.dal.net 372 user2 :- Server Administrator: tyler
+>> :bitcoin.uk.eu.dal.net 372 user2 :- 
+>> :bitcoin.uk.eu.dal.net 372 user2 :- Thank you to Private Internet Access (https://www.privateinternetaccess.com) for sponsori
+>> :bitcoin.uk.eu.dal.net 372 user2 :- ng this server.
+>> :bitcoin.uk.eu.dal.net 372 user2 :- 
+>> :bitcoin.uk.eu.dal.net 372 user2 :- For IRCop assistance, please /join #operhelp or message one of our
+>> :bitcoin.uk.eu.dal.net 372 user2 :- friendly server staff listed above.
+>> :bitcoin.uk.eu.dal.net 372 user2 :- 
+>> :bitcoin.uk.eu.dal.net 372 user2 :- For multilingual information:  <http://docs.dal.net/>
+>> :bitcoin.uk.eu.dal.net 372 user2 :- 
+>> :bitcoin.uk.eu.dal.net 372 user2 :- Thank you for using DALnet!  We hope you have a pleasant day.
+>> :bitcoin.uk.eu.dal.net 376 user2 :End of /MOTD command.
+>> :user2 MODE user2 :+iH
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :user2
+--> lag pong
+<< JOIN #4
+>> :user2!~facarval@5ff7-21f9-60b4-e1b5-6318.210.62.ip JOIN :#4
+>> :bitcoin.uk.eu.dal.net 353 user2 = #4 :@user2 
+>> :bitcoin.uk.eu.dal.net 366 user2 #4 :End of /NAMES list.
+<< MODE #4
+>> :bitcoin.uk.eu.dal.net 324 user2 #4 + 
+--> chanquery mode
+<< WHO #4
+>> :bitcoin.uk.eu.dal.net 329 user2 #4 1727186389
+--> event 329
+>> :bitcoin.uk.eu.dal.net 352 user2 #4 ~facarval 5ff7-21f9-60b4-e1b5-6318.210.62.ip bitcoin.uk.eu.dal.net user2 H@ :0 flugubra
+--> silent event who
+>> :bitcoin.uk.eu.dal.net 315 user2 #4 :End of /WHO list.
+--> chanquery who end
+<< MODE #4 b
+>> :ChanServ!service@dal.net MODE #4 +nt 
+>> :ChanServ!service@dal.net TOPIC #4 :Kuch Bughz di reet vich ni milda kuch haar ty jeet vich ni milda makhlooq-e- khuda naal pyar te kr Rab sirf maseet vich ni milda -Bulleh Shah.
+>> :ChanServ!service@dal.net NOTICE user2 :#4 is operated by ChanServ
+>> :ChanServ!service@dal.net MODE #4 -o user2
+>> :bitcoin.uk.eu.dal.net 368 user2 #4 :End of Channel Ban List
+--> chanquery ban end
+<< PART #4
+>> :user2!~facarval@5ff7-21f9-60b4-e1b5-6318.210.62.ip PART #4
+<< JOIN #42
+>> :bitcoin.uk.eu.dal.net 473 user2 #42 :Cannot join channel (+i)
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :user2
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :user2
+--> lag pong
+<< JOIN #42
+>> :user2!~facarval@5ff7-21f9-60b4-e1b5-6318.210.62.ip JOIN :#42
+>> :bitcoin.uk.eu.dal.net 353 user2 = #42 :user2 @user1 
+>> :bitcoin.uk.eu.dal.net 366 user2 #42 :End of /NAMES list.
+<< MODE #42
+>> :bitcoin.uk.eu.dal.net 324 user2 #42 + 
+--> chanquery mode
+<< WHO #42
+>> :bitcoin.uk.eu.dal.net 329 user2 #42 1727186236
+--> event 329
+>> :bitcoin.uk.eu.dal.net 352 user2 #42 ~facarval 5ff7-21f9-60b4-e1b5-6318.210.62.ip bitcoin.uk.eu.dal.net user2 H :0 flugubra
+--> silent event who
+>> :bitcoin.uk.eu.dal.net 352 user2 #42 ~facarval 5ff7-21f9-60b4-e1b5-6318.210.62.ip punch.wa.us.dal.net user1 H@ :3 flugubra
+--> silent event who
+>> :bitcoin.uk.eu.dal.net 315 user2 #42 :End of /WHO list.
+--> chanquery who end
+<< MODE #42 b
+>> :bitcoin.uk.eu.dal.net 368 user2 #42 :End of Channel Ban List
+--> chanquery ban end
+>> :user1!~facarval@5ff7-21f9-60b4-e1b5-6318.210.62.ip QUIT :Quit: leaving
+<< QUIT :leaving

@@ -14,6 +14,7 @@ private:
     int _servSocket;
     int _epoll_fd;
     string _password;
+    string _creationTime;
     map<int, Client> _clients;
     map<string, Channels> _channels;
 
@@ -50,6 +51,10 @@ private:
     void JOIN(int const &clientFd, vector<string> const &words);
     void PRIVMSG(int const &clientFd, vector<string> const &words);
     void TOPIC(int const &clientFd, vector<string> const &words);
+    void MODE(int const &clientFd, vector<string> const &words);
+    void DEBUG(int const &clientFd, vector<string> const &words);
+
+    void handle_mode_cases(string const &modes);
 
 public:
     Server();
@@ -60,5 +65,4 @@ public:
     bool start(int ac, char **av);
 };
 
-#define APPEND_CLIENT_TO_SEND(buff) CLIENT.set_to_send(CLIENT.get_to_send() + buff)
-#define APPEND_CLIENT_FD_TO_SEND(fd, buff) this->_clients[it->first].set_to_send()
+#define APPEND_CLIENT_TO_SEND(buff) CLIENT.append_to_send(buff)
