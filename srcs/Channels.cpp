@@ -53,7 +53,7 @@ string const &Channels::get_mode() const
     return this->_mode;
 }
 
-bool const &Channels::mode_contains(char const &c) const
+bool Channels::mode_contains(char const &c) const
 {
     return this->_mode.find(c) != string::npos;
 }

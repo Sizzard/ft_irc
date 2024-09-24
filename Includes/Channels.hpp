@@ -27,7 +27,7 @@ public:
     time_t const &get_creationTime();
 
     string const &get_mode() const;
-    bool const &mode_contains(char const &c) const;
+    bool mode_contains(char const &c) const;
     void add_mode(char const &newMode);
     void remove_mode(string const &modeToRemove);
 
