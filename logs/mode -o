@@ -1,0 +1,353 @@
+<< CAP LS
+<< NICK user1
+<< USER facarval facarval irc.dal.net :flugubra
+>> :nonstop.ix.me.dal.net NOTICE AUTH :*** Looking up your hostname...
+>> :nonstop.ix.me.dal.net NOTICE AUTH :*** Checking Ident
+>> :nonstop.ix.me.dal.net NOTICE AUTH :*** No Ident response
+>> :nonstop.ix.me.dal.net NOTICE AUTH :*** Found your hostname
+>> :nonstop.ix.me.dal.net 001 user1 :Welcome to the DALnet IRC Network user1!~facarval@62.210.34.43
+<< MODE user1 +i
+>> :nonstop.ix.me.dal.net 002 user1 :Your host is nonstop.ix.me.dal.net, running version bahamut-2.2.3
+>> :nonstop.ix.me.dal.net 003 user1 :This server was created Thu Dec 7 2023 at 06:32:17 PM IST
+>> :nonstop.ix.me.dal.net 004 user1 nonstop.ix.me.dal.net bahamut-2.2.3 aAbcCdefFghHiIjkKmnoOPrRsSwxXy AbceiIjklLmMnoOpPrRsStv beIjklov
+>> :nonstop.ix.me.dal.net 005 user1 NETWORK=DALnet SAFELIST MAXBANS=200 MAXCHANNELS=20 CHANNELLEN=32 KICKLEN=307 NICKLEN=30 TOPICLEN=307 MODES=6 CHANTYPES=# CHANLIMIT=#:20 PREFIX=(ohv)@%+ STATUSMSG=@%+ :are available on this server
+>> :nonstop.ix.me.dal.net 005 user1 CASEMAPPING=ascii WATCH=128 SILENCE=10 ELIST=cmntu EXCEPTS INVEX CHANMODES=beI,k,jl,ciPAmMnOprRsSt MAXLIST=b:200,e:100,I:100 TARGMAX=DCCALLOW:,JOIN:,KICK:4,KILL:20,NOTICE:20,PART:,PRIVMSG:20,WHOIS:,WHOWAS: :are available on this server
+>> :nonstop.ix.me.dal.net 251 user1 :There are 55 users and 6579 invisible on 36 servers
+>> :nonstop.ix.me.dal.net 252 user1 75 :IRC Operators online
+>> :nonstop.ix.me.dal.net 254 user1 3619 :channels formed
+>> :nonstop.ix.me.dal.net 255 user1 :I have 66 clients and 1 servers
+>> :nonstop.ix.me.dal.net 265 user1 :Current local users: 66 Max: 404
+>> :nonstop.ix.me.dal.net 266 user1 :Current global users: 6634 Max: 8405
+>> :nonstop.ix.me.dal.net NOTICE user1 :*** Notice -- motd was last changed at 6/5/2023 1:47
+>> :nonstop.ix.me.dal.net 375 user1 :- nonstop.ix.me.dal.net Message of the Day - 
+>> :nonstop.ix.me.dal.net 372 user1 :-6/5/2023 1:47
+>> :nonstop.ix.me.dal.net 372 user1 :- You are now connected to nonstop.ix.me.dal.net, a member of the DALnet IRC Network!
+>> :nonstop.ix.me.dal.net 372 user1 :- 
+>> :nonstop.ix.me.dal.net 372 user1 :-     _|      _|    _|_|    _|      _|    _|_|_|  _|_|_|_|_|    _|_|    _|_|_|
+>> :nonstop.ix.me.dal.net 372 user1 :-     _|_|    _|  _|    _|  _|_|    _|  _|            _|      _|    _|  _|    _|
+>> :nonstop.ix.me.dal.net 372 user1 :-     _|  _|  _|  _|    _|  _|  _|  _|    _|_|        _|      _|    _|  _|_|_|
+>> :nonstop.ix.me.dal.net 372 user1 :-     _|    _|_|  _|    _|  _|    _|_|        _|      _|      _|    _|  _|
+>> :nonstop.ix.me.dal.net 372 user1 :-     _|      _|    _|_|    _|      _|  _|_|_|        _|        _|_|    _|
+>> :nonstop.ix.me.dal.net 372 user1 :- 
+>> :nonstop.ix.me.dal.net 372 user1 :- By connecting to this network, you agree to abide by its acceptable use policy,
+>> :nonstop.ix.me.dal.net 372 user1 :- available here: http://www.dal.net/aup
+>> :nonstop.ix.me.dal.net 372 user1 :- 
+>> :nonstop.ix.me.dal.net 372 user1 :- ********** Recommended help channels **********
+>> :nonstop.ix.me.dal.net 372 user1 :- * #Help     - for help with DALnet's Services *
+>> :nonstop.ix.me.dal.net 372 user1 :- * #OperHelp - for IRCop/CSop assistance       *
+>> :nonstop.ix.me.dal.net 372 user1 :- ***********************************************
+>> :nonstop.ix.me.dal.net 372 user1 :- 
+>> :nonstop.ix.me.dal.net 372 user1 :- This server is running a testing version of the latest Bahamut.
+>> :nonstop.ix.me.dal.net 372 user1 :- If you encourage any issues, please contact coders@dal.net
+>> :nonstop.ix.me.dal.net 372 user1 :- 
+>> :nonstop.ix.me.dal.net 372 user1 :- **************************** Note ****************************
+>> :nonstop.ix.me.dal.net 372 user1 :- * The use of this server is a privilege.                     *
+>> :nonstop.ix.me.dal.net 372 user1 :- * We reserve the right to deny access to this server without *
+>> :nonstop.ix.me.dal.net 372 user1 :- * any warning or explanation.                                *
+>> :nonstop.ix.me.dal.net 372 user1 :- **************************************************************
+>> :nonstop.ix.me.dal.net 372 user1 :- 
+>> :nonstop.ix.me.dal.net 372 user1 :- --- Thank you for choosing DALnet and have a nice chatting! ---
+>> :nonstop.ix.me.dal.net 376 user1 :End of /MOTD command.
+>> :user1 MODE user1 :+iH
+<< JOIN #42
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip JOIN :#42
+>> :nonstop.ix.me.dal.net 353 user1 = #42 :@user1 
+>> :nonstop.ix.me.dal.net 366 user1 #42 :End of /NAMES list.
+<< MODE #42
+>> :nonstop.ix.me.dal.net 324 user1 #42 + 
+--> chanquery mode
+<< WHO #42
+>> :nonstop.ix.me.dal.net 329 user1 #42 1727353398
+--> event 329
+>> :nonstop.ix.me.dal.net 352 user1 #42 ~facarval 8a35-7033-ee7-e5d2-174.210.62.ip nonstop.ix.me.dal.net user1 H@ :0 flugubra
+--> silent event who
+>> :nonstop.ix.me.dal.net 315 user1 #42 :End of /WHO list.
+--> chanquery who end
+<< MODE #42 b
+>> :nonstop.ix.me.dal.net 368 user1 #42 :End of Channel Ban List
+--> chanquery ban end
+<< MODE #42 +k bonjour
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 +k bonjour
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+>> :user2!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip JOIN :#42
+>> :user2!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip PART #42
+<< MODE #42 -k bonjour
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 -k bonjour
+>> :user2!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip JOIN :#42
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< MODE #42 +k bonjour
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 +k bonjour
+<< MODE #42 -k caca
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 -k bonjour
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< MODE #42 -o
+<< MODE #42 -o
+<< MODE #42 -o oui
+>> :nonstop.ix.me.dal.net 401 user1 oui :No such nick/channel
+>> :nonstop.ix.me.dal.net 441 user1 oui #42 :They aren't on that channel
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< MODE #42 +o oui
+>> :nonstop.ix.me.dal.net 401 user1 oui :No such nick/channel
+>> :nonstop.ix.me.dal.net 441 user1 oui #42 :They aren't on that channel
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< MODE #42 -o
+<< MODE #42 -o user2
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 -o user2
+<< MODE #42 -o user
+>> :nonstop.ix.me.dal.net 401 user1 user :No such nick/channel
+>> :nonstop.ix.me.dal.net 441 user1 user #42 :They aren't on that channel
+<< MODE #42 -o user2
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 -o user2
+<< MODE #42 +o user2
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 +o user2
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+>> :user2!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 -o user2
+<< MODE #42 -o user2
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 -o user2
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< MODE #42 -o user2
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 -o user2
+<< MODE #42 -o user
+>> :nonstop.ix.me.dal.net 401 user1 user :No such nick/channel
+>> :nonstop.ix.me.dal.net 441 user1 user #42 :They aren't on that channel
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+>> :user3!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip JOIN :#42
+<< MODE #42 +o user2
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 +o user2
+>> :user3!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip QUIT :Quit: leaving
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< MODE #42 +ioui
+>> :nonstop.ix.me.dal.net 472 user1 u :is unknown mode char to me
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 +i 
+<< MODE #42 -i
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 -i 
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< MODE #42 -ofew iweiufh
+>> :nonstop.ix.me.dal.net 401 user1 iweiufh :No such nick/channel
+>> :nonstop.ix.me.dal.net 441 user1 iweiufh #42 :They aren't on that channel
+>> :nonstop.ix.me.dal.net 472 user1 f :is unknown mode char to me
+>> :nonstop.ix.me.dal.net 349 user1 #42 :End of Channel Exempt List
+>> :nonstop.ix.me.dal.net 472 user1 w :is unknown mode char to me
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< MODE #42 -o iweiufh
+>> :nonstop.ix.me.dal.net 401 user1 iweiufh :No such nick/channel
+>> :nonstop.ix.me.dal.net 441 user1 iweiufh #42 :They aren't on that channel
+<< MODE #42 -o iweiufhdwqdwqdwq
+>> :nonstop.ix.me.dal.net 401 user1 iweiufhdwqdwqdwq :No such nick/channel
+>> :nonstop.ix.me.dal.net 441 user1 iweiufhdwqdwqdwq #42 :They aren't on that channel
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+>> :user2!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip PART #42
+<< MODE #42 -o user2
+>> :nonstop.ix.me.dal.net 441 user1 user2 #42 :They aren't on that channel
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< MODE #42 -o user2
+>> :nonstop.ix.me.dal.net 441 user1 user2 #42 :They aren't on that channel
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong

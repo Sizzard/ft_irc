@@ -27,7 +27,7 @@ map<string, CommandFunction> const Server::create_map()
     map["PRIVMSG"] = &Server::PRIVMSG;
     map["TOPIC"] = &Server::TOPIC;
     map["MODE"] = &Server::MODE;
-    map["DEBUG"] = &Server::DEBUG;
+    map["CHANNELS"] = &Server::CHANNELS;
     return map;
 }
 
@@ -111,9 +111,9 @@ void Server::quit_all_channels(int const &clientFd)
         for (map<string, Channels>::iterator it = this->_channels.begin(); it != this->_channels.end(); it++)
         {
             mapPair const m = it->second.get_users();
-            if (m.find(clientFd) != it->second.get_users().end())
+            if (m.find(CLIENT.get_NICK()) != it->second.get_users().end())
             {
-                it->second.remove_users(clientFd);
+                it->second.remove_users(CLIENT.get_NICK());
                 CLIENT.remove_from_channelList(it->first);
 
                 if (this->_channels[it->first].get_users().empty() == true)
@@ -132,14 +132,23 @@ void Server::quit_all_channels(int const &clientFd)
     return;
 }
 
-void Server::send_to_all_clients_in_chan(int const &clientFd, string const &channelName, string const &message)
+void Server::send_to_all_clients_in_chan(string const &channelName, string const &message)
 {
     for (mapPair::const_iterator m = this->_channels[channelName].get_users().begin(); m != this->_channels[channelName].get_users().end(); m++)
     {
-        if (m->first != clientFd)
+        this->_clients[m->second.first].append_to_send(message);
+        this->_clients[m->second.first].add_epollout(this->_epoll_fd);
+    }
+}
+
+void Server::send_to_all_clients_in_chan_except(int const &clientFd, string const &channelName, string const &message)
+{
+    for (mapPair::const_iterator m = this->_channels[channelName].get_users().begin(); m != this->_channels[channelName].get_users().end(); m++)
+    {
+        if (m->second.first != clientFd)
         {
-            this->_clients[m->first].append_to_send(message);
-            this->_clients[m->first].add_epollout(this->_epoll_fd);
+            this->_clients[m->second.first].append_to_send(message);
+            this->_clients[m->second.first].add_epollout(this->_epoll_fd);
         }
     }
 }

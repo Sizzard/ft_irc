@@ -43,9 +43,11 @@ using std::vector;
 #define CLIENT this->_clients[clientFd]
 #define CLIENT_SOURCE CLIENT.get_NICK() + "!" + CLIENT.get_USER() + "@" + CLIENT.get_network()
 
+#define CHANNEL(channelName) this->_channels[channelName]
+
 std::vector<std::string> split(std::string const &line, std::string const &to_split);
 std::vector<std::string> split_first_word(std::string const &line, std::string const &to_split);
-map<string, char> split_mode(string const &line);
+map<char, char> split_mode(string const &line);
 vector<string> analyse_command(vector<string> const &v, size_t const &i);
 bool ends_with(std::string const &str, std::string const &ends);
 std::string get_time();
@@ -100,6 +102,7 @@ string const get_epoch_time(time_t time);
 #define ERR_NONICKNAMEGIVEN() ":" + CLIENT_SOURCE + " 431 :No nickname given\r\n"
 #define ERR_ERRONEUSNICKNAME() ":" + CLIENT_SOURCE + " 431 :Erroneus nickname\r\n"
 #define ERR_NICKNAMEINUSE() ":" + CLIENT_SOURCE + " 433 :Nickname is already in use\r\n"
+#define ERR_USERNOTINCHANNEL(channelName, nick) ":" + CLIENT_SOURCE + " 441 " + CLIENT.get_NICK() + " " + nick + " " + channelName + " :They aren't on that channel\r\n"
 #define ERR_NOTONCHANNEL() ":" + CLIENT_SOURCE + " 442 " + channel[0] + " :You're not on that channel" + "\r\n"
 #define ERR_NEEDMOREPARAMS() ":" + CLIENT_SOURCE + " 461 :Not enough parameters\r\n"
 #define ERR_PASSWDMISMATCH() ":" + CLIENT_SOURCE + " 464 :Password incorrect\r\n"

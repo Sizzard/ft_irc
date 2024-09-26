@@ -8,8 +8,7 @@ Channels::Channels() : _creationTime(std::time(0)), _mode("+")
 
 Channels::Channels(int const &clientFd, string const &clientNick) : _creationTime(std::time(0)), _mode("+")
 {
-    this->_users[clientFd].first = clientNick;
-    this->_users[clientFd].second = true;
+    this->_users[clientNick] = std::make_pair(clientFd, true);
 }
 
 Channels::Channels(Channels const &cpy)
@@ -43,6 +42,16 @@ string Channels::get_topic() const
     return this->_topic;
 }
 
+void Channels::set_password(string const &password)
+{
+    this->_password = password;
+}
+
+string const &Channels::get_password()
+{
+    return this->_password;
+}
+
 time_t const &Channels::get_creationTime()
 {
     return this->_creationTime;
@@ -64,30 +73,23 @@ void Channels::add_mode(char const &newMode)
         this->_mode += newMode;
 }
 
-void Channels::remove_mode(string const &modeToRemove)
+void Channels::remove_mode(char const &modeToRemove)
 {
-    for (string::const_iterator it = modeToRemove.begin(); it != modeToRemove.end(); it++)
-    {
-        if (*it == 'i' || *it == 't' || *it == 'k' || *it == 'o' || *it == 'l')
-        {
-            for (size_t pos = this->_mode.find_first_of(*it); pos != string::npos; pos = this->_mode.find_first_of(*it))
-            {
-                this->_mode.erase(pos, 1);
-            }
-        }
-    }
+    size_t charPos = this->_mode.find_first_of(modeToRemove);
+    if (charPos != string::npos)
+        this->_mode.erase(charPos, 1);
 }
 
 void Channels::add_users(int const &fd, string const &name)
 {
-    this->_users[fd].first = name;
-    this->_users[fd].second = false;
+    this->_users[name].first = fd;
+    this->_users[name].second = false;
     return;
 }
 
-void Channels::remove_users(int const &fd)
+void Channels::remove_users(string const &clientNick)
 {
-    this->_users.erase(fd);
+    this->_users.erase(clientNick);
     return;
 }
 
@@ -103,10 +105,20 @@ string const Channels::append_all_users() const
 
     for (mapPair::const_iterator it = this->_users.begin(); it != this->_users.end(); it++)
     {
-        str += it->second.first;
+        str += it->first;
         ite = it;
         if (++ite != this->_users.end())
             str += " ";
     }
     return str;
+}
+
+void Channels::add_operator(string const &clientNick)
+{
+    this->_users[clientNick].second = true;
+}
+
+void Channels::remove_operator(string const &clientNick)
+{
+    this->_users[clientNick].second = false;
 }

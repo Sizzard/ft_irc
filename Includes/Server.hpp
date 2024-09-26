@@ -38,7 +38,8 @@ private:
     void first_connection(int const &clientFd);
     void normal_request(int const &clientFd);
 
-    void send_to_all_clients_in_chan(int const &clientFd, string const &channelName, string const &message);
+    void send_to_all_clients_in_chan(string const &channelName, string const &message);
+    void send_to_all_clients_in_chan_except(int const &clientFd, string const &channelName, string const &message);
 
     void quit_all_channels(int const &clientFd);
 
@@ -52,9 +53,13 @@ private:
     void PRIVMSG(int const &clientFd, vector<string> const &words);
     void TOPIC(int const &clientFd, vector<string> const &words);
     void MODE(int const &clientFd, vector<string> const &words);
-    void DEBUG(int const &clientFd, vector<string> const &words);
+    void CHANNELS(int const &clientFd, vector<string> const &words);
 
-    void handle_mode_cases(string const &modes);
+    bool handle_mode_cases(int const &clientFd, vector<string> const &words);
+    void handle_i(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it);
+    void handle_t(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it);
+    void handle_k(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it, vector<string>::const_iterator const &args);
+    void handle_o(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it, vector<string>::const_iterator const &args);
 
 public:
     Server();

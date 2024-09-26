@@ -21,7 +21,7 @@
         "cwctype": "cpp",
         "deque": "cpp",
         "map": "cpp",
-        "unordered_map": "cpp",
+        "map": "cpp",
         "vector": "cpp",
         "exception": "cpp",
         "algorithm": "cpp",

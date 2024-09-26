@@ -100,20 +100,9 @@ void Server::PING(int const &clientFd, vector<string> const &words)
 
 void Server::QUIT(int const &clientFd, vector<string> const &words)
 {
-
-    if (words.size() == 1)
-    {
-        APPEND_CLIENT_TO_SEND("+" + CLIENT_SOURCE + " QUIT :Quit \r\n");
-    }
-
-    else
-    {
-        APPEND_CLIENT_TO_SEND(":" + CLIENT_SOURCE + " QUIT :Quit " + words[1] + "\r\n");
-    }
-
     for (vector<string>::const_iterator it = CLIENT.get_channelList().begin(); it != CLIENT.get_channelList().end(); it++)
     {
-        send_to_all_clients_in_chan(clientFd, *it, ":" + CLIENT_SOURCE + " QUIT :Quit " + (words.size() == 1 ? "" : words[1]) + "\r\n");
+        send_to_all_clients_in_chan(*it, ":" + CLIENT_SOURCE + " QUIT :Quit " + (words.size() == 1 ? "" : words[1]) + "\r\n");
     }
 
     CLIENT.set_quit(true);
@@ -141,7 +130,7 @@ void Server::JOIN(int const &clientFd, vector<string> const &words)
         {
             this->_channels[channelsToJoin[i]].add_users(clientFd, CLIENT.get_NICK());
         }
-        send_to_all_clients_in_chan(clientFd, channelsToJoin[i], ":" + CLIENT_SOURCE + " JOIN :" + channelsToJoin[i] + "\r\n");
+        send_to_all_clients_in_chan_except(clientFd, channelsToJoin[i], ":" + CLIENT_SOURCE + " JOIN :" + channelsToJoin[i] + "\r\n");
         CLIENT.add_to_channelList(channelsToJoin[i]);
         APPEND_CLIENT_TO_SEND(":" + CLIENT_SOURCE + " JOIN :" + channelsToJoin[i] + "\r\n");
         if (this->_channels[channelsToJoin[i]].get_topic().empty() != true)
@@ -193,7 +182,7 @@ void Server::PRIVMSG(int const &clientFd, vector<string> const &words)
         }
         else
         {
-            send_to_all_clients_in_chan(clientFd, *ite, ":" + CLIENT_SOURCE + " PRIVMSG " + *ite + " " + channel_message[1] + "\r\n");
+            send_to_all_clients_in_chan_except(clientFd, *ite, ":" + CLIENT_SOURCE + " PRIVMSG " + *ite + " " + channel_message[1] + "\r\n");
         }
     }
 }
@@ -250,8 +239,8 @@ void Server::TOPIC(int const &clientFd, vector<string> const &words)
                 if (channel[0] == *it)
                 {
                     this->_channels[channel[0]].set_topic(channel[1]);
-                    cout << "TEST 4" << endl;
-                    send_to_all_clients_in_chan(clientFd, channel[0], RPL_TOPIC(channel[0]));
+                    // cout << "TEST 4" << endl;
+                    send_to_all_clients_in_chan(channel[0], RPL_TOPIC(channel[0]));
                     APPEND_CLIENT_TO_SEND(RPL_TOPIC(channel[0]));
                 }
             }
@@ -259,7 +248,7 @@ void Server::TOPIC(int const &clientFd, vector<string> const &words)
     }
 }
 
-void Server::DEBUG(int const &clientFd, vector<string> const &words)
+void Server::CHANNELS(int const &clientFd, vector<string> const &words)
 {
     (void)words;
     (void)clientFd;
@@ -277,17 +266,119 @@ void Server::DEBUG(int const &clientFd, vector<string> const &words)
     cout << endl;
 }
 
-void Server::handle_mode_cases(string const &modes)
+void Server::handle_i(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it)
 {
-    // cout << "MODE CORRECT " << endl;
-    size_t statePos = modes.find_first_of("+-");
-
-    if (statePos == string::npos)
+    if (it->second == '+')
+    {
+        CHANNEL(words[1]).add_mode(it->first);
+    }
+    else if (it->second == '-')
+    {
+        CHANNEL(words[1]).remove_mode(it->first);
+    }
+    else
+    {
         return;
-    map<string, char> m = split_mode(modes);
+    }
+    send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " MODE " + words[1] + " " + it->second + "i\r\n");
+}
 
-    // for()
+void Server::handle_t(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it)
+{
+    if (it->second == '+')
+    {
+        CHANNEL(words[1]).add_mode(it->first);
+    }
+    else if (it->second == '-')
+    {
+        CHANNEL(words[1]).remove_mode(it->first);
+    }
+    else
+    {
+        return;
+    }
+    send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " MODE " + words[1] + " " + it->second + "t\r\n");
+}
 
+void Server::handle_k(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it, vector<string>::const_iterator const &args)
+{
+    if (args == words.end())
+        return;
+
+    if (it->second == '+')
+    {
+        CHANNEL(words[1]).add_mode(it->first);
+        CHANNEL(words[1]).set_password(*args);
+    }
+    else if (it->second == '-')
+    {
+        CHANNEL(words[1]).remove_mode(it->first);
+    }
+    else
+    {
+        return;
+    }
+    send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " MODE " + words[1] + " " + it->second + "k " + CHANNEL(words[1]).get_password() + "\r\n");
+}
+
+void Server::handle_o(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it, vector<string>::const_iterator const &args)
+{
+    if (args == words.end())
+        return;
+
+    if (CHANNEL(words[1]).get_users().find(*args) == CHANNEL(words[1]).get_users().end())
+    {
+        APPEND_CLIENT_TO_SEND(ERR_NOSUCHNICK(words[1]));
+        // if ()
+        // ERR_USERNOTINCHANNEL(words[1], *args));
+        return;
+    }
+
+    if (it->second == '+')
+    {
+        CHANNEL(words[1]).add_mode(it->first);
+        CHANNEL(words[1]).add_operator(*args);
+    }
+    else if (it->second == '-')
+    {
+        CHANNEL(words[1]).remove_mode(it->first);
+        CHANNEL(words[1]).remove_operator(*args);
+    }
+    else
+    {
+        return;
+    }
+    send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " MODE " + words[1] + " " + it->second + "o " + *args + "\r\n");
+}
+
+bool Server::handle_mode_cases(int const &clientFd, vector<string> const &words)
+{
+    map<char, char> m = split_mode(words[2]);
+
+    vector<string>::const_iterator args = words.begin() + 3;
+
+    for (map<char, char>::const_iterator it = m.begin(); it != m.end(); it++)
+    {
+        switch (it->first)
+        {
+        case 'i':
+            handle_i(clientFd, words, it);
+            break;
+        case 't':
+            handle_t(clientFd, words, it);
+            break;
+        case 'k':
+            handle_k(clientFd, words, it, args++);
+            break;
+        case 'o':
+            handle_o(clientFd, words, it, args++);
+            break;
+        case 'l':
+            break;
+        }
+    }
+    cout << CHANNEL(words[1]).get_mode() << " " << CHANNEL(words[1]).get_password() << endl;
+    return SUCCESS;
 }
 
 void Server::MODE(int const &clientFd, vector<string> const &words)
@@ -310,7 +401,7 @@ void Server::MODE(int const &clientFd, vector<string> const &words)
         }
         else
         {
-            handle_mode_cases(words[2]);
+            handle_mode_cases(clientFd, words);
         }
     }
     else if (words[1] == CLIENT.get_NICK())

@@ -20,7 +20,7 @@ int main(void)
 
     while (std::getline(std::cin, o))
     {
-        write(clientSocket, "DEBUG\r\n", 7);
+        write(clientSocket, "CHANNELS\r\n", 10);
     }
 
     listen(clientSocket, 5);

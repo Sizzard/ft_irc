@@ -72,21 +72,23 @@ vector<string> split_first_word(string const &line, string const &to_split)
     return v;
 }
 
-map<string, char> split_mode(string const &line)
+map<char, char> split_mode(string const &line)
 {
-    map<string, char> m;
+    map<char, char> m;
 
     size_t end = 0;
+    size_t mode;
 
-    for (size_t i = 0; end != string::npos; i++)
+    for(size_t i = 0; i < line.length();i++)
     {
-        size_t begin = line.find_first_not_of("+-", i);
-        end = line.find_first_of("+-", begin);
-        if (begin > line.length())
-            break;
-        string word = line.substr(begin, end - begin);
-        m[word] = line[begin - 1];
-        i = end;
+        if (line[i] == '+' || line[i] == '-')
+        {
+            mode = i;
+        }
+        else if (m.find(line[i]) == m.end())
+        {
+            m[line[i]] = line[mode];
+        }
     }
 
     return m;
@@ -99,11 +101,11 @@ bool contains(string _mode, char c)
 
 int main(void)
 {
-    string str("+i-i+i-i+i");
+    string str("-i+i-i+k");
 
-    map<string, char> m = split_mode(str);
+    map<char, char> m = split_mode(str);
 
-    for (map<string, char>::iterator it = m.begin(); it != m.end(); it++)
+    for (map<char, char>::iterator it = m.begin(); it != m.end(); it++)
     {
         cout << it->first << " : " << it->second << endl;
     }
