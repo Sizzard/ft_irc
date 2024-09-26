@@ -52,6 +52,20 @@ string const &Channels::get_password()
     return this->_password;
 }
 
+size_t const &Channels::get_limit()
+{
+    return this->_limit;
+}
+
+void Channels::set_limit(string const &limit)
+{
+    this->_limit = std::atoi(limit.c_str());
+    if (this->_limit > 100)
+    {
+        this->_limit = 100;
+    }
+}
+
 time_t const &Channels::get_creationTime()
 {
     return this->_creationTime;

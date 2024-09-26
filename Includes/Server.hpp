@@ -60,6 +60,7 @@ private:
     void handle_t(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it);
     void handle_k(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it, vector<string>::const_iterator const &args);
     void handle_o(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it, vector<string>::const_iterator const &args);
+    void handle_l(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it, vector<string>::const_iterator const &args);
 
 public:
     Server();

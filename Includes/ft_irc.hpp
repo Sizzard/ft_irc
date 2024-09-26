@@ -110,3 +110,4 @@ string const get_epoch_time(time_t time);
 #define ERR_NEEDMOREPARAMS() ":" + CLIENT_SOURCE + " 461 :Not enough parameters\r\n"
 #define ERR_PASSWDMISMATCH() ":" + CLIENT_SOURCE + " 464 :Password incorrect\r\n"
 #define ERR_USERSDONTMATCH() ":" + CLIENT_SOURCE + " 502 " + CLIENT.get_NICK() + " :Cant change mode for other users\r\n"
+#define ERR_INVALIDMODEPARAM(channelName, args) ":" + CLIENT_SOURCE + " 696 " + CLIENT.get_NICK() + " " + channelName + " +l " + args + " :Bad input\r\n"

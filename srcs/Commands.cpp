@@ -260,7 +260,7 @@ void Server::CHANNELS(int const &clientFd, vector<string> const &words)
 
         for (mapPair::const_iterator usersIt = chanIt->second.get_users().begin(); usersIt != chanIt->second.get_users().end(); usersIt++)
         {
-            cout << MAGENTA << usersIt->second.first << RESET << endl;
+            cout << MAGENTA << usersIt->first << RESET << endl;
         }
     }
     cout << endl;
@@ -353,6 +353,42 @@ void Server::handle_o(int const &clientFd, vector<string> const &words, vec_pair
     send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " MODE " + words[1] + " " + it->second + "o " + *args + "\r\n");
 }
 
+void Server::handle_l(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it, vector<string>::const_iterator const &args)
+{
+    // if (args == words.end())
+    //     return;
+
+    if (it->second == '+')
+    {
+        CHANNEL(words[1]).add_mode(it->first);
+        if (args != words.end())
+        {
+            CHANNEL(words[1]).set_limit(*args);
+            if (CHANNEL(words[1]).get_limit() == 0)
+            {
+                APPEND_CLIENT_TO_SEND(ERR_INVALIDMODEPARAM(words[1], *args));
+                return;
+            }
+        }
+        else
+        {
+            APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
+            return;
+        }
+    }
+    else if (it->second == '-')
+    {
+        CHANNEL(words[1]).remove_mode(it->first);
+        CHANNEL(words[1]).set_limit("100");
+    }
+    else
+    {
+        return;
+    }
+    cout << CHANNEL(words[1]).get_limit() << endl;
+    send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " MODE " + words[1] + " " + it->second + "l " + (args == words.end() ? "" : *args) + "\r\n");
+}
+
 bool Server::handle_mode_cases(int const &clientFd, vector<string> const &words)
 {
     string str(words[2]);
@@ -381,6 +417,7 @@ bool Server::handle_mode_cases(int const &clientFd, vector<string> const &words)
             handle_o(clientFd, words, it, args++);
             break;
         case 'l':
+            handle_l(clientFd, words, it, args++);
             break;
         }
     }
