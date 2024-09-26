@@ -58,25 +58,29 @@ vector<string> split_first_word(string const &line, string const &to_split)
     return v;
 }
 
-map<char, char> split_mode(string const &line)
+vec_pair split_mode(string line)
 {
-    map<char, char> m;
+    vec_pair v;
+    std::set<char> seen;
 
     int mode = -1;
 
     for (size_t i = 0; i < line.size(); i++)
     {
+        char c = line[i];
+
         if (line[i] == '+' || line[i] == '-')
         {
             mode = i;
         }
-        else if (m.find(line[i]) == m.end() && mode != -1)
+        else if (seen.find(c) == seen.end() && mode != -1)
         {
-            m[line[i]] = line[mode];
+            v.push_back(std::make_pair(c, line[mode]));
+            seen.insert(c);
         }
     }
 
-    return m;
+    return v;
 }
 
 string get_time()

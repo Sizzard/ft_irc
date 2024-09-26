@@ -266,7 +266,7 @@ void Server::CHANNELS(int const &clientFd, vector<string> const &words)
     cout << endl;
 }
 
-void Server::handle_i(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it)
+void Server::handle_i(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it)
 {
     if (it->second == '+')
     {
@@ -283,7 +283,7 @@ void Server::handle_i(int const &clientFd, vector<string> const &words, map<char
     send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " MODE " + words[1] + " " + it->second + "i\r\n");
 }
 
-void Server::handle_t(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it)
+void Server::handle_t(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it)
 {
     if (it->second == '+')
     {
@@ -300,7 +300,7 @@ void Server::handle_t(int const &clientFd, vector<string> const &words, map<char
     send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " MODE " + words[1] + " " + it->second + "t\r\n");
 }
 
-void Server::handle_k(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it, vector<string>::const_iterator const &args)
+void Server::handle_k(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it, vector<string>::const_iterator const &args)
 {
     if (args == words.end())
         return;
@@ -321,7 +321,7 @@ void Server::handle_k(int const &clientFd, vector<string> const &words, map<char
     send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " MODE " + words[1] + " " + it->second + "k " + CHANNEL(words[1]).get_password() + "\r\n");
 }
 
-void Server::handle_o(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it, vector<string>::const_iterator const &args)
+void Server::handle_o(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it, vector<string>::const_iterator const &args)
 {
     if (args == words.end())
         return;
@@ -329,19 +329,21 @@ void Server::handle_o(int const &clientFd, vector<string> const &words, map<char
     if (CHANNEL(words[1]).get_users().find(*args) == CHANNEL(words[1]).get_users().end())
     {
         APPEND_CLIENT_TO_SEND(ERR_NOSUCHNICK(words[1]));
-        // if ()
-        // ERR_USERNOTINCHANNEL(words[1], *args));
+
+        for (map<int, Client>::iterator ite = this->_clients.begin(); ite != this->_clients.end(); ite++)
+        {
+            if (ite->second.get_NICK() == *args)
+                APPEND_CLIENT_TO_SEND(ERR_USERNOTINCHANNEL(words[1], *args));
+        }
         return;
     }
 
     if (it->second == '+')
     {
-        CHANNEL(words[1]).add_mode(it->first);
         CHANNEL(words[1]).add_operator(*args);
     }
     else if (it->second == '-')
     {
-        CHANNEL(words[1]).remove_mode(it->first);
         CHANNEL(words[1]).remove_operator(*args);
     }
     else
@@ -353,11 +355,16 @@ void Server::handle_o(int const &clientFd, vector<string> const &words, map<char
 
 bool Server::handle_mode_cases(int const &clientFd, vector<string> const &words)
 {
-    map<char, char> m = split_mode(words[2]);
+    string str(words[2]);
+
+    vec_pair m = split_mode(str);
+
+    for (vec_pair::iterator it = m.begin(); it != m.end(); it++)
+        cout << it->first << " : " << it->second << endl;
 
     vector<string>::const_iterator args = words.begin() + 3;
 
-    for (map<char, char>::const_iterator it = m.begin(); it != m.end(); it++)
+    for (vec_pair::const_iterator it = m.begin(); it != m.end(); it++)
     {
         switch (it->first)
         {

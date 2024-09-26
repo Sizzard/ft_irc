@@ -12,6 +12,7 @@
 #include <fcntl.h>
 #include <vector>
 #include <map>
+#include <set>
 #include <utility>
 #include <sys/socket.h>
 #include <sys/epoll.h>
@@ -45,9 +46,11 @@ using std::vector;
 
 #define CHANNEL(channelName) this->_channels[channelName]
 
+typedef vector<pair<char, char> > vec_pair;
+
 std::vector<std::string> split(std::string const &line, std::string const &to_split);
 std::vector<std::string> split_first_word(std::string const &line, std::string const &to_split);
-map<char, char> split_mode(string const &line);
+vec_pair split_mode(string line);
 vector<string> analyse_command(vector<string> const &v, size_t const &i);
 bool ends_with(std::string const &str, std::string const &ends);
 std::string get_time();

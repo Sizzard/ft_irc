@@ -351,3 +351,62 @@
 << PING nonstop.ix.me.dal.net
 >> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
 --> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+>> :user2!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip JOIN :#42
+<< MODE #42 -ocaca user2
+>> :nonstop.ix.me.dal.net 472 user1 a :is unknown mode char to me
+>> :nonstop.ix.me.dal.net 472 user1 a :is unknown mode char to me
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 -oc user2
+<< MODE #42 -o+k user2 bonjour
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip MODE #42 -o+k user2 bonjour
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :user1
+--> lag pong
+<< QUIT :leaving

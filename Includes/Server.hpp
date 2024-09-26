@@ -56,10 +56,10 @@ private:
     void CHANNELS(int const &clientFd, vector<string> const &words);
 
     bool handle_mode_cases(int const &clientFd, vector<string> const &words);
-    void handle_i(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it);
-    void handle_t(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it);
-    void handle_k(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it, vector<string>::const_iterator const &args);
-    void handle_o(int const &clientFd, vector<string> const &words, map<char, char>::const_iterator const &it, vector<string>::const_iterator const &args);
+    void handle_i(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it);
+    void handle_t(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it);
+    void handle_k(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it, vector<string>::const_iterator const &args);
+    void handle_o(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it, vector<string>::const_iterator const &args);
 
 public:
     Server();
