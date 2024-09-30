@@ -119,6 +119,8 @@ string const Channels::append_all_users() const
 
     for (mapPair::const_iterator it = this->_users.begin(); it != this->_users.end(); it++)
     {
+        if (it->second.second == true)
+            str += "@";
         str += it->first;
         ite = it;
         if (++ite != this->_users.end())
