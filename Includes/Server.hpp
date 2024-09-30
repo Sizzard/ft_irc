@@ -43,6 +43,8 @@ private:
 
     void quit_all_channels(int const &clientFd);
 
+    void join_channels(int const &clientFd, string const &channelToJoin, string const &password);
+
     void CAP(int const &clientFd, vector<string> const &words);
     void NICK(int const &clientFd, vector<string> const &words);
     void PASS(int const &clientFd, vector<string> const &words);

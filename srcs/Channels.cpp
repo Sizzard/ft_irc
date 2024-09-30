@@ -52,7 +52,7 @@ string const &Channels::get_password()
     return this->_password;
 }
 
-size_t const &Channels::get_limit()
+int const &Channels::get_limit()
 {
     return this->_limit;
 }

@@ -21,7 +21,6 @@
         "cwctype": "cpp",
         "deque": "cpp",
         "map": "cpp",
-        "map": "cpp",
         "vector": "cpp",
         "exception": "cpp",
         "algorithm": "cpp",
@@ -51,6 +50,8 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        "ctime": "cpp"
+        "ctime": "cpp",
+        "set": "cpp",
+        "unordered_map": "cpp"
     }
 }

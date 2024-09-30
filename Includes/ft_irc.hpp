@@ -65,8 +65,8 @@ string const get_epoch_time(time_t time);
 #define RPL_CREATIONTIME(channelName) ":" + CLIENT_SOURCE + " 329 " + CLIENT.get_NICK() + " " + channelName + " " + get_epoch_time(this->_channels[channelName].get_creationTime()) + "\r\n"
 #define RPL_NOTOPIC(channelName) ":" + CLIENT_SOURCE + " 331 " + CLIENT.get_NICK() + " " + channelName + " :No topic is set" + "\r\n"
 #define RPL_TOPIC(channelName) ":" + CLIENT_SOURCE + " 332 " + CLIENT.get_NICK() + " " + channelName + " :" + this->_channels[channelName].get_topic() + "\r\n"
-#define RPL_NAMREPLY() ":" + CLIENT_SOURCE + " 353 " + CLIENT.get_NICK() + " = " + channelsToJoin[i] + " :" + this->_channels[channelsToJoin[i]].append_all_users() + "\r\n"
-#define RPL_ENDOFNAMES() ":" + CLIENT_SOURCE + " 366 " + CLIENT.get_NICK() + " " + channelsToJoin[i] + " :End of /NAMES list.\r\n"
+#define RPL_NAMREPLY(channelName) ":" + CLIENT_SOURCE + " 353 " + CLIENT.get_NICK() + " = " + channelName + " :" + this->_channels[channelName].append_all_users() + "\r\n"
+#define RPL_ENDOFNAMES(channelName) ":" + CLIENT_SOURCE + " 366 " + CLIENT.get_NICK() + " " + channelName + " :End of /NAMES list.\r\n"
 #define RPL_MOTDSTART() ":" + CLIENT_SOURCE + " 375 " + CLIENT.get_NICK() + " :- " + CLIENT.get_ip() + " Message of the day - \r\n"
 #define RPL_MOTD() ":" + CLIENT_SOURCE + " 372 " + CLIENT.get_NICK() + " :- \r\n" +                                \
                        CYAN + "             ⣀⣤⣤⣤⣤⣄⣀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⢿⣷⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n" + RESET +     \
@@ -100,6 +100,7 @@ string const get_epoch_time(time_t time);
                        CYAN + "⠀⠀⠀⠉⠁⠀⠀⠛⠶⢤⣤⣤⣴⣖⣒⡒⠲⣤⣄⠀⢀⡏⠀⠀⢸⣇⡾⠁⠀⠀⠀⠙⢶⡀⠀⠀⠀⠀⠸⣿⠀⠀⢸⡇⠀⠀⠀⠀⢸⠁⠀⠉⢲⡴⠊⠀⠀⠀⠀⠈⠣⡽⣿⣿\r\n" + RESET +     \
                        CYAN + "⡀⠀⠀⠀⠀⠒⠂⠆⠀⠀⠀⠀⠀⠈⠉⠉⠓⠲⣬⣦⣟⡁⠀⠀⣨⣿⣿⣦⡚⣻⣤⠀⠀⢻⡆⠀⠀⠀⢰⣿⠀⠀⠀⠹⡄⠀⠀⠀⢸⠀⣀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠁⢾⣿\r\n" + RESET +
 #define RPL_ENDOFMOTD() ":" + CLIENT_SOURCE + " 376 " + CLIENT.get_NICK() + " :End of /MOTD\r\n"
+#define ERR_UNKNOWNERROR(message) ":" + CLIENT_SOURCE + " 400 " + CLIENT.get_NICK() + " :" + message + "\r\n"
 #define ERR_NOSUCHNICK(channelName) ":" + CLIENT_SOURCE + " 401 " + channelName + " :No such nick/channel\r\n"
 #define ERR_UNKNOWNCOMMAND() ":" + CLIENT_SOURCE + " 421 " + CLIENT.get_NICK() + " :Unknown command\r\n"
 #define ERR_NONICKNAMEGIVEN() ":" + CLIENT_SOURCE + " 431 :No nickname given\r\n"
@@ -107,7 +108,8 @@ string const get_epoch_time(time_t time);
 #define ERR_NICKNAMEINUSE() ":" + CLIENT_SOURCE + " 433 :Nickname is already in use\r\n"
 #define ERR_USERNOTINCHANNEL(channelName, nick) ":" + CLIENT_SOURCE + " 441 " + CLIENT.get_NICK() + " " + nick + " " + channelName + " :They aren't on that channel\r\n"
 #define ERR_NOTONCHANNEL() ":" + CLIENT_SOURCE + " 442 " + channel[0] + " :You're not on that channel" + "\r\n"
-#define ERR_NEEDMOREPARAMS() ":" + CLIENT_SOURCE + " 461 :Not enough parameters\r\n"
+#define ERR_NEEDMOREPARAMS() ":" + CLIENT_SOURCE + " 461 " + CLIENT.get_NICK() + " :Not enough parameters\r\n"
 #define ERR_PASSWDMISMATCH() ":" + CLIENT_SOURCE + " 464 :Password incorrect\r\n"
+#define ERR_BADCHANNELKEY(channelName) ":" + CLIENT_SOURCE + " 475 " + CLIENT.get_NICK() + channelName + " :Cannot join channel (+k)\r\n"
 #define ERR_USERSDONTMATCH() ":" + CLIENT_SOURCE + " 502 " + CLIENT.get_NICK() + " :Cant change mode for other users\r\n"
 #define ERR_INVALIDMODEPARAM(channelName, args) ":" + CLIENT_SOURCE + " 696 " + CLIENT.get_NICK() + " " + channelName + " +l " + args + " :Bad input\r\n"

@@ -12,7 +12,7 @@ private:
     time_t _creationTime;
     string _password;
     string _mode;
-    size_t _limit;
+    int _limit;
     map<string, pair<int, bool> > _users; // second.first pour name et second.second pour operator
 
 public:
@@ -25,7 +25,7 @@ public:
     void set_topic(string const &topic);
     string get_topic() const;
 
-    size_t const &get_limit();
+    int const &get_limit();
     void set_limit(string const &limit);
 
     void set_password(string const &password);

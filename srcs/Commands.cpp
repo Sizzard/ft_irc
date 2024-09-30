@@ -109,6 +109,41 @@ void Server::QUIT(int const &clientFd, vector<string> const &words)
     return;
 }
 
+void Server::join_channels(int const &clientFd, string const &channelToJoin, string const &password)
+{
+    cout << YELLOW << channelToJoin << RESET << endl;
+
+    map<string, Channels>::iterator it = this->_channels.find(channelToJoin);
+
+    if (*channelToJoin.begin() != '#')
+    {
+        APPEND_CLIENT_TO_SEND(ERR_UNKNOWNERROR("channel name not beginning with #"));
+        return;
+    }
+    else if (it == this->_channels.end())
+    {
+        this->_channels[channelToJoin] = Channels(clientFd, CLIENT.get_NICK());
+    }
+    else if (it->second.mode_contains('k'))
+    {
+        if (it->second.get_password() == password)
+        {
+            this->_channels[channelToJoin].add_users(clientFd, CLIENT.get_NICK());
+        }
+        else
+        {
+            APPEND_CLIENT_TO_SEND(ERR_BADCHANNELKEY(channelToJoin));
+            return;
+        }
+    }
+    send_to_all_clients_in_chan_except(clientFd, channelToJoin, ":" + CLIENT_SOURCE + " JOIN :" + channelToJoin + "\r\n");
+    CLIENT.add_to_channelList(channelToJoin);
+    APPEND_CLIENT_TO_SEND(":" + CLIENT_SOURCE + " JOIN :" + channelToJoin + "\r\n");
+    if (this->_channels[channelToJoin].get_topic().empty() != true)
+        APPEND_CLIENT_TO_SEND(RPL_TOPIC(channelToJoin));
+    APPEND_CLIENT_TO_SEND(RPL_NAMREPLY(channelToJoin) + RPL_ENDOFNAMES(channelToJoin));
+}
+
 void Server::JOIN(int const &clientFd, vector<string> const &words)
 {
     if (words.size() != 2 || words[1].empty() == true)
@@ -117,25 +152,13 @@ void Server::JOIN(int const &clientFd, vector<string> const &words)
         return;
     }
 
-    vector<string> channelsToJoin = split(words[1], ",");
+    vector<string> const channelsToJoin = split(words[1], ",");
+
+    string const password = "TEMPORARY";
 
     for (size_t i = 0; i < channelsToJoin.size(); i++)
     {
-        cout << YELLOW << channelsToJoin[i] << RESET << endl;
-        if (this->_channels.find(channelsToJoin[i]) == this->_channels.end())
-        {
-            this->_channels[channelsToJoin[i]] = Channels(clientFd, CLIENT.get_NICK());
-        }
-        else
-        {
-            this->_channels[channelsToJoin[i]].add_users(clientFd, CLIENT.get_NICK());
-        }
-        send_to_all_clients_in_chan_except(clientFd, channelsToJoin[i], ":" + CLIENT_SOURCE + " JOIN :" + channelsToJoin[i] + "\r\n");
-        CLIENT.add_to_channelList(channelsToJoin[i]);
-        APPEND_CLIENT_TO_SEND(":" + CLIENT_SOURCE + " JOIN :" + channelsToJoin[i] + "\r\n");
-        if (this->_channels[channelsToJoin[i]].get_topic().empty() != true)
-            APPEND_CLIENT_TO_SEND(RPL_TOPIC(channelsToJoin[i]));
-        APPEND_CLIENT_TO_SEND(RPL_NAMREPLY() + RPL_ENDOFNAMES());
+        join_channels(clientFd, channelsToJoin[i], password);
     }
     return;
 }
@@ -302,7 +325,7 @@ void Server::handle_t(int const &clientFd, vector<string> const &words, vec_pair
 
 void Server::handle_k(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it, vector<string>::const_iterator const &args)
 {
-    if (args == words.end())
+    if ((unsigned long)std::distance(words.begin(), args) > words.size())
         return;
 
     if (it->second == '+')
@@ -323,7 +346,7 @@ void Server::handle_k(int const &clientFd, vector<string> const &words, vec_pair
 
 void Server::handle_o(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it, vector<string>::const_iterator const &args)
 {
-    if (args == words.end())
+    if ((unsigned long)std::distance(words.begin(), args) > words.size())
         return;
 
     if (CHANNEL(words[1]).get_users().find(*args) == CHANNEL(words[1]).get_users().end())
@@ -355,8 +378,8 @@ void Server::handle_o(int const &clientFd, vector<string> const &words, vec_pair
 
 void Server::handle_l(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it, vector<string>::const_iterator const &args)
 {
-    // if (args == words.end())
-    //     return;
+    if ((unsigned long)std::distance(words.begin(), args) > words.size())
+        return;
 
     if (it->second == '+')
     {
@@ -364,8 +387,9 @@ void Server::handle_l(int const &clientFd, vector<string> const &words, vec_pair
         if (args != words.end())
         {
             CHANNEL(words[1]).set_limit(*args);
-            if (CHANNEL(words[1]).get_limit() == 0)
+            if (CHANNEL(words[1]).get_limit() <= 0)
             {
+                CHANNEL(words[1]).set_limit("100");
                 APPEND_CLIENT_TO_SEND(ERR_INVALIDMODEPARAM(words[1], *args));
                 return;
             }
