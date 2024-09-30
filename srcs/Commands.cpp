@@ -39,6 +39,17 @@ void Server::PASS(int const &clientFd, vector<string> const &words)
     return;
 }
 
+void Server::change_nick_in_channels(int const &clientFd, string const &newNick)
+{
+    for (vector<string>::const_iterator it = CLIENT.get_channelList().begin(); it != CLIENT.get_channelList().end(); it++)
+    {
+        CHANNEL(*it).change_nick(CLIENT.get_NICK(), newNick);
+        send_to_all_clients_in_chan_except(clientFd, *it, RPL_CHANGE_NICK(newNick));
+    }
+    APPEND_CLIENT_TO_SEND(RPL_CHANGE_NICK(newNick));
+    CLIENT.add_epollout(this->_epoll_fd);
+}
+
 void Server::NICK(int const &clientFd, vector<string> const &words)
 {
     if (words.size() < 2)
@@ -61,6 +72,9 @@ void Server::NICK(int const &clientFd, vector<string> const &words)
             return;
         }
     }
+
+    if (CLIENT.get_channelList().empty() == false)
+        change_nick_in_channels(clientFd, words[1]);
 
     CLIENT.set_NICK(words[1]);
     cout << "NICK given : " << words[1] << endl;

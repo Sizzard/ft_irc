@@ -117,5 +117,7 @@ string const get_epoch_time(time_t time);
 #define ERR_NOSUCHCHANNEL(channelName) ":" + CLIENT_SOURCE + " 403 " + channelName + " :No such channel\r\n"
 #define ERR_NOTONCHANNEL(channelName) ":" + CLIENT_SOURCE + " 442 " + channelName + " :You're not on that channel" + "\r\n"
 #define ERR_USERONCHANNEL(channelName) ":" + CLIENT_SOURCE + " 443 " + channelName + " :is already on channel\r\n"
+
+#define RPL_CHANGE_NICK(newNick) ":" + CLIENT_SOURCE + " NICK " + newNick + "\r\n"
 #define ERR_CHANNELISFULL(channelName) ":" + CLIENT_SOURCE + " 471 " + channelName + " :Cannot join channel (+l)\r\n"
 #define ERR_INVITEONLYCHAN(channelName) ":" + CLIENT_SOURCE + " 473 "+ CLIENT.get_NICK() + " " + channelName + " :Cannot join channel (+i)\r\n"

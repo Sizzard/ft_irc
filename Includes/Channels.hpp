@@ -15,6 +15,7 @@ private:
     int _limit;
     map<string, pair<int, bool> > _users; // second.first pour name et second.second pour operator
     vector<int> _invitedUsers;
+
 public:
     Channels();
     Channels(int const &clientFd, string const &clientNick);
@@ -40,9 +41,10 @@ public:
 
     void add_users(int const &fd, string const &name);
     void remove_users(string const &clientNick);
+    void change_nick(string const &oldNick, string const &newNick);
 
     void invite_user(int const &clientfd);
-    
+
     mapPair const &get_users();
     string const append_all_users() const;
     
