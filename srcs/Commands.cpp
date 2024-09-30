@@ -123,6 +123,7 @@ void Server::join_channels(int const &clientFd, string const &channelToJoin, str
     else if (it == this->_channels.end())
     {
         this->_channels[channelToJoin] = Channels(clientFd, CLIENT.get_NICK());
+        cout << "TEST\n";
     }
     else if (it->second.mode_contains('k'))
     {
@@ -136,6 +137,7 @@ void Server::join_channels(int const &clientFd, string const &channelToJoin, str
             return;
         }
     }
+    this->_channels[channelToJoin].add_users(clientFd, CLIENT.get_NICK());
     send_to_all_clients_in_chan_except(clientFd, channelToJoin, ":" + CLIENT_SOURCE + " JOIN :" + channelToJoin + "\r\n");
     CLIENT.add_to_channelList(channelToJoin);
     APPEND_CLIENT_TO_SEND(":" + CLIENT_SOURCE + " JOIN :" + channelToJoin + "\r\n");
@@ -506,36 +508,36 @@ void Server::KICK(int const &clientFd, vector<string> const &words)
     {
         mapPair user_list = it->second.get_users();
         mapPair::iterator user_requesting_kick = user_list.find(CLIENT.get_NICK());
-        if(user_requesting_kick != user_list.end())
+        if (user_requesting_kick != user_list.end())
         {
-            if(user_requesting_kick->second.second == false)
+            if (user_requesting_kick->second.second == false)
             {
                 APPEND_CLIENT_TO_SEND(ERR_CHANOPRIVSNEEDED());
                 return;
             }
             std::vector<std::string> users_to_kick = split(words[2], ",");
-           while(!users_to_kick.empty())
-           {
-            mapPair::iterator user_to_kick = user_list.find(users_to_kick.front());
-            if(user_to_kick != user_list.end())
+            while (!users_to_kick.empty())
             {
-                send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " KICK " + words[1] + " " + users_to_kick.front() + " " + (words.size() == 4 ? words[3] : "") + "\r\n");
-                it->second.remove_users(words[2]);
-                CLIENT.remove_from_channelList(words[1]);
+                mapPair::iterator user_to_kick = user_list.find(users_to_kick.front());
+                if (user_to_kick != user_list.end())
+                {
+                    send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " KICK " + words[1] + " " + users_to_kick.front() + " " + (words.size() == 4 ? words[3] : "") + "\r\n");
+                    it->second.remove_users(words[2]);
+                    CLIENT.remove_from_channelList(words[1]);
+                }
+                else
+                    APPEND_CLIENT_TO_SEND(ERR_USERNOTINCHANNEL(words[1], users_to_kick.front()));
+                users_to_kick.erase(users_to_kick.begin());
             }
-            else
-                APPEND_CLIENT_TO_SEND(ERR_USERNOTINCHANNEL(words[1], users_to_kick.front()));
-            users_to_kick.erase(users_to_kick.begin());
-           }
         }
-        else 
+        else
             APPEND_CLIENT_TO_SEND(ERR_NOTONCHANNEL());
     }
-    else 
+    else
         APPEND_CLIENT_TO_SEND(ERR_NOSUCHCHANNEL(words[1]));
 }
 
-//FIX LE MESSAGE AU USERS, METTRE A JOUR AVEC LA FONCTION MODE
+// FIX LE MESSAGE AU USERS, METTRE A JOUR AVEC LA FONCTION MODE
 
 void Server::INVITE(int const &clientFd, vector<string> const &words)
 {
@@ -549,15 +551,15 @@ void Server::INVITE(int const &clientFd, vector<string> const &words)
     {
         mapPair user_list = it->second.get_users();
         mapPair::iterator user_inviting = user_list.find(CLIENT.get_NICK());
-        if(user_inviting != user_list.end())
+        if (user_inviting != user_list.end())
         {
-            if(user_inviting->second.second == false)
+            if (user_inviting->second.second == false)
             {
                 APPEND_CLIENT_TO_SEND(ERR_CHANOPRIVSNEEDED());
                 return;
             }
             mapPair::iterator user_to_invite = user_list.find(words[1]);
-            if(user_to_invite == user_list.end())
+            if (user_to_invite == user_list.end())
             {
                 int const fd = find_client_fd(words[1]);
                 if (fd == -1)
@@ -573,10 +575,9 @@ void Server::INVITE(int const &clientFd, vector<string> const &words)
             else
                 APPEND_CLIENT_TO_SEND(ERR_USERONCHANNEL(words[1]));
         }
-        else 
+        else
             APPEND_CLIENT_TO_SEND(ERR_NOTONCHANNEL());
     }
-    else 
+    else
         APPEND_CLIENT_TO_SEND(ERR_NOSUCHCHANNEL(words[1]));
 }
-
