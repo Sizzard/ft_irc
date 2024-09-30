@@ -164,3 +164,13 @@ void Channels::remove_operator(string const &clientNick)
 {
     this->_users[clientNick].second = false;
 }
+
+bool Channels::is_operator(string const &clientNick)
+{
+    mapPair::iterator it = this->_users.find(clientNick);
+    if (it == this->_users.end())
+        ;
+    else if (it->second.second == true)
+        return true;
+    return false;
+}

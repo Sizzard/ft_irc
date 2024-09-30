@@ -47,9 +47,10 @@ public:
 
     mapPair const &get_users();
     string const append_all_users() const;
-    
-    vector <int> const &get_invitedUsers();
+
+    vector<int> const &get_invitedUsers();
 
     void add_operator(string const &clientNick);
     void remove_operator(string const &clientNick);
+    bool is_operator(string const &clientNick);
 };

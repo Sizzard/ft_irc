@@ -506,7 +506,15 @@ void Server::MODE(int const &clientFd, vector<string> const &words)
         }
         else
         {
-            handle_mode_cases(clientFd, words);
+
+            if (it->second.is_operator(CLIENT.get_NICK()) == false)
+            {
+                APPEND_CLIENT_TO_SEND(ERR_CHANOPRIVSNEEDED());
+            }
+            else
+            {
+                handle_mode_cases(clientFd, words);
+            }
         }
     }
     else if (words[1] == CLIENT.get_NICK())
