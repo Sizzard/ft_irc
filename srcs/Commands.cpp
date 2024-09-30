@@ -149,17 +149,17 @@ void Server::join_channels(int const &clientFd, string const &channelToJoin, str
             return;
         }
     }
-    if(it->second.mode_contains('l')  && static_cast<std::size_t>(it->second.get_limit()) <= it->second.get_users().size())
+    if (it->second.mode_contains('l') && static_cast<std::size_t>(it->second.get_limit()) <= it->second.get_users().size())
     {
         APPEND_CLIENT_TO_SEND(ERR_CHANNELISFULL(channelToJoin));
         return;
     }
-    if(find(it->second.get_invitedUsers().begin(), it->second.get_invitedUsers().end(), clientFd) == it->second.get_invitedUsers().end() && it->second.mode_contains('i'))
+    if (find(it->second.get_invitedUsers().begin(), it->second.get_invitedUsers().end(), clientFd) == it->second.get_invitedUsers().end() && it->second.mode_contains('i'))
     {
         APPEND_CLIENT_TO_SEND(ERR_INVITEONLYCHAN(channelToJoin));
         return;
     }
-    if(!newChannel)
+    if (!newChannel)
         this->_channels[channelToJoin].add_users(clientFd, CLIENT.get_NICK());
     send_to_all_clients_in_chan_except(clientFd, channelToJoin, ":" + CLIENT_SOURCE + " JOIN :" + channelToJoin + "\r\n");
     CLIENT.add_to_channelList(channelToJoin);
@@ -171,12 +171,9 @@ void Server::join_channels(int const &clientFd, string const &channelToJoin, str
 // JOIN
 // channel1,channel2 password1,password2
 
-
-
-// JOIN 
+// JOIN
 // channel1,channel2
 // password1,password2
-
 
 void Server::JOIN(int const &clientFd, vector<string> const &words)
 {
@@ -185,18 +182,18 @@ void Server::JOIN(int const &clientFd, vector<string> const &words)
         APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
         return;
     }
-    for(vector<string>::const_iterator it = words.begin(); it != words.end(); it++)
+    for (vector<string>::const_iterator it = words.begin(); it != words.end(); it++)
     {
         cout << "WORD : " << *it << endl;
     }
     vector<string> const channelsToJoin = split(words[1], ",");
     vector<string> passwords;
-    if(words.size() == 3)
+    if (words.size() == 3)
         passwords = split(words[2], ",");
     size_t passwords_number = passwords.size();
     for (size_t i = 0; i < channelsToJoin.size(); i++)
     {
-        if(passwords_number < i || passwords_number == 0)
+        if (passwords_number < i || passwords_number == 0)
             join_channels(clientFd, channelsToJoin[i], "");
         else
             join_channels(clientFd, channelsToJoin[i], passwords[i]);
@@ -365,7 +362,7 @@ void Server::handle_t(int const &clientFd, vector<string> const &words, vec_pair
 
 void Server::handle_k(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it, vector<string>::const_iterator const &args)
 {
-    if ((unsigned long)std::distance(words.begin(), args) > words.size())
+    if ((unsigned long)std::distance(words.begin(), args) > words.size() || args == words.end())
         return;
 
     if (it->second == '+')
@@ -577,9 +574,6 @@ void Server::KICK(int const &clientFd, vector<string> const &words)
 
 // FIX LE MESSAGE AU USERS, METTRE A JOUR AVEC LA FONCTION MODE
 
-
-
-
 void Server::INVITE(int const &clientFd, vector<string> const &words)
 {
     if (words.size() < 3)
@@ -594,7 +588,7 @@ void Server::INVITE(int const &clientFd, vector<string> const &words)
         mapPair::iterator user_inviting = user_list.find(CLIENT.get_NICK());
         if (user_inviting != user_list.end())
         {
-            
+
             if (it->second.mode_contains('i') && user_inviting->second.second == false)
             {
                 std::cout << user_inviting->second.second << std::endl;
