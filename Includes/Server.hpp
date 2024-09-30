@@ -30,6 +30,8 @@ private:
     void accept_new_client();
     void disconnect_client(int const &clientFd);
 
+    void change_nick_in_channels(int const &clientFd, string const &newNick);
+
     void receive_message(int const &clientFd);
     void send_message(int const &clientFd);
 

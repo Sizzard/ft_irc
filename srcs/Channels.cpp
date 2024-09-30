@@ -102,9 +102,9 @@ void Channels::add_users(int const &fd, string const &name)
 }
 void Channels::invite_user(int const &clientfd)
 {
-    for(vector<int>::iterator it = this->_invitedUsers.begin(); it != this->_invitedUsers.end(); it++)
+    for (vector<int>::iterator it = this->_invitedUsers.begin(); it != this->_invitedUsers.end(); it++)
     {
-        if(*it == clientfd)
+        if (*it == clientfd)
             return;
     }
     this->_invitedUsers.push_back(clientfd);
@@ -114,6 +114,17 @@ void Channels::remove_users(string const &clientNick)
 {
     this->_users.erase(clientNick);
     return;
+}
+
+void Channels::change_nick(string const &oldNick, string const &newNick)
+{
+    mapPair::iterator it = this->_users.find(oldNick);
+
+    pair<int, bool> pair = it->second;
+
+    this->remove_users(oldNick);
+
+    this->_users[newNick] = pair;
 }
 
 mapPair const &Channels::get_users()
