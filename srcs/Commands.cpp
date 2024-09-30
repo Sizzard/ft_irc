@@ -120,24 +120,33 @@ void Server::join_channels(int const &clientFd, string const &channelToJoin, str
         APPEND_CLIENT_TO_SEND(ERR_UNKNOWNERROR("channel name not beginning with #"));
         return;
     }
-    else if (it == this->_channels.end())
+    bool newChannel = false;
+    if (it == this->_channels.end())
     {
+        newChannel = true;
         this->_channels[channelToJoin] = Channels(clientFd, CLIENT.get_NICK());
-        cout << "TEST\n";
+        it = this->_channels.find(channelToJoin);
     }
     else if (it->second.mode_contains('k'))
     {
-        if (it->second.get_password() == password)
-        {
-            this->_channels[channelToJoin].add_users(clientFd, CLIENT.get_NICK());
-        }
-        else
+        if (it->second.get_password() != password)
         {
             APPEND_CLIENT_TO_SEND(ERR_BADCHANNELKEY(channelToJoin));
             return;
         }
     }
-    this->_channels[channelToJoin].add_users(clientFd, CLIENT.get_NICK());
+    if(it->second.mode_contains('l')  && static_cast<std::size_t>(it->second.get_limit()) <= it->second.get_users().size())
+    {
+        APPEND_CLIENT_TO_SEND(ERR_CHANNELISFULL(channelToJoin));
+        return;
+    }
+    if(find(it->second.get_invitedUsers().begin(), it->second.get_invitedUsers().end(), clientFd) == it->second.get_invitedUsers().end() && it->second.mode_contains('i'))
+    {
+        APPEND_CLIENT_TO_SEND(ERR_INVITEONLYCHAN(channelToJoin));
+        return;
+    }
+    if(!newChannel)
+        this->_channels[channelToJoin].add_users(clientFd, CLIENT.get_NICK());
     send_to_all_clients_in_chan_except(clientFd, channelToJoin, ":" + CLIENT_SOURCE + " JOIN :" + channelToJoin + "\r\n");
     CLIENT.add_to_channelList(channelToJoin);
     APPEND_CLIENT_TO_SEND(":" + CLIENT_SOURCE + " JOIN :" + channelToJoin + "\r\n");
@@ -145,22 +154,38 @@ void Server::join_channels(int const &clientFd, string const &channelToJoin, str
         APPEND_CLIENT_TO_SEND(RPL_TOPIC(channelToJoin));
     APPEND_CLIENT_TO_SEND(RPL_NAMREPLY(channelToJoin) + RPL_ENDOFNAMES(channelToJoin));
 }
+// JOIN
+// channel1,channel2 password1,password2
+
+
+
+// JOIN 
+// channel1,channel2
+// password1,password2
+
 
 void Server::JOIN(int const &clientFd, vector<string> const &words)
 {
-    if (words.size() != 2 || words[1].empty() == true)
+    if ((words.size() != 2 && words.size() != 3) || words[1].empty() == true)
     {
         APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
         return;
     }
-
+    for(vector<string>::const_iterator it = words.begin(); it != words.end(); it++)
+    {
+        cout << "WORD : " << *it << endl;
+    }
     vector<string> const channelsToJoin = split(words[1], ",");
-
-    string const password = "TEMPORARY";
-
+    vector<string> passwords;
+    if(words.size() == 3)
+        passwords = split(words[2], ",");
+    size_t passwords_number = passwords.size();
     for (size_t i = 0; i < channelsToJoin.size(); i++)
     {
-        join_channels(clientFd, channelsToJoin[i], password);
+        if(passwords_number < i || passwords_number == 0)
+            join_channels(clientFd, channelsToJoin[i], "");
+        else
+            join_channels(clientFd, channelsToJoin[i], passwords[i]);
     }
     return;
 }
@@ -175,7 +200,6 @@ void Server::PRIVMSG(int const &clientFd, vector<string> const &words)
     }
 
     vector<string> channel_message = split_first_word(words[1], " ");
-
     if (channel_message.size() < 2)
     {
         APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
@@ -539,6 +563,9 @@ void Server::KICK(int const &clientFd, vector<string> const &words)
 
 // FIX LE MESSAGE AU USERS, METTRE A JOUR AVEC LA FONCTION MODE
 
+
+
+
 void Server::INVITE(int const &clientFd, vector<string> const &words)
 {
     if (words.size() < 3)
@@ -553,8 +580,11 @@ void Server::INVITE(int const &clientFd, vector<string> const &words)
         mapPair::iterator user_inviting = user_list.find(CLIENT.get_NICK());
         if (user_inviting != user_list.end())
         {
-            if (user_inviting->second.second == false)
+            
+            if (it->second.mode_contains('i') && user_inviting->second.second == false)
             {
+                std::cout << user_inviting->second.second << std::endl;
+                std::cout << user_inviting->first << std::endl;
                 APPEND_CLIENT_TO_SEND(ERR_CHANOPRIVSNEEDED());
                 return;
             }

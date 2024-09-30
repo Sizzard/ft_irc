@@ -1,12 +1,12 @@
 
 #include "../Includes/Channels.hpp"
 
-Channels::Channels() : _creationTime(std::time(0)), _mode("+")
+Channels::Channels() : _creationTime(std::time(0)), _mode("+"), _limit(CHAN_LIMIT)
 {
     return;
 }
 
-Channels::Channels(int const &clientFd, string const &clientNick) : _creationTime(std::time(0)), _mode("+")
+Channels::Channels(int const &clientFd, string const &clientNick) : _creationTime(std::time(0)), _mode("+"), _limit(CHAN_LIMIT)
 {
     this->_users[clientNick] = std::make_pair(clientFd, true);
 }
@@ -24,6 +24,7 @@ Channels &Channels::operator=(Channels const &cpy)
     this->_password = cpy._password;
     this->_mode = cpy._mode;
     this->_users = cpy._users;
+    this->_limit = cpy._limit;
     return *this;
 }
 
@@ -119,6 +120,11 @@ void Channels::remove_users(string const &clientNick)
 mapPair const &Channels::get_users()
 {
     return this->_users;
+}
+
+vector<int> const &Channels::get_invitedUsers()
+{
+    return this->_invitedUsers;
 }
 
 string const Channels::append_all_users() const

@@ -39,7 +39,7 @@ using std::vector;
 #define FAILURE 1
 
 #define BUFFER_SIZE 1024
-
+#define CHAN_LIMIT 100
 #define CLIENT_ID events[i].data.fd
 #define CLIENT this->_clients[clientFd]
 #define CLIENT_SOURCE CLIENT.get_NICK() + "!" + CLIENT.get_USER() + "@" + CLIENT.get_network()
@@ -110,10 +110,12 @@ string const get_epoch_time(time_t time);
 #define ERR_USERNOTINCHANNEL(channelName, nick) ":" + CLIENT_SOURCE + " 441 " + CLIENT.get_NICK() + " " + nick + " " + channelName + " :They aren't on that channel\r\n"
 #define ERR_NEEDMOREPARAMS() ":" + CLIENT_SOURCE + " 461 " + CLIENT.get_NICK() + " :Not enough parameters\r\n"
 #define ERR_PASSWDMISMATCH() ":" + CLIENT_SOURCE + " 464 :Password incorrect\r\n"
-#define ERR_BADCHANNELKEY(channelName) ":" + CLIENT_SOURCE + " 475 " + CLIENT.get_NICK() + channelName + " :Cannot join channel (+k)\r\n"
+#define ERR_BADCHANNELKEY(channelName) ":" + CLIENT_SOURCE + " 475 " + CLIENT.get_NICK() + " " + channelName + " :Cannot join channel (+k)\r\n"
 #define ERR_USERSDONTMATCH() ":" + CLIENT_SOURCE + " 502 " + CLIENT.get_NICK() + " :Cant change mode for other users\r\n"
 #define ERR_INVALIDMODEPARAM(channelName, args) ":" + CLIENT_SOURCE + " 696 " + CLIENT.get_NICK() + " " + channelName + " +l " + args + " :Bad input\r\n"
 #define ERR_CHANOPRIVSNEEDED() ":" + CLIENT_SOURCE + " 482 " + CLIENT.get_NICK() + " :You're not a channel operator\r\n"
 #define ERR_NOSUCHCHANNEL(channelName) ":" + CLIENT_SOURCE + " 403 " + channelName + " :No such channel\r\n"
 #define ERR_NOTONCHANNEL(channelName) ":" + CLIENT_SOURCE + " 442 " + channelName + " :You're not on that channel" + "\r\n"
 #define ERR_USERONCHANNEL(channelName) ":" + CLIENT_SOURCE + " 443 " + channelName + " :is already on channel\r\n"
+#define ERR_CHANNELISFULL(channelName) ":" + CLIENT_SOURCE + " 471 " + channelName + " :Cannot join channel (+l)\r\n"
+#define ERR_INVITEONLYCHAN(channelName) ":" + CLIENT_SOURCE + " 473 "+ CLIENT.get_NICK() + " " + channelName + " :Cannot join channel (+i)\r\n"
