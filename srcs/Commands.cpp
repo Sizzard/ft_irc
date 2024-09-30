@@ -493,3 +493,90 @@ void Server::MODE(int const &clientFd, vector<string> const &words)
         }
     }
 }
+
+void Server::KICK(int const &clientFd, vector<string> const &words)
+{
+    if (words.size() < 3)
+    {
+        APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
+        return;
+    }
+    map<string, Channels>::iterator it = this->_channels.find(words[1]);
+    if (it != this->_channels.end())
+    {
+        mapPair user_list = it->second.get_users();
+        mapPair::iterator user_requesting_kick = user_list.find(CLIENT.get_NICK());
+        if(user_requesting_kick != user_list.end())
+        {
+            if(user_requesting_kick->second.second == false)
+            {
+                APPEND_CLIENT_TO_SEND(ERR_CHANOPRIVSNEEDED());
+                return;
+            }
+            std::vector<std::string> users_to_kick = split(words[2], ",");
+           while(!users_to_kick.empty())
+           {
+            mapPair::iterator user_to_kick = user_list.find(users_to_kick.front());
+            if(user_to_kick != user_list.end())
+            {
+                send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " KICK " + words[1] + " " + users_to_kick.front() + " " + (words.size() == 4 ? words[3] : "") + "\r\n");
+                it->second.remove_users(words[2]);
+                CLIENT.remove_from_channelList(words[1]);
+            }
+            else
+                APPEND_CLIENT_TO_SEND(ERR_USERNOTINCHANNEL(words[1], users_to_kick.front()));
+            users_to_kick.erase(users_to_kick.begin());
+           }
+        }
+        else 
+            APPEND_CLIENT_TO_SEND(ERR_NOTONCHANNEL());
+    }
+    else 
+        APPEND_CLIENT_TO_SEND(ERR_NOSUCHCHANNEL(words[1]));
+}
+
+//FIX LE MESSAGE AU USERS, METTRE A JOUR AVEC LA FONCTION MODE
+
+void Server::INVITE(int const &clientFd, vector<string> const &words)
+{
+    if (words.size() < 3)
+    {
+        APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
+        return;
+    }
+    map<string, Channels>::iterator it = this->_channels.find(words[2]);
+    if (it != this->_channels.end())
+    {
+        mapPair user_list = it->second.get_users();
+        mapPair::iterator user_inviting = user_list.find(CLIENT.get_NICK());
+        if(user_inviting != user_list.end())
+        {
+            if(user_inviting->second.second == false)
+            {
+                APPEND_CLIENT_TO_SEND(ERR_CHANOPRIVSNEEDED());
+                return;
+            }
+            mapPair::iterator user_to_invite = user_list.find(words[1]);
+            if(user_to_invite == user_list.end())
+            {
+                int const fd = find_client_fd(words[1]);
+                if (fd == -1)
+                {
+                    APPEND_CLIENT_TO_SEND(ERR_NOSUCHNICK(words[1]));
+                    return;
+                }
+                APPEND_CLIENT_TO_SEND(RPL_INVITING(words[1], words[2]));
+                it->second.invite_user(fd);
+                this->_clients[fd].add_epollout(this->_epoll_fd);
+                APPEND_USER_TO_SEND(fd, ":" + CLIENT_SOURCE + CLIENT.get_NICK() + " INVITE " + words[1] + " " + words[2] + "\r\n");
+            }
+            else
+                APPEND_CLIENT_TO_SEND(ERR_USERONCHANNEL(words[1]));
+        }
+        else 
+            APPEND_CLIENT_TO_SEND(ERR_NOTONCHANNEL());
+    }
+    else 
+        APPEND_CLIENT_TO_SEND(ERR_NOSUCHCHANNEL(words[1]));
+}
+

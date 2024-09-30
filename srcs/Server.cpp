@@ -28,6 +28,8 @@ map<string, CommandFunction> const Server::create_map()
     map["TOPIC"] = &Server::TOPIC;
     map["MODE"] = &Server::MODE;
     map["CHANNELS"] = &Server::CHANNELS;
+    map["KICK"] = &Server::KICK;
+    map["INVITE"] = &Server::INVITE;
     return map;
 }
 
@@ -519,4 +521,17 @@ bool Server::start(int ac, char **av)
     launch_server(atoi(av[1]), av[2]);
 
     return SUCCESS;
+}
+int Server::find_client_fd(std::string const &nick)
+{
+    for (map<int, Client>::iterator it = this->_clients.begin(); it != this->_clients.end(); it++)
+    {
+        if (it->second.get_NICK() == nick)
+        {
+
+            std::cout << nick << std::endl;
+            return it->first;
+        }
+    }
+    return -1;
 }

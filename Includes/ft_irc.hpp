@@ -100,6 +100,7 @@ string const get_epoch_time(time_t time);
                        CYAN + "⠀⠀⠀⠉⠁⠀⠀⠛⠶⢤⣤⣤⣴⣖⣒⡒⠲⣤⣄⠀⢀⡏⠀⠀⢸⣇⡾⠁⠀⠀⠀⠙⢶⡀⠀⠀⠀⠀⠸⣿⠀⠀⢸⡇⠀⠀⠀⠀⢸⠁⠀⠉⢲⡴⠊⠀⠀⠀⠀⠈⠣⡽⣿⣿\r\n" + RESET +     \
                        CYAN + "⡀⠀⠀⠀⠀⠒⠂⠆⠀⠀⠀⠀⠀⠈⠉⠉⠓⠲⣬⣦⣟⡁⠀⠀⣨⣿⣿⣦⡚⣻⣤⠀⠀⢻⡆⠀⠀⠀⢰⣿⠀⠀⠀⠹⡄⠀⠀⠀⢸⠀⣀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠁⢾⣿\r\n" + RESET +
 #define RPL_ENDOFMOTD() ":" + CLIENT_SOURCE + " 376 " + CLIENT.get_NICK() + " :End of /MOTD\r\n"
+#define RPL_INVITING(nick, channelName) ":" + CLIENT_SOURCE + " 341 " + CLIENT.get_NICK() + " " + nick + " " + channelName + "\r\n"
 #define ERR_UNKNOWNERROR(message) ":" + CLIENT_SOURCE + " 400 " + CLIENT.get_NICK() + " :" + message + "\r\n"
 #define ERR_NOSUCHNICK(channelName) ":" + CLIENT_SOURCE + " 401 " + channelName + " :No such nick/channel\r\n"
 #define ERR_UNKNOWNCOMMAND() ":" + CLIENT_SOURCE + " 421 " + CLIENT.get_NICK() + " :Unknown command\r\n"
@@ -107,9 +108,12 @@ string const get_epoch_time(time_t time);
 #define ERR_ERRONEUSNICKNAME() ":" + CLIENT_SOURCE + " 431 :Erroneus nickname\r\n"
 #define ERR_NICKNAMEINUSE() ":" + CLIENT_SOURCE + " 433 :Nickname is already in use\r\n"
 #define ERR_USERNOTINCHANNEL(channelName, nick) ":" + CLIENT_SOURCE + " 441 " + CLIENT.get_NICK() + " " + nick + " " + channelName + " :They aren't on that channel\r\n"
-#define ERR_NOTONCHANNEL() ":" + CLIENT_SOURCE + " 442 " + channel[0] + " :You're not on that channel" + "\r\n"
 #define ERR_NEEDMOREPARAMS() ":" + CLIENT_SOURCE + " 461 " + CLIENT.get_NICK() + " :Not enough parameters\r\n"
 #define ERR_PASSWDMISMATCH() ":" + CLIENT_SOURCE + " 464 :Password incorrect\r\n"
 #define ERR_BADCHANNELKEY(channelName) ":" + CLIENT_SOURCE + " 475 " + CLIENT.get_NICK() + channelName + " :Cannot join channel (+k)\r\n"
 #define ERR_USERSDONTMATCH() ":" + CLIENT_SOURCE + " 502 " + CLIENT.get_NICK() + " :Cant change mode for other users\r\n"
 #define ERR_INVALIDMODEPARAM(channelName, args) ":" + CLIENT_SOURCE + " 696 " + CLIENT.get_NICK() + " " + channelName + " +l " + args + " :Bad input\r\n"
+#define ERR_CHANOPRIVSNEEDED() ":" + CLIENT_SOURCE + " 482 " + CLIENT.get_NICK() + " :You're not a channel operator\r\n"
+#define ERR_NOSUCHCHANNEL(channelName) ":" + CLIENT_SOURCE + " 403 " + channelName + " :No such channel\r\n"
+#define ERR_NOTONCHANNEL(channelName) ":" + CLIENT_SOURCE + " 442 " + channelName + " :You're not on that channel" + "\r\n"
+#define ERR_USERONCHANNEL(channelName) ":" + CLIENT_SOURCE + " 443 " + channelName + " :is already on channel\r\n"

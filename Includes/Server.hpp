@@ -56,6 +56,9 @@ private:
     void TOPIC(int const &clientFd, vector<string> const &words);
     void MODE(int const &clientFd, vector<string> const &words);
     void CHANNELS(int const &clientFd, vector<string> const &words);
+    void KICK(int const &clientFd, vector<string> const &words);
+    void INVITE(int const &clientFd, vector<string> const &words);
+
 
     bool handle_mode_cases(int const &clientFd, vector<string> const &words);
     void handle_i(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it);
@@ -70,7 +73,9 @@ public:
     Server &operator=(Server const &cpy);
     ~Server();
 
+    int find_client_fd(std::string const &nick);
     bool start(int ac, char **av);
 };
 
+#define APPEND_USER_TO_SEND(fd,buff) this->_clients[fd].append_to_send(buff)
 #define APPEND_CLIENT_TO_SEND(buff) CLIENT.append_to_send(buff)

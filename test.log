@@ -1,0 +1,617 @@
+<< CAP LS
+<< NICK user2
+<< USER dliuzzo dliuzzo irc.dal.net :Daya Liuzzo
+>> :halcyon.il.us.dal.net NOTICE AUTH :*** Looking up your hostname...
+>> :halcyon.il.us.dal.net NOTICE AUTH :*** Found your hostname
+>> :halcyon.il.us.dal.net 001 user2 :Welcome to the DALnet IRC Network user2!~dliuzzo@62.210.34.53
+<< MODE user2 +i
+>> :halcyon.il.us.dal.net 002 user2 :Your host is halcyon.il.us.dal.net, running version bahamut-2.2.2
+>> :halcyon.il.us.dal.net 003 user2 :This server was created Thu Aug 3 2023 at 16:38:57 UTC
+>> :halcyon.il.us.dal.net 004 user2 halcyon.il.us.dal.net bahamut-2.2.2 aAbcCdefFghHiIjkKmnoOPrRsSwxXy AbceiIjklLmMnoOpPrRsStv beIjklov
+>> :halcyon.il.us.dal.net 005 user2 NETWORK=DALnet SAFELIST MAXBANS=200 MAXCHANNELS=50 CHANNELLEN=32 KICKLEN=307 NICKLEN=30 TOPICLEN=307 MODES=6 CHANTYPES=# CHANLIMIT=#:50 PREFIX=(ohv)@%+ STATUSMSG=@%+ :are available on this server
+>> :halcyon.il.us.dal.net 005 user2 CASEMAPPING=ascii WATCH=128 SILENCE=10 ELIST=cmntu EXCEPTS INVEX CHANMODES=beI,k,jl,ciPAmMnOprRsSt MAXLIST=b:200,e:100,I:100 TARGMAX=DCCALLOW:,JOIN:,KICK:4,KILL:20,NOTICE:20,PART:,PRIVMSG:20,WHOIS:,WHOWAS: :are available on this server
+>> :halcyon.il.us.dal.net 251 user2 :There are 56 users and 6714 invisible on 36 servers
+>> :halcyon.il.us.dal.net 252 user2 75 :IRC Operators online
+>> :halcyon.il.us.dal.net 254 user2 3624 :channels formed
+>> :halcyon.il.us.dal.net 255 user2 :I have 795 clients and 1 servers
+>> :halcyon.il.us.dal.net 265 user2 :Current local users: 795 Max: 1845
+>> :halcyon.il.us.dal.net 266 user2 :Current global users: 6770 Max: 8275
+>> :halcyon.il.us.dal.net NOTICE user2 :*** Notice -- motd was last changed at 2/9/2024 13:45
+>> :halcyon.il.us.dal.net 375 user2 :- halcyon.il.us.dal.net Message of the Day - 
+>> :halcyon.il.us.dal.net 372 user2 :-2/9/2024 13:45
+>> :halcyon.il.us.dal.net 372 user2 :-              _  _ ____ _    ____ _ _ ____ __ _
+>> :halcyon.il.us.dal.net 372 user2 :-              |--| |--| |___ |___  Y  [__] | \|
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :-                 [ halcyon.il.us.dal.net    ]
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :-                 [ Accessible via...        ]
+>> :halcyon.il.us.dal.net 372 user2 :-                 [ ipv4: halcyon.dal.net    ]
+>> :halcyon.il.us.dal.net 372 user2 :-                 [ ipv6: halcyon-v6.dal.net ]
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :- Welcome to DALnet!  By connecting to this network, you agree to abide
+>> :halcyon.il.us.dal.net 372 user2 :- by its acceptable use policy, available here: http://www.dal.net/aup
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :- Server Policies:
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :-    *   We reserve the right to deny access to this server without
+>> :halcyon.il.us.dal.net 372 user2 :-        warning or explanation
+>> :halcyon.il.us.dal.net 372 user2 :-    *   No malicious bots, including flood and nick/channel chasers
+>> :halcyon.il.us.dal.net 372 user2 :-    *   No channel filler bots/clients/psybncs
+>> :halcyon.il.us.dal.net 372 user2 :-          - A channel filler is a client, bnc, or bot which is
+>> :halcyon.il.us.dal.net 372 user2 :-            connected just to fill a channel and make it look
+>> :halcyon.il.us.dal.net 372 user2 :-            bigger
+>> :halcyon.il.us.dal.net 372 user2 :-    *   Operator impersonation, spamming, or any other abuse will
+>> :halcyon.il.us.dal.net 372 user2 :-        cause you to be banned from this server
+>> :halcyon.il.us.dal.net 372 user2 :-    *   Abide by DALnet's AUP (www.dal.net/aup)
+>> :halcyon.il.us.dal.net 372 user2 :-    *   Please have fun and enjoy DALnet!
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :-      ///admins////////////////////////////////////////
+>> :halcyon.il.us.dal.net 372 user2 :-      //                                             //
+>> :halcyon.il.us.dal.net 372 user2 :-      //  [ brandon - administrator             ]    //
+>> :halcyon.il.us.dal.net 372 user2 :-      //  [ klb     - assistant administrator   ]    //
+>> :halcyon.il.us.dal.net 372 user2 :-      //                                             //
+>> :halcyon.il.us.dal.net 372 user2 :-      ///operators/////////////////////////////////////
+>> :halcyon.il.us.dal.net 372 user2 :-      //                                             //
+>> :halcyon.il.us.dal.net 372 user2 :-      //  [ guppy  ] [ oldcrow  ] [ rasengan ]       //
+>> :halcyon.il.us.dal.net 372 user2 :-      //  [ s2pid  ] [ lilmiss  ] [ kiraela  ]       //
+>> :halcyon.il.us.dal.net 372 user2 :-      //  [ DTC    ] [ io       ]                    //
+>> :halcyon.il.us.dal.net 372 user2 :-      //                                             //
+>> :halcyon.il.us.dal.net 372 user2 :-      /////////////////////////////////////////////////
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :- For IRCop assistance, please /join #operhelp or message one of our
+>> :halcyon.il.us.dal.net 372 user2 :- friendly server staff listed above.
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :- For multilingual information:  <http://docs.dal.net/>
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :- Thank you for using DALnet!  We hope you have a pleasant day.
+>> :halcyon.il.us.dal.net 376 user2 :End of /MOTD command.
+>> :user2 MODE user2 :+iH
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< JOIN #42
+>> :user2!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip JOIN :#42
+>> :halcyon.il.us.dal.net 353 user2 = #42 :@user2 
+>> :halcyon.il.us.dal.net 366 user2 #42 :End of /NAMES list.
+<< MODE #42
+>> :halcyon.il.us.dal.net 324 user2 #42 + 
+--> chanquery mode
+<< WHO #42
+>> :halcyon.il.us.dal.net 329 user2 #42 1727361103
+--> event 329
+>> :halcyon.il.us.dal.net 352 user2 #42 ~dliuzzo d619-c634-385b-9961-dcdc.210.62.ip halcyon.il.us.dal.net user2 H@ :0 Daya Liuzzo
+--> silent event who
+>> :halcyon.il.us.dal.net 315 user2 #42 :End of /WHO list.
+--> chanquery who end
+<< MODE #42 b
+>> :halcyon.il.us.dal.net 368 user2 #42 :End of Channel Ban List
+--> chanquery ban end
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< QUIT :Lost terminal
+<< CAP LS
+<< NICK user2
+<< USER dliuzzo dliuzzo irc.dal.net :Daya Liuzzo
+>> :halcyon.il.us.dal.net NOTICE AUTH :*** Looking up your hostname...
+>> :halcyon.il.us.dal.net NOTICE AUTH :*** Found your hostname
+>> :halcyon.il.us.dal.net 001 user2 :Welcome to the DALnet IRC Network user2!~dliuzzo@62.210.34.53
+<< MODE user2 +i
+>> :halcyon.il.us.dal.net 002 user2 :Your host is halcyon.il.us.dal.net, running version bahamut-2.2.2
+>> :halcyon.il.us.dal.net 003 user2 :This server was created Thu Aug 3 2023 at 16:38:57 UTC
+>> :halcyon.il.us.dal.net 004 user2 halcyon.il.us.dal.net bahamut-2.2.2 aAbcCdefFghHiIjkKmnoOPrRsSwxXy AbceiIjklLmMnoOpPrRsStv beIjklov
+>> :halcyon.il.us.dal.net 005 user2 NETWORK=DALnet SAFELIST MAXBANS=200 MAXCHANNELS=50 CHANNELLEN=32 KICKLEN=307 NICKLEN=30 TOPICLEN=307 MODES=6 CHANTYPES=# CHANLIMIT=#:50 PREFIX=(ohv)@%+ STATUSMSG=@%+ :are available on this server
+>> :halcyon.il.us.dal.net 005 user2 CASEMAPPING=ascii WATCH=128 SILENCE=10 ELIST=cmntu EXCEPTS INVEX CHANMODES=beI,k,jl,ciPAmMnOprRsSt MAXLIST=b:200,e:100,I:100 TARGMAX=DCCALLOW:,JOIN:,KICK:4,KILL:20,NOTICE:20,PART:,PRIVMSG:20,WHOIS:,WHOWAS: :are available on this server
+>> :halcyon.il.us.dal.net 251 user2 :There are 56 users and 6781 invisible on 36 servers
+>> :halcyon.il.us.dal.net 252 user2 76 :IRC Operators online
+>> :halcyon.il.us.dal.net 254 user2 3628 :channels formed
+>> :halcyon.il.us.dal.net 255 user2 :I have 823 clients and 1 servers
+>> :halcyon.il.us.dal.net 265 user2 :Current local users: 823 Max: 1845
+>> :halcyon.il.us.dal.net 266 user2 :Current global users: 6837 Max: 8275
+>> :halcyon.il.us.dal.net NOTICE user2 :*** Notice -- motd was last changed at 2/9/2024 13:45
+>> :halcyon.il.us.dal.net 375 user2 :- halcyon.il.us.dal.net Message of the Day - 
+>> :halcyon.il.us.dal.net 372 user2 :-2/9/2024 13:45
+>> :halcyon.il.us.dal.net 372 user2 :-              _  _ ____ _    ____ _ _ ____ __ _
+>> :halcyon.il.us.dal.net 372 user2 :-              |--| |--| |___ |___  Y  [__] | \|
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :-                 [ halcyon.il.us.dal.net    ]
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :-                 [ Accessible via...        ]
+>> :halcyon.il.us.dal.net 372 user2 :-                 [ ipv4: halcyon.dal.net    ]
+>> :halcyon.il.us.dal.net 372 user2 :-                 [ ipv6: halcyon-v6.dal.net ]
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :- Welcome to DALnet!  By connecting to this network, you agree to abide
+>> :halcyon.il.us.dal.net 372 user2 :- by its acceptable use policy, available here: http://www.dal.net/aup
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :- Server Policies:
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :-    *   We reserve the right to deny access to this server without
+>> :halcyon.il.us.dal.net 372 user2 :-        warning or explanation
+>> :halcyon.il.us.dal.net 372 user2 :-    *   No malicious bots, including flood and nick/channel chasers
+>> :halcyon.il.us.dal.net 372 user2 :-    *   No channel filler bots/clients/psybncs
+>> :halcyon.il.us.dal.net 372 user2 :-          - A channel filler is a client, bnc, or bot which is
+>> :halcyon.il.us.dal.net 372 user2 :-            connected just to fill a channel and make it look
+>> :halcyon.il.us.dal.net 372 user2 :-            bigger
+>> :halcyon.il.us.dal.net 372 user2 :-    *   Operator impersonation, spamming, or any other abuse will
+>> :halcyon.il.us.dal.net 372 user2 :-        cause you to be banned from this server
+>> :halcyon.il.us.dal.net 372 user2 :-    *   Abide by DALnet's AUP (www.dal.net/aup)
+>> :halcyon.il.us.dal.net 372 user2 :-    *   Please have fun and enjoy DALnet!
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :-      ///admins////////////////////////////////////////
+>> :halcyon.il.us.dal.net 372 user2 :-      //                                             //
+>> :halcyon.il.us.dal.net 372 user2 :-      //  [ brandon - administrator             ]    //
+>> :halcyon.il.us.dal.net 372 user2 :-      //  [ klb     - assistant administrator   ]    //
+>> :halcyon.il.us.dal.net 372 user2 :-      //                                             //
+>> :halcyon.il.us.dal.net 372 user2 :-      ///operators/////////////////////////////////////
+>> :halcyon.il.us.dal.net 372 user2 :-      //                                             //
+>> :halcyon.il.us.dal.net 372 user2 :-      //  [ guppy  ] [ oldcrow  ] [ rasengan ]       //
+>> :halcyon.il.us.dal.net 372 user2 :-      //  [ s2pid  ] [ lilmiss  ] [ kiraela  ]       //
+>> :halcyon.il.us.dal.net 372 user2 :-      //  [ DTC    ] [ io       ]                    //
+>> :halcyon.il.us.dal.net 372 user2 :-      //                                             //
+>> :halcyon.il.us.dal.net 372 user2 :-      /////////////////////////////////////////////////
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :- For IRCop assistance, please /join #operhelp or message one of our
+>> :halcyon.il.us.dal.net 372 user2 :- friendly server staff listed above.
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :- For multilingual information:  <http://docs.dal.net/>
+>> :halcyon.il.us.dal.net 372 user2 :- 
+>> :halcyon.il.us.dal.net 372 user2 :- Thank you for using DALnet!  We hope you have a pleasant day.
+>> :halcyon.il.us.dal.net 376 user2 :End of /MOTD command.
+>> :user2 MODE user2 :+iH
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< JOIN #42
+>> :user2!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip JOIN :#42
+>> :halcyon.il.us.dal.net 353 user2 = #42 :@user2 
+>> :halcyon.il.us.dal.net 366 user2 #42 :End of /NAMES list.
+<< MODE #42
+>> :halcyon.il.us.dal.net 324 user2 #42 + 
+--> chanquery mode
+<< WHO #42
+>> :halcyon.il.us.dal.net 329 user2 #42 1727362382
+--> event 329
+>> :halcyon.il.us.dal.net 352 user2 #42 ~dliuzzo d619-c634-385b-9961-dcdc.210.62.ip halcyon.il.us.dal.net user2 H@ :0 Daya Liuzzo
+--> silent event who
+>> :halcyon.il.us.dal.net 315 user2 #42 :End of /WHO list.
+--> chanquery who end
+<< MODE #42 b
+>> :halcyon.il.us.dal.net 368 user2 #42 :End of Channel Ban List
+--> chanquery ban end
+<< KICK #42 42 :testuser,testuser2 msg
+>> :halcyon.il.us.dal.net 401 user2 42 :No such nick/channel
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+>> :user2_!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip JOIN :#42
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< KICK #42 42 :user2_ msg
+>> :halcyon.il.us.dal.net 401 user2 42 :No such nick/channel
+<< KICK #42 user2_ :msg
+>> :user2!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip KICK #42 user2_ :msg
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+>> :user2_!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip JOIN :#42
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< KICK #42 user1,user2_ :msg
+>> :halcyon.il.us.dal.net 401 user2 user1 :No such nick/channel
+>> :user2!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip KICK #42 user2_ :msg
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< KICK #42 user2_ :msg
+>> :halcyon.il.us.dal.net 441 user2 user2_ #42 :They aren't on that channel
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< KICK #42 41 :user2_ msg
+>> :halcyon.il.us.dal.net 401 user2 41 :No such nick/channel
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+>> :user2_!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip JOIN :#42
+<< KICK #42 user2_ :msg
+>> :user2!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip KICK #42 user2_ :msg
+>> :user2_!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip JOIN :#42
+<< KICK #42 user2_,user3,user4 :msg
+>> :user2!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip KICK #42 user2_ :msg
+>> :halcyon.il.us.dal.net 401 user2 user3 :No such nick/channel
+>> :halcyon.il.us.dal.net 401 user2 user4 :No such nick/channel
+<< PING halcyon.il.us.dal.net
+>> :halcyon.il.us.dal.net PONG halcyon.il.us.dal.net :user2
+--> lag pong
+<< QUIT :Lost terminal
+<< CAP LS
+<< NICK piti222
+<< USER dliuzzo dliuzzo irc.dal.net :Daya Liuzzo
+>> :nonstop.ix.me.dal.net NOTICE AUTH :*** Looking up your hostname...
+>> :nonstop.ix.me.dal.net NOTICE AUTH :*** Checking Ident
+>> :nonstop.ix.me.dal.net NOTICE AUTH :*** No Ident response
+>> :nonstop.ix.me.dal.net NOTICE AUTH :*** Found your hostname
+>> :nonstop.ix.me.dal.net 001 piti222 :Welcome to the DALnet IRC Network piti222!~dliuzzo@62.210.34.43
+<< MODE piti222 +i
+>> :nonstop.ix.me.dal.net 002 piti222 :Your host is nonstop.ix.me.dal.net, running version bahamut-2.2.3
+>> :nonstop.ix.me.dal.net 003 piti222 :This server was created Thu Dec 7 2023 at 06:32:17 PM IST
+>> :nonstop.ix.me.dal.net 004 piti222 nonstop.ix.me.dal.net bahamut-2.2.3 aAbcCdefFghHiIjkKmnoOPrRsSwxXy AbceiIjklLmMnoOpPrRsStv beIjklov
+>> :nonstop.ix.me.dal.net 005 piti222 NETWORK=DALnet SAFELIST MAXBANS=200 MAXCHANNELS=20 CHANNELLEN=32 KICKLEN=307 NICKLEN=30 TOPICLEN=307 MODES=6 CHANTYPES=# CHANLIMIT=#:20 PREFIX=(ohv)@%+ STATUSMSG=@%+ :are available on this server
+>> :nonstop.ix.me.dal.net 005 piti222 CASEMAPPING=ascii WATCH=128 SILENCE=10 ELIST=cmntu EXCEPTS INVEX CHANMODES=beI,k,jl,ciPAmMnOprRsSt MAXLIST=b:200,e:100,I:100 TARGMAX=DCCALLOW:,JOIN:,KICK:4,KILL:20,NOTICE:20,PART:,PRIVMSG:20,WHOIS:,WHOWAS: :are available on this server
+>> :nonstop.ix.me.dal.net 251 piti222 :There are 55 users and 6435 invisible on 36 servers
+>> :nonstop.ix.me.dal.net 252 piti222 77 :IRC Operators online
+>> :nonstop.ix.me.dal.net 254 piti222 3535 :channels formed
+>> :nonstop.ix.me.dal.net 255 piti222 :I have 76 clients and 1 servers
+>> :nonstop.ix.me.dal.net 265 piti222 :Current local users: 76 Max: 404
+>> :nonstop.ix.me.dal.net 266 piti222 :Current global users: 6490 Max: 8405
+>> :nonstop.ix.me.dal.net NOTICE piti222 :*** Notice -- motd was last changed at 6/5/2023 1:47
+>> :nonstop.ix.me.dal.net 375 piti222 :- nonstop.ix.me.dal.net Message of the Day - 
+>> :nonstop.ix.me.dal.net 372 piti222 :-6/5/2023 1:47
+>> :nonstop.ix.me.dal.net 372 piti222 :- You are now connected to nonstop.ix.me.dal.net, a member of the DALnet IRC Network!
+>> :nonstop.ix.me.dal.net 372 piti222 :- 
+>> :nonstop.ix.me.dal.net 372 piti222 :-     _|      _|    _|_|    _|      _|    _|_|_|  _|_|_|_|_|    _|_|    _|_|_|
+>> :nonstop.ix.me.dal.net 372 piti222 :-     _|_|    _|  _|    _|  _|_|    _|  _|            _|      _|    _|  _|    _|
+>> :nonstop.ix.me.dal.net 372 piti222 :-     _|  _|  _|  _|    _|  _|  _|  _|    _|_|        _|      _|    _|  _|_|_|
+>> :nonstop.ix.me.dal.net 372 piti222 :-     _|    _|_|  _|    _|  _|    _|_|        _|      _|      _|    _|  _|
+>> :nonstop.ix.me.dal.net 372 piti222 :-     _|      _|    _|_|    _|      _|  _|_|_|        _|        _|_|    _|
+>> :nonstop.ix.me.dal.net 372 piti222 :- 
+>> :nonstop.ix.me.dal.net 372 piti222 :- By connecting to this network, you agree to abide by its acceptable use policy,
+>> :nonstop.ix.me.dal.net 372 piti222 :- available here: http://www.dal.net/aup
+>> :nonstop.ix.me.dal.net 372 piti222 :- 
+>> :nonstop.ix.me.dal.net 372 piti222 :- ********** Recommended help channels **********
+>> :nonstop.ix.me.dal.net 372 piti222 :- * #Help     - for help with DALnet's Services *
+>> :nonstop.ix.me.dal.net 372 piti222 :- * #OperHelp - for IRCop/CSop assistance       *
+>> :nonstop.ix.me.dal.net 372 piti222 :- ***********************************************
+>> :nonstop.ix.me.dal.net 372 piti222 :- 
+>> :nonstop.ix.me.dal.net 372 piti222 :- This server is running a testing version of the latest Bahamut.
+>> :nonstop.ix.me.dal.net 372 piti222 :- If you encourage any issues, please contact coders@dal.net
+>> :nonstop.ix.me.dal.net 372 piti222 :- 
+>> :nonstop.ix.me.dal.net 372 piti222 :- **************************** Note ****************************
+>> :nonstop.ix.me.dal.net 372 piti222 :- * The use of this server is a privilege.                     *
+>> :nonstop.ix.me.dal.net 372 piti222 :- * We reserve the right to deny access to this server without *
+>> :nonstop.ix.me.dal.net 372 piti222 :- * any warning or explanation.                                *
+>> :nonstop.ix.me.dal.net 372 piti222 :- **************************************************************
+>> :nonstop.ix.me.dal.net 372 piti222 :- 
+>> :nonstop.ix.me.dal.net 372 piti222 :- --- Thank you for choosing DALnet and have a nice chatting! ---
+>> :nonstop.ix.me.dal.net 376 piti222 :End of /MOTD command.
+>> :piti222 MODE piti222 :+iH
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< JOIN #42
+>> :piti222!~dliuzzo@8a35-7033-ee7-e5d2-174.210.62.ip JOIN :#42
+>> :nonstop.ix.me.dal.net 353 piti222 = #42 :@piti222 
+>> :nonstop.ix.me.dal.net 366 piti222 #42 :End of /NAMES list.
+<< MODE #42
+>> :nonstop.ix.me.dal.net 324 piti222 #42 + 
+--> chanquery mode
+<< WHO #42
+>> :nonstop.ix.me.dal.net 329 piti222 #42 1727441779
+--> event 329
+>> :nonstop.ix.me.dal.net 352 piti222 #42 ~dliuzzo 8a35-7033-ee7-e5d2-174.210.62.ip nonstop.ix.me.dal.net piti222 H@ :0 Daya Liuzzo
+--> silent event who
+>> :nonstop.ix.me.dal.net 315 piti222 #42 :End of /WHO list.
+--> chanquery who end
+<< MODE #42 b
+>> :nonstop.ix.me.dal.net 368 piti222 #42 :End of Channel Ban List
+--> chanquery ban end
+<< PRIVMSG #42 :lol
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PRIVMSG #42 :lol
+<< INVITE nilene #42
+>> :nonstop.ix.me.dal.net 401 piti222 nilene :No such nick/channel
+<< INVITE nilene 67
+>> :nonstop.ix.me.dal.net 401 piti222 nilene :No such nick/channel
+<< INVITE nilene 67
+>> :nonstop.ix.me.dal.net 401 piti222 nilene :No such nick/channel
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< INVITE nilene #67
+>> :nonstop.ix.me.dal.net 401 piti222 nilene :No such nick/channel
+<< INVITE piti222 #67
+>> :nonstop.ix.me.dal.net 403 piti222 #67 :No such channel
+<< INVITE piti222 #42
+>> :nonstop.ix.me.dal.net 443 piti222 piti222 #42 :is already on channel
+<< PRIVMSG #42 :INVITE piti222 #42
+<< INVITE piti222 #42
+>> :nonstop.ix.me.dal.net 443 piti222 piti222 #42 :is already on channel
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< INVITE piti222 42
+>> :nonstop.ix.me.dal.net 403 piti222 42 :No such channel
+<< INVITE piti222 #42
+>> :nonstop.ix.me.dal.net 443 piti222 piti222 #42 :is already on channel
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< KICK #42 piti222 :#42
+>> :piti222!~dliuzzo@8a35-7033-ee7-e5d2-174.210.62.ip KICK #42 piti222 :#42
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< JOIN #42
+>> :piti222!~dliuzzo@8a35-7033-ee7-e5d2-174.210.62.ip JOIN :#42
+>> :nonstop.ix.me.dal.net 353 piti222 = #42 :piti222 @lolo 
+>> :nonstop.ix.me.dal.net 366 piti222 #42 :End of /NAMES list.
+<< MODE #42
+>> :nonstop.ix.me.dal.net 324 piti222 #42 + 
+--> chanquery mode
+<< WHO #42
+>> :nonstop.ix.me.dal.net 329 piti222 #42 1727442096
+--> event 329
+>> :nonstop.ix.me.dal.net 352 piti222 #42 ~dliuzzo 8a35-7033-ee7-e5d2-174.210.62.ip nonstop.ix.me.dal.net piti222 H :0 Daya Liuzzo
+--> silent event who
+>> :nonstop.ix.me.dal.net 352 piti222 #42 ~dliuzzo 8a35-7033-ee7-e5d2-174.210.62.ip lair.nl.eu.dal.net lolo H@ :2 Daya Liuzzo
+--> silent event who
+>> :nonstop.ix.me.dal.net 315 piti222 #42 :End of /WHO list.
+--> chanquery who end
+<< MODE #42 b
+>> :nonstop.ix.me.dal.net 368 piti222 #42 :End of Channel Ban List
+--> chanquery ban end
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< INVITE lolo #42
+>> :nonstop.ix.me.dal.net 443 piti222 lolo #42 :is already on channel
+<< KICK #42 lolo :
+>> :nonstop.ix.me.dal.net 482 piti222 #42 :You're not channel operator
+>> :lolo!~dliuzzo@8a35-7033-ee7-e5d2-174.210.62.ip KICK #42 lolo :lolo
+<< INVITE lolo #42
+>> :nonstop.ix.me.dal.net 482 piti222 #42 :You're not channel operator
+<< JOIN #41
+>> :piti222!~dliuzzo@8a35-7033-ee7-e5d2-174.210.62.ip JOIN :#41
+>> :nonstop.ix.me.dal.net 353 piti222 = #41 :@piti222 
+>> :nonstop.ix.me.dal.net 366 piti222 #41 :End of /NAMES list.
+<< MODE #41
+>> :nonstop.ix.me.dal.net 324 piti222 #41 + 
+--> chanquery mode
+<< WHO #41
+>> :nonstop.ix.me.dal.net 329 piti222 #41 1727442168
+--> event 329
+>> :nonstop.ix.me.dal.net 352 piti222 #41 ~dliuzzo 8a35-7033-ee7-e5d2-174.210.62.ip nonstop.ix.me.dal.net piti222 H@ :0 Daya Liuzzo
+--> silent event who
+>> :nonstop.ix.me.dal.net 315 piti222 #41 :End of /WHO list.
+--> chanquery who end
+<< MODE #41 b
+>> :nonstop.ix.me.dal.net 368 piti222 #41 :End of Channel Ban List
+--> chanquery ban end
+<< INVITE lolo #41
+>> :nonstop.ix.me.dal.net 341 piti222 lolo #41
+>> :lair.nl.eu.dal.net NOTICE @#41 :piti222 invited lolo into channel #41
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+>> :lolo!~dliuzzo@8a35-7033-ee7-e5d2-174.210.62.ip JOIN :#41
+<< JOIN #40
+>> :piti222!~dliuzzo@8a35-7033-ee7-e5d2-174.210.62.ip JOIN :#40
+>> :nonstop.ix.me.dal.net 353 piti222 = #40 :@piti222 
+>> :nonstop.ix.me.dal.net 366 piti222 #40 :End of /NAMES list.
+<< MODE #40
+>> :nonstop.ix.me.dal.net 324 piti222 #40 + 
+--> chanquery mode
+<< WHO #40
+>> :nonstop.ix.me.dal.net 329 piti222 #40 1727442237
+--> event 329
+>> :nonstop.ix.me.dal.net 352 piti222 #40 ~dliuzzo 8a35-7033-ee7-e5d2-174.210.62.ip nonstop.ix.me.dal.net piti222 H@ :0 Daya Liuzzo
+--> silent event who
+>> :nonstop.ix.me.dal.net 315 piti222 #40 :End of /WHO list.
+--> chanquery who end
+<< MODE #40 b
+>> :nonstop.ix.me.dal.net 368 piti222 #40 :End of Channel Ban List
+--> chanquery ban end
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< INVITE lolo
+>> :nonstop.ix.me.dal.net 461 piti222 INVITE :Not enough parameters
+<< INVITE lolo 40
+>> :nonstop.ix.me.dal.net 403 piti222 40 :No such channel
+<< INVITE lolo 4#0
+>> :nonstop.ix.me.dal.net 403 piti222 4#0 :No such channel
+<< INVITE lolo #40
+>> :nonstop.ix.me.dal.net 341 piti222 lolo #40
+>> :lair.nl.eu.dal.net NOTICE @#40 :piti222 invited lolo into channel #40
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< PING nonstop.ix.me.dal.net
+>> :nonstop.ix.me.dal.net PONG nonstop.ix.me.dal.net :piti222
+--> lag pong
+<< QUIT :Lost terminal

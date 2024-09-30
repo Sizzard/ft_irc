@@ -100,6 +100,15 @@ void Channels::add_users(int const &fd, string const &name)
     this->_users[name].second = false;
     return;
 }
+void Channels::invite_user(int const &clientfd)
+{
+    for(vector<int>::iterator it = this->_invitedUsers.begin(); it != this->_invitedUsers.end(); it++)
+    {
+        if(*it == clientfd)
+            return;
+    }
+    this->_invitedUsers.push_back(clientfd);
+}
 
 void Channels::remove_users(string const &clientNick)
 {

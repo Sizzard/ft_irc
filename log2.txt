@@ -1,0 +1,407 @@
+<< CAP LS
+<< NICK lol
+<< USER dliuzzo dliuzzo irc.dal.net :Daya Liuzzo
+>> :bitcoin.uk.eu.dal.net NOTICE AUTH :*** Looking up your hostname...
+>> :bitcoin.uk.eu.dal.net NOTICE AUTH :*** Found your hostname
+>> :bitcoin.uk.eu.dal.net 433 * lol :Nickname is already in use.
+<< NICK lol_
+>> :bitcoin.uk.eu.dal.net 433 * lol_ :Nickname is already in use.
+<< NICK lol__
+>> :bitcoin.uk.eu.dal.net 001 lol__ :Welcome to the DALnet IRC Network lol__!~dliuzzo@62.210.34.53
+<< MODE lol__ +i
+<< WHOIS lol
+>> :bitcoin.uk.eu.dal.net 002 lol__ :Your host is bitcoin.uk.eu.dal.net, running version bahamut-2.2.2
+>> :bitcoin.uk.eu.dal.net 003 lol__ :This server was created Sat 8 Oct 2022 at 14:41:03 BST
+>> :bitcoin.uk.eu.dal.net 004 lol__ bitcoin.uk.eu.dal.net bahamut-2.2.2 aAbcCdefFghHiIjkKmnoOPrRsSwxXy AbceiIjklLmMnoOpPrRsStv beIjklov
+>> :bitcoin.uk.eu.dal.net 005 lol__ NETWORK=DALnet SAFELIST MAXBANS=200 MAXCHANNELS=50 CHANNELLEN=32 KICKLEN=307 NICKLEN=30 TOPICLEN=307 MODES=6 CHANTYPES=# CHANLIMIT=#:50 PREFIX=(ohv)@%+ STATUSMSG=@%+ :are available on this server
+>> :bitcoin.uk.eu.dal.net 005 lol__ CASEMAPPING=ascii WATCH=128 SILENCE=10 ELIST=cmntu EXCEPTS INVEX CHANMODES=beI,k,jl,ciPAmMnOprRsSt MAXLIST=b:200,e:100,I:100 TARGMAX=DCCALLOW:,JOIN:,KICK:4,KILL:20,NOTICE:20,PART:,PRIVMSG:20,WHOIS:,WHOWAS: :are available on this server
+>> :bitcoin.uk.eu.dal.net 251 lol__ :There are 58 users and 6801 invisible on 36 servers
+>> :bitcoin.uk.eu.dal.net 252 lol__ 77 :IRC Operators online
+>> :bitcoin.uk.eu.dal.net 254 lol__ 3648 :channels formed
+>> :bitcoin.uk.eu.dal.net 255 lol__ :I have 326 clients and 1 servers
+>> :bitcoin.uk.eu.dal.net 265 lol__ :Current local users: 326 Max: 4001
+>> :bitcoin.uk.eu.dal.net 266 lol__ :Current global users: 6859 Max: 12809
+>> :bitcoin.uk.eu.dal.net NOTICE lol__ :*** Notice -- motd was last changed at 9/11/2017 12:51
+>> :bitcoin.uk.eu.dal.net 375 lol__ :- bitcoin.uk.eu.dal.net Message of the Day - 
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-9/11/2017 12:51
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-                 [ bitcoin.uk.eu.dal.net    ]
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- 
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-                 [ Accessible via...        ]
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-                 [ ipv4: bitcoin.dal.net    ]
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- 
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- Thank you to Private Internet Access (https://www.privateinternetaccess.com) 
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- for sponsoring this server.
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- 
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- Welcome to DALnet!  By connecting to this network, you agree to abide
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- by its acceptable use policy, available here: http://www.dal.net/aup
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- 
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- Server Policies:
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- 
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-    *   We reserve the right to deny access to this server without
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-        warning or explanation
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-    *   No malicious bots, including flood and nick/channel chasers
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-    *   No channel filler bots/clients/psybncs
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-          - A channel filler is a client, bnc, or bot which is
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-            connected just to fill a channel and make it look
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-            bigger
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-    *   Operator impersonation, spamming, or any other abuse will
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-        cause you to be banned from this server
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-    *   Abide by DALnet's AUP (www.dal.net/aup)
+>> :bitcoin.uk.eu.dal.net 372 lol__ :-    *   Please have fun and enjoy DALnet!
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- 
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- Server Administrator: tyler
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- 
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- Thank you to Private Internet Access (https://www.privateinternetaccess.com) for sponsori
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- ng this server.
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- 
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- For IRCop assistance, please /join #operhelp or message one of our
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- friendly server staff listed above.
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- 
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- For multilingual information:  <http://docs.dal.net/>
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- 
+>> :bitcoin.uk.eu.dal.net 372 lol__ :- Thank you for using DALnet!  We hope you have a pleasant day.
+>> :bitcoin.uk.eu.dal.net 376 lol__ :End of /MOTD command.
+>> :lol__ MODE lol__ :+iH
+>> :bitcoin.uk.eu.dal.net 311 lol__ LoL LoL 8D.LoL * :96Let a smile be your umbrella1..
+--> nickfind event whois
+>> :bitcoin.uk.eu.dal.net 319 lol__ LoL :@#Tchat @#@ @#IRcCLoud @#all @#request @#ircgo @#uno @#+ @#? @#* @#CHANNEL 
+--> event empty
+>> :bitcoin.uk.eu.dal.net 312 lol__ LoL lion.tx.us.dal.net :bliss
+--> event empty
+>> :bitcoin.uk.eu.dal.net 307 lol__ LoL :has identified for this nick
+--> event empty
+>> :bitcoin.uk.eu.dal.net 275 lol__ LoL :is using a secure connection (SSL)
+--> event empty
+>> :bitcoin.uk.eu.dal.net 318 lol__ lol :End of /WHOIS list.
+--> event empty
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< JOIN #42
+>> :lol__!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip JOIN :#42
+>> :bitcoin.uk.eu.dal.net 353 lol__ = #42 :lol__ user2 @user1 
+>> :bitcoin.uk.eu.dal.net 366 lol__ #42 :End of /NAMES list.
+<< MODE #42
+>> :bitcoin.uk.eu.dal.net 324 lol__ #42 + 
+--> chanquery mode
+<< WHO #42
+>> :bitcoin.uk.eu.dal.net 329 lol__ #42 1727366068
+--> event 329
+>> :bitcoin.uk.eu.dal.net 352 lol__ #42 ~dliuzzo d619-c634-385b-9961-dcdc.210.62.ip bitcoin.uk.eu.dal.net lol__ H :0 Daya Liuzzo
+--> silent event who
+>> :bitcoin.uk.eu.dal.net 352 lol__ #42 ~facarval 8a35-7033-ee7-e5d2-174.210.62.ip nonstop.ix.me.dal.net user2 H :2 flugubra
+--> silent event who
+>> :bitcoin.uk.eu.dal.net 352 lol__ #42 ~facarval 8a35-7033-ee7-e5d2-174.210.62.ip punch.wa.us.dal.net user1 H@ :3 flugubra
+--> silent event who
+>> :bitcoin.uk.eu.dal.net 315 lol__ #42 :End of /WHO list.
+--> chanquery who end
+<< MODE #42 b
+>> :bitcoin.uk.eu.dal.net 368 lol__ #42 :End of Channel Ban List
+--> chanquery ban end
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+>> :ehoh!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip JOIN :#42
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+>> :ehoh!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip PRIVMSG #42 :eh
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< KICK #42 ehoh :ntm
+>> :bitcoin.uk.eu.dal.net 482 lol__ #42 :You're not channel operator
+<< JOIN #49
+>> :lol__!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip JOIN :#49
+>> :bitcoin.uk.eu.dal.net 353 lol__ = #49 :@lol__ 
+>> :bitcoin.uk.eu.dal.net 366 lol__ #49 :End of /NAMES list.
+<< MODE #49
+>> :bitcoin.uk.eu.dal.net 324 lol__ #49 + 
+--> chanquery mode
+<< WHO #49
+>> :bitcoin.uk.eu.dal.net 329 lol__ #49 1727366765
+--> event 329
+>> :bitcoin.uk.eu.dal.net 352 lol__ #49 ~dliuzzo d619-c634-385b-9961-dcdc.210.62.ip bitcoin.uk.eu.dal.net lol__ H@ :0 Daya Liuzzo
+--> silent event who
+>> :bitcoin.uk.eu.dal.net 315 lol__ #49 :End of /WHO list.
+--> chanquery who end
+<< MODE #49 b
+>> :bitcoin.uk.eu.dal.net 368 lol__ #49 :End of Channel Ban List
+--> chanquery ban end
+>> :ehoh!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip JOIN :#49
+<< KICK #49 ehoh :ntm
+>> :lol__!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip KICK #49 ehoh :ntm
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+>> :ehoh!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip QUIT :Quit: Lost terminal
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+>> :user2!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip QUIT :Quit: Lost terminal
+>> :user1!~facarval@8a35-7033-ee7-e5d2-174.210.62.ip QUIT :Quit: Lost terminal
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< PING bitcoin.uk.eu.dal.net
+>> :bitcoin.uk.eu.dal.net PONG bitcoin.uk.eu.dal.net :lol__
+--> lag pong
+<< QUIT :Lost terminal

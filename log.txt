@@ -1,0 +1,136 @@
+<< CAP LS
+<< NICK ehoh
+<< USER dliuzzo dliuzzo irc.dal.net :Daya Liuzzo
+>> :lair.nl.eu.dal.net NOTICE AUTH :*** Looking up your hostname...
+>> :lair.nl.eu.dal.net NOTICE AUTH :*** Checking Ident
+>> :lair.nl.eu.dal.net NOTICE AUTH :*** Found your hostname
+>> :lair.nl.eu.dal.net NOTICE AUTH :*** No Ident response
+>> :lair.nl.eu.dal.net 001 ehoh :Welcome to the DALnet IRC Network ehoh!~dliuzzo@62.210.34.53
+<< MODE ehoh +i
+>> :lair.nl.eu.dal.net 002 ehoh :Your host is lair.nl.eu.dal.net, running version bahamut-2.2.3
+>> :lair.nl.eu.dal.net 003 ehoh :This server was created Tue Dec 19 2023 at 22:45:40 CET
+>> :lair.nl.eu.dal.net 004 ehoh lair.nl.eu.dal.net bahamut-2.2.3 aAbcCdefFghHiIjkKmnoOPrRsSwxXy AbceiIjklLmMnoOpPrRsStv beIjklov
+>> :lair.nl.eu.dal.net 005 ehoh NETWORK=DALnet SAFELIST MAXBANS=200 MAXCHANNELS=50 CHANNELLEN=32 KICKLEN=307 NICKLEN=30 TOPICLEN=307 MODES=6 CHANTYPES=# CHANLIMIT=#:50 PREFIX=(ohv)@%+ STATUSMSG=@%+ :are available on this server
+>> :lair.nl.eu.dal.net 005 ehoh CASEMAPPING=ascii WATCH=128 SILENCE=10 ELIST=cmntu EXCEPTS INVEX CHANMODES=beI,k,jl,ciPAmMnOprRsSt MAXLIST=b:200,e:100,I:100 TARGMAX=DCCALLOW:,JOIN:,KICK:4,KILL:20,NOTICE:20,PART:,PRIVMSG:20,WHOIS:,WHOWAS: :are available on this server
+>> :lair.nl.eu.dal.net 251 ehoh :There are 58 users and 6800 invisible on 36 servers
+>> :lair.nl.eu.dal.net 252 ehoh 77 :IRC Operators online
+>> :lair.nl.eu.dal.net 254 ehoh 3646 :channels formed
+>> :lair.nl.eu.dal.net 255 ehoh :I have 946 clients and 1 servers
+>> :lair.nl.eu.dal.net 265 ehoh :Current local users: 946 Max: 1592
+>> :lair.nl.eu.dal.net 266 ehoh :Current global users: 6858 Max: 8274
+>> :lair.nl.eu.dal.net NOTICE ehoh :*** Notice -- motd was last changed at 19/6/2023 18:18
+>> :lair.nl.eu.dal.net 375 ehoh :- lair.nl.eu.dal.net Message of the Day - 
+>> :lair.nl.eu.dal.net 372 ehoh :-19/6/2023 18:18
+>> :lair.nl.eu.dal.net 372 ehoh :-     Welcome to,
+>> :lair.nl.eu.dal.net 372 ehoh :-      _       _      
+>> :lair.nl.eu.dal.net 372 ehoh :-     | |     (_)     
+>> :lair.nl.eu.dal.net 372 ehoh :-     | | __ _ _ _ __ 
+>> :lair.nl.eu.dal.net 372 ehoh :-     | |/ _` | | '__|
+>> :lair.nl.eu.dal.net 372 ehoh :-     | | (_| | | |   
+>> :lair.nl.eu.dal.net 372 ehoh :-     |_|\__,_|_|_|.nl.eu.dal.net    
+>> :lair.nl.eu.dal.net 372 ehoh :- 
+>> :lair.nl.eu.dal.net 372 ehoh :-    *  Host.............: lair.dal.net | lair-v6.dal.net   
+>> :lair.nl.eu.dal.net 372 ehoh :-    *  Ports............: 6667 - 6669, 7000 | SSL - 6697  
+>> :lair.nl.eu.dal.net 372 ehoh :- 
+>> :lair.nl.eu.dal.net 372 ehoh :-      Welcome to DALnet, by connecting to this network you agree to 
+>> :lair.nl.eu.dal.net 372 ehoh :-    abide by its acceptable use policy, visit : http://www.dal.net/aup
+>> :lair.nl.eu.dal.net 372 ehoh :- 
+>> :lair.nl.eu.dal.net 372 ehoh :-        "This server has been sponsored by Psychz Networks"
+>> :lair.nl.eu.dal.net 372 ehoh :- 
+>> :lair.nl.eu.dal.net 372 ehoh :-              ---===[https://www.psychz.net/]===---
+>> :lair.nl.eu.dal.net 372 ehoh :- 
+>> :lair.nl.eu.dal.net 372 ehoh :-    -------------------------------------------------------------------
+>> :lair.nl.eu.dal.net 372 ehoh :-    [%] Server Staff  =-
+>> :lair.nl.eu.dal.net 372 ehoh :- 
+>> :lair.nl.eu.dal.net 372 ehoh :-    .::. Administrator....:
+>> :lair.nl.eu.dal.net 372 ehoh :-                           sps
+>> :lair.nl.eu.dal.net 372 ehoh :- 
+>> :lair.nl.eu.dal.net 372 ehoh :-    .::. Operators........:
+>> :lair.nl.eu.dal.net 372 ehoh :-                           eddyk0ng
+>> :lair.nl.eu.dal.net 372 ehoh :-                           Nando
+>> :lair.nl.eu.dal.net 372 ehoh :-                           RallyMaster
+>> :lair.nl.eu.dal.net 372 ehoh :-                           Wagoo
+>> :lair.nl.eu.dal.net 372 ehoh :-                           Wheemp
+>> :lair.nl.eu.dal.net 372 ehoh :-    -------------------------------------------------------------------
+>> :lair.nl.eu.dal.net 372 ehoh :-    [%] Server Policies  =-
+>> :lair.nl.eu.dal.net 372 ehoh :- 
+>> :lair.nl.eu.dal.net 372 ehoh :-    a. No spamming or advertising allowed, if found you will be banned 
+>> :lair.nl.eu.dal.net 372 ehoh :-       from this server/network.
+>> :lair.nl.eu.dal.net 372 ehoh :-    b. No malicious bots, including flood and nick/channel chasers
+>> :lair.nl.eu.dal.net 372 ehoh :-    c. No channel filler bots/clients/psybncs
+>> :lair.nl.eu.dal.net 372 ehoh :-       #  A channel filler is a client, bnc, or bot which is connected
+>> :lair.nl.eu.dal.net 372 ehoh :-          just to fill a channel and make it look bigger
+>> :lair.nl.eu.dal.net 372 ehoh :-    d. Operator impersonation will not be tolerated and cause you to be
+>> :lair.nl.eu.dal.net 372 ehoh :-       banned from this server/network.
+>> :lair.nl.eu.dal.net 372 ehoh :- 
+>> :lair.nl.eu.dal.net 372 ehoh :-            "REMEMBER IRC IS A PRIVILEGE, NOT A RIGHT"
+>> :lair.nl.eu.dal.net 372 ehoh :-    -------------------------------------------------------------------
+>> :lair.nl.eu.dal.net 372 ehoh :- 
+>> :lair.nl.eu.dal.net 372 ehoh :-    For IRC Operator assistance /join #Operhelp
+>> :lair.nl.eu.dal.net 372 ehoh :- 
+>> :lair.nl.eu.dal.net 372 ehoh :-    For DALnet and General IRC related help, goto #Help
+>> :lair.nl.eu.dal.net 372 ehoh :- 
+>> :lair.nl.eu.dal.net 372 ehoh :-    For multi-lingual documentation - [http://docs.dal.net]
+>> :lair.nl.eu.dal.net 372 ehoh :- 
+>> :lair.nl.eu.dal.net 372 ehoh :-    If you have any questions/issues related to this server,
+>> :lair.nl.eu.dal.net 372 ehoh :-    contact us using: lion-staff@dal.net
+>> :lair.nl.eu.dal.net 372 ehoh :- 
+>> :lair.nl.eu.dal.net 372 ehoh :-    Thank you for using DALnet, we hope you enjoy the stay with us.
+>> :lair.nl.eu.dal.net 376 ehoh :End of /MOTD command.
+>> :ehoh MODE ehoh :+iH
+<< PING lair.nl.eu.dal.net
+>> :lair.nl.eu.dal.net PONG lair.nl.eu.dal.net :ehoh
+--> lag pong
+<< JOIN #42
+>> :ehoh!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip JOIN :#42
+>> :lair.nl.eu.dal.net 353 ehoh = #42 :ehoh lol__ user2 @user1 
+>> :lair.nl.eu.dal.net 366 ehoh #42 :End of /NAMES list.
+<< MODE #42
+>> :lair.nl.eu.dal.net 324 ehoh #42 + 
+--> chanquery mode
+<< WHO #42
+>> :lair.nl.eu.dal.net 329 ehoh #42 1727366068
+--> event 329
+>> :lair.nl.eu.dal.net 352 ehoh #42 ~dliuzzo d619-c634-385b-9961-dcdc.210.62.ip lair.nl.eu.dal.net ehoh H :0 Daya Liuzzo
+--> silent event who
+>> :lair.nl.eu.dal.net 352 ehoh #42 ~dliuzzo d619-c634-385b-9961-dcdc.210.62.ip bitcoin.uk.eu.dal.net lol__ H :2 Daya Liuzzo
+--> silent event who
+>> :lair.nl.eu.dal.net 352 ehoh #42 ~facarval 8a35-7033-ee7-e5d2-174.210.62.ip nonstop.ix.me.dal.net user2 H :2 flugubra
+--> silent event who
+>> :lair.nl.eu.dal.net 352 ehoh #42 ~facarval 8a35-7033-ee7-e5d2-174.210.62.ip punch.wa.us.dal.net user1 H@ :3 flugubra
+--> silent event who
+>> :lair.nl.eu.dal.net 315 ehoh #42 :End of /WHO list.
+--> chanquery who end
+<< MODE #42 b
+>> :lair.nl.eu.dal.net 368 ehoh #42 :End of Channel Ban List
+--> chanquery ban end
+<< PRIVMSG #42 :eh
+<< KICK #42 lol__ :
+>> :lair.nl.eu.dal.net 482 ehoh #42 :You're not channel operator
+<< PING lair.nl.eu.dal.net
+>> :lair.nl.eu.dal.net PONG lair.nl.eu.dal.net :ehoh
+--> lag pong
+<< PING lair.nl.eu.dal.net
+>> :lair.nl.eu.dal.net PONG lair.nl.eu.dal.net :ehoh
+--> lag pong
+<< JOIN #49
+>> :ehoh!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip JOIN :#49
+>> :lair.nl.eu.dal.net 353 ehoh = #49 :ehoh @lol__ 
+>> :lair.nl.eu.dal.net 366 ehoh #49 :End of /NAMES list.
+<< MODE #49
+>> :lair.nl.eu.dal.net 324 ehoh #49 + 
+--> chanquery mode
+<< WHO #49
+>> :lair.nl.eu.dal.net 329 ehoh #49 1727366765
+--> event 329
+>> :lair.nl.eu.dal.net 352 ehoh #49 ~dliuzzo d619-c634-385b-9961-dcdc.210.62.ip lair.nl.eu.dal.net ehoh H :0 Daya Liuzzo
+--> silent event who
+>> :lair.nl.eu.dal.net 352 ehoh #49 ~dliuzzo d619-c634-385b-9961-dcdc.210.62.ip bitcoin.uk.eu.dal.net lol__ H@ :2 Daya Liuzzo
+--> silent event who
+>> :lair.nl.eu.dal.net 315 ehoh #49 :End of /WHO list.
+--> chanquery who end
+<< MODE #49 b
+>> :lair.nl.eu.dal.net 368 ehoh #49 :End of Channel Ban List
+--> chanquery ban end
+>> :lol__!~dliuzzo@d619-c634-385b-9961-dcdc.210.62.ip KICK #49 ehoh :ntm
+<< QUIT :Lost terminal
