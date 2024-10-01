@@ -175,13 +175,15 @@ bool const &Client::get_quit()
 void Client::add_epollout(int const &epoll_fd)
 {
     this->_event.events |= EPOLLOUT;
-    epoll_ctl(epoll_fd, EPOLL_CTL_MOD, this->_fd, &this->_event);
+    if (epoll_ctl(epoll_fd, EPOLL_CTL_MOD, this->_fd, &this->_event) == -1)
+        throw std::runtime_error("epoll_ctl error");
 }
 
 void Client::remove_epollout(int const &epoll_fd)
 {
     this->_event.events = this->_event.events & ~EPOLLOUT;
-    epoll_ctl(epoll_fd, EPOLL_CTL_MOD, this->_fd, &this->_event);
+    if (epoll_ctl(epoll_fd, EPOLL_CTL_MOD, this->_fd, &this->_event) == -1)
+        throw std::runtime_error("epoll_ctl error");
 }
 
 epoll_event &Client::get_epoll_event()

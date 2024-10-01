@@ -47,7 +47,14 @@ void Server::change_nick_in_channels(int const &clientFd, string const &newNick)
         send_to_all_clients_in_chan_except(clientFd, *it, RPL_CHANGE_NICK(newNick));
     }
     APPEND_CLIENT_TO_SEND(RPL_CHANGE_NICK(newNick));
-    CLIENT.add_epollout(this->_epoll_fd);
+    try
+    {
+        CLIENT.add_epollout(this->_epoll_fd);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }
 
 void Server::NICK(int const &clientFd, vector<string> const &words)
@@ -206,7 +213,14 @@ void Server::PRIVMSG(int const &clientFd, vector<string> const &words)
     if (words.size() < 2 || words[1].empty() == true)
     {
         APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
-        CLIENT.add_epollout(this->_epoll_fd);
+        try
+        {
+            CLIENT.add_epollout(this->_epoll_fd);
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
         return;
     }
 
@@ -214,7 +228,14 @@ void Server::PRIVMSG(int const &clientFd, vector<string> const &words)
     if (channel_message.size() < 2)
     {
         APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
-        CLIENT.add_epollout(this->_epoll_fd);
+        try
+        {
+            CLIENT.add_epollout(this->_epoll_fd);
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
         return;
     }
 
@@ -231,7 +252,14 @@ void Server::PRIVMSG(int const &clientFd, vector<string> const &words)
                 if (it->second.get_NICK() == *ite)
                 {
                     this->_clients[it->first].append_to_send(":" + CLIENT_SOURCE + " PRIVMSG " + *ite + " " + channel_message[1] + "\r\n");
-                    this->_clients[it->first].add_epollout(this->_epoll_fd);
+                    try
+                    {
+                        this->_clients[it->first].add_epollout(this->_epoll_fd);
+                    }
+                    catch (const std::exception &e)
+                    {
+                        std::cerr << e.what() << endl;
+                    }
                     clientExist = true;
                 }
             }
@@ -249,7 +277,14 @@ void Server::PRIVMSG(int const &clientFd, vector<string> const &words)
 
 void Server::TOPIC(int const &clientFd, vector<string> const &words)
 {
-    CLIENT.add_epollout(this->_epoll_fd);
+    try
+    {
+        CLIENT.add_epollout(this->_epoll_fd);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
     if (words.size() == 1 || words[1].empty() == true)
     {
@@ -267,41 +302,45 @@ void Server::TOPIC(int const &clientFd, vector<string> const &words)
 
     vector<string> map = CLIENT.get_channelList();
 
-    if (channel.size() == 1)
+    if (channel.size() == 1 && this->_channels.find(channel[0]) != this->_channels.end())
     {
-        // cout << "TEST 2: " << channel[0] << endl;
-
-        for (vector<string>::iterator it = map.begin(); it != map.end(); it++)
-        {
-            // cout << "TEST 3: " << channel[0] << endl;
-            if (channel[0] == *it)
-            {
-                if (this->_channels[*it].get_topic().empty() == true)
-                    APPEND_CLIENT_TO_SEND(RPL_NOTOPIC(*it));
-                else
-                    APPEND_CLIENT_TO_SEND(RPL_TOPIC(*it));
-                return;
-            }
-        }
-        APPEND_CLIENT_TO_SEND(ERR_NOTONCHANNEL());
+        if (this->_channels[channel[0]].get_topic().empty() == true)
+            APPEND_CLIENT_TO_SEND(RPL_NOTOPIC(channel[0]));
+        else
+            APPEND_CLIENT_TO_SEND(RPL_TOPIC(channel[0]));
+        return;
+    }
+    else if (this->_channels.find(channel[0]) == this->_channels.end())
+    {
+        APPEND_CLIENT_TO_SEND(ERR_NOSUCHCHANNEL(channel[0]));
     }
     else
     {
-        if (channel[1] == ":")
+        if (channel[1].compare(0, 1, ":") == 0)
         {
-            this->_channels[channel[0]].set_topic("");
-        }
-        else
-        {
-            for (vector<string>::iterator it = map.begin(); it != map.end(); it++)
+            if (this->_channels.find(channel[0]) == this->_channels.end())
             {
-                channel[1] = channel[1].substr(1);
-                if (channel[0] == *it)
+                APPEND_CLIENT_TO_SEND(ERR_NOTONCHANNEL());
+            }
+            else
+            {
+                channel[1].erase(0, 1);
+                if (CHANNEL(channel[0]).mode_contains('t') == true)
+                {
+                    if (CHANNEL(channel[0]).is_operator(CLIENT.get_NICK()) == true)
+                    {
+                        this->_channels[channel[0]].set_topic(channel[1]);
+                        send_to_all_clients_in_chan(channel[0], RPL_TOPIC(channel[0]));
+                    }
+                    else
+                    {
+                        APPEND_CLIENT_TO_SEND(ERR_CHANOPRIVSNEEDED());
+                    }
+                }
+                else
                 {
                     this->_channels[channel[0]].set_topic(channel[1]);
-                    // cout << "TEST 4" << endl;
                     send_to_all_clients_in_chan(channel[0], RPL_TOPIC(channel[0]));
-                    APPEND_CLIENT_TO_SEND(RPL_TOPIC(channel[0]));
                 }
             }
         }
@@ -490,7 +529,14 @@ bool Server::handle_mode_cases(int const &clientFd, vector<string> const &words)
 
 void Server::MODE(int const &clientFd, vector<string> const &words)
 {
-    CLIENT.add_epollout(this->_epoll_fd);
+    try
+    {
+        CLIENT.add_epollout(this->_epoll_fd);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
     if (words.size() < 2)
     {
@@ -620,7 +666,14 @@ void Server::INVITE(int const &clientFd, vector<string> const &words)
                 }
                 APPEND_CLIENT_TO_SEND(RPL_INVITING(words[1], words[2]));
                 it->second.invite_user(fd);
-                this->_clients[fd].add_epollout(this->_epoll_fd);
+                try
+                {
+                    this->_clients[fd].add_epollout(this->_epoll_fd);
+                }
+                catch (const std::exception &e)
+                {
+                    std::cerr << e.what() << endl;
+                }
                 APPEND_USER_TO_SEND(fd, ":" + CLIENT_SOURCE + CLIENT.get_NICK() + " INVITE " + words[1] + " " + words[2] + "\r\n");
             }
             else
