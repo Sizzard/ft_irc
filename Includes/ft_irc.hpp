@@ -7,6 +7,7 @@
 #include <cctype>
 #include <csignal>
 #include <ctime>
+#include <cerrno>
 #include <sstream>
 #include <unistd.h>
 #include <fcntl.h>
@@ -17,6 +18,7 @@
 #include <sys/socket.h>
 #include <sys/epoll.h>
 #include <arpa/inet.h>
+#include <climits>
 #include <algorithm>
 
 using std::cerr;
@@ -120,4 +122,4 @@ string const get_epoch_time(time_t time);
 
 #define RPL_CHANGE_NICK(newNick) ":" + CLIENT_SOURCE + " NICK " + newNick + "\r\n"
 #define ERR_CHANNELISFULL(channelName) ":" + CLIENT_SOURCE + " 471 " + channelName + " :Cannot join channel (+l)\r\n"
-#define ERR_INVITEONLYCHAN(channelName) ":" + CLIENT_SOURCE + " 473 "+ CLIENT.get_NICK() + " " + channelName + " :Cannot join channel (+i)\r\n"
+#define ERR_INVITEONLYCHAN(channelName) ":" + CLIENT_SOURCE + " 473 " + CLIENT.get_NICK() + " " + channelName + " :Cannot join channel (+i)\r\n"

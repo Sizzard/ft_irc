@@ -58,13 +58,46 @@ int const &Channels::get_limit()
     return this->_limit;
 }
 
+int ft_atoi_check(const char *nptr, long long *nombre)
+{
+    int i;
+    int min;
+
+    i = 0;
+    min = 1;
+    while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
+        i++;
+    if (nptr[i] == '-')
+    {
+        min = -1;
+        i++;
+    }
+    else if (nptr[i] == '+')
+        i++;
+    while (nptr[i] >= '0' && nptr[i] <= '9')
+    {
+        *nombre = *nombre * 10 + (nptr[i] - 48);
+        if (*nombre * min < INT_MIN || *nombre * min > INT_MAX)
+            return (1);
+        i++;
+    }
+    *nombre *= min;
+    return (0);
+}
+
 void Channels::set_limit(string const &limit)
 {
-    this->_limit = std::atoi(limit.c_str());
-    if (this->_limit > 100)
+    int res;
+    long long nb = 0;
+    res = ft_atoi_check(limit.c_str(), &nb);
+
+    cout << res << ":" << nb << endl;
+
+    if (res == 1 || nb <= 0)
     {
-        this->_limit = 100;
+        throw std::out_of_range("out_of_range error");
     }
+    this->_limit = (nb < CHAN_LIMIT ? nb : CHAN_LIMIT);
 }
 
 time_t const &Channels::get_creationTime()

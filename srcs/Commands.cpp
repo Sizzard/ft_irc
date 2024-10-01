@@ -423,10 +423,12 @@ void Server::handle_l(int const &clientFd, vector<string> const &words, vec_pair
         CHANNEL(words[1]).add_mode(it->first);
         if (args != words.end())
         {
-            CHANNEL(words[1]).set_limit(*args);
-            if (CHANNEL(words[1]).get_limit() <= 0)
+            try
             {
-                CHANNEL(words[1]).set_limit("100");
+                CHANNEL(words[1]).set_limit(*args);
+            }
+            catch (const std::exception &e)
+            {
                 APPEND_CLIENT_TO_SEND(ERR_INVALIDMODEPARAM(words[1], *args));
                 return;
             }
