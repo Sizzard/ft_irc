@@ -26,8 +26,6 @@ void Server::PASS(int const &clientFd, vector<string> const &words)
         return;
     }
 
-    // cout << "PASS needs to be : " << password << " and is : " << words[1] << endl;
-
     if (words[0] == "PASS" && words[1] == this->_password)
     {
         cout << "VALID PASS" << endl;
@@ -175,12 +173,6 @@ void Server::join_channels(int const &clientFd, string const &channelToJoin, str
         APPEND_CLIENT_TO_SEND(RPL_TOPIC(channelToJoin));
     APPEND_CLIENT_TO_SEND(RPL_NAMREPLY(channelToJoin) + RPL_ENDOFNAMES(channelToJoin));
 }
-// JOIN
-// channel1,channel2 password1,password2
-
-// JOIN
-// channel1,channel2
-// password1,password2
 
 void Server::JOIN(int const &clientFd, vector<string> const &words)
 {
@@ -630,8 +622,6 @@ void Server::KICK(int const &clientFd, vector<string> const &words)
     else
         APPEND_CLIENT_TO_SEND(ERR_NOSUCHCHANNEL(words[1]));
 }
-
-// FIX LE MESSAGE AU USERS, METTRE A JOUR AVEC LA FONCTION MODE
 
 void Server::INVITE(int const &clientFd, vector<string> const &words)
 {

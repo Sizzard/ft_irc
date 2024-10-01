@@ -227,9 +227,6 @@ void Server::send_message(int const &clientFd)
         CLIENT.remove_epollout(this->_epoll_fd);
     }
 
-    // cout << "Bytes sent : " << bytesSent << endl
-    //      << "rest to send : " << CLIENT.get_to_send() << endl;
-
     if (bytesSent == -1 || bytesSent != toSend)
     {
         cerr << "Can't send all data" << endl;
@@ -261,8 +258,6 @@ bool Server::init_servAdrress(int const &port)
 void Server::first_connection(int const &clientFd)
 {
     vector<string> v = split(CLIENT.get_buffer(), "\r\n");
-
-    // cout << "Vector size is : " << v.size() << endl;
 
     if (v.size() == 0)
     {
@@ -321,8 +316,6 @@ void Server::first_connection(int const &clientFd)
 void Server::normal_request(int const &clientFd)
 {
     vector<string> v = split(CLIENT.get_buffer(), "\r\n");
-
-    // cout << "Vector size is : " << v.size() << endl;
 
     if (v.size() == 0)
     {
@@ -445,9 +438,11 @@ bool Server::launch_server(int const &port, char const *password)
 
     this->_creationTime = get_time();
 
-    listen(this->_servSocket, 5);
+    if (listen(this->_servSocket, 5) == -1)
+        throw std::runtime_error("listen error");
 
     this->_epoll_fd = epoll_create1(0);
+
     if (this->_epoll_fd == -1)
         throw std::runtime_error("setsockopt error\n");
 
