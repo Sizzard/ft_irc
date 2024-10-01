@@ -482,6 +482,9 @@ bool check_port(char *str)
 
 bool check_pwd(char *str)
 {
+    if (!str || !str[0])
+        return FAILURE;
+
     for (size_t i = 0; str[i]; i++)
     {
         if (isprint(str[i]) == 0 || str[i] == ' ')
