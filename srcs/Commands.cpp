@@ -18,7 +18,10 @@ void Server::CAP(int const &clientFd, vector<string> const &words)
 
 void Server::PASS(int const &clientFd, vector<string> const &words)
 {
-    CLIENT.set_is_valid_pass(false);
+    if (CLIENT.get_is_valid_pass() == true)
+        return;
+    
+    // CLIENT.set_is_valid_pass(false);
 
     if (words.size() != 2)
     {
