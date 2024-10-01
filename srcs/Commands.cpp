@@ -570,7 +570,7 @@ void Server::KICK(int const &clientFd, vector<string> const &words)
                 mapPair::iterator user_to_kick = user_list.find(users_to_kick.front());
                 if (user_to_kick != user_list.end())
                 {
-                    send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " KICK " + words[1] + " " + users_to_kick.front() + " " + (words.size() == 4 ? words[3] : "") + "\r\n");
+                    send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " KICK " + words[1] + " " + users_to_kick.front() + user_requesting_kick->first + (words.size() == 4 ? words[3] : "") + "\r\n");
                     it->second.remove_users(words[2]);
                     CLIENT.remove_from_channelList(words[1]);
                 }
