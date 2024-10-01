@@ -426,6 +426,9 @@ bool Server::launch_server(int const &port, char const *password)
 {
     this->_servSocket = socket(AF_INET, SOCK_STREAM, 0);
 
+    if (this->_servSocket == -1)
+        throw std::runtime_error("socket error");
+
     cout << GREEN << "Launching IRC server on port " << port << " on socket : " << this->_servSocket << RESET << endl;
 
     if (fcntl(this->_servSocket, F_SETFL, O_NONBLOCK) == -1)

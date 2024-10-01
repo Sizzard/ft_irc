@@ -6,6 +6,9 @@ OBJ = $(SRC:.cpp=.o)
 
 all : $(NAME)
 
+bonus : bonus.o
+	c++ $(CPPFLAGS) -o bonus bonus.o
+
 $(NAME) : $(OBJ)
 	c++ $(CPPFLAGS) -o $(NAME) $(OBJ)
 
@@ -13,11 +16,11 @@ $(NAME) : $(OBJ)
 	c++ $(CPPFLAGS) -c -o $@ $<
 
 clean :
-	rm -f $(OBJ)
+	rm -f $(OBJ) bonus.o
 
 fclean :
-	rm -f $(OBJ)
-	rm -f $(NAME)
+	rm -f $(OBJ) bonus.o
+	rm -f $(NAME) bonus
 
 re : fclean all
 
