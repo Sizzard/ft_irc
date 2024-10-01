@@ -40,7 +40,7 @@ using std::vector;
 #define SUCCESS 0
 #define FAILURE 1
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 512
 #define CHAN_LIMIT 100
 #define CLIENT_ID events[i].data.fd
 #define CLIENT this->_clients[clientFd]
