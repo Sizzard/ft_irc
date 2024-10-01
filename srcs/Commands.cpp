@@ -267,41 +267,45 @@ void Server::TOPIC(int const &clientFd, vector<string> const &words)
 
     vector<string> map = CLIENT.get_channelList();
 
-    if (channel.size() == 1)
+    if (channel.size() == 1 && this->_channels.find(channel[0]) != this->_channels.end())
     {
-        // cout << "TEST 2: " << channel[0] << endl;
-
-        for (vector<string>::iterator it = map.begin(); it != map.end(); it++)
-        {
-            // cout << "TEST 3: " << channel[0] << endl;
-            if (channel[0] == *it)
-            {
-                if (this->_channels[*it].get_topic().empty() == true)
-                    APPEND_CLIENT_TO_SEND(RPL_NOTOPIC(*it));
-                else
-                    APPEND_CLIENT_TO_SEND(RPL_TOPIC(*it));
-                return;
-            }
-        }
-        APPEND_CLIENT_TO_SEND(ERR_NOTONCHANNEL());
+        if (this->_channels[channel[0]].get_topic().empty() == true)
+            APPEND_CLIENT_TO_SEND(RPL_NOTOPIC(channel[0]));
+        else
+            APPEND_CLIENT_TO_SEND(RPL_TOPIC(channel[0]));
+        return;
+    }
+    else if (this->_channels.find(channel[0]) == this->_channels.end())
+    {
+        APPEND_CLIENT_TO_SEND(ERR_NOSUCHCHANNEL(channel[0]));
     }
     else
     {
-        if (channel[1] == ":")
+        if (channel[1].compare(0, 1, ":") == 0)
         {
-            this->_channels[channel[0]].set_topic("");
-        }
-        else
-        {
-            for (vector<string>::iterator it = map.begin(); it != map.end(); it++)
+            if (this->_channels.find(channel[0]) == this->_channels.end())
             {
-                channel[1] = channel[1].substr(1);
-                if (channel[0] == *it)
+                APPEND_CLIENT_TO_SEND(ERR_NOTONCHANNEL());
+            }
+            else
+            {
+                channel[1].erase(0, 1);
+                if (CHANNEL(channel[0]).mode_contains('t') == true)
+                {
+                    if (CHANNEL(channel[0]).is_operator(CLIENT.get_NICK()) == true)
+                    {
+                        this->_channels[channel[0]].set_topic(channel[1]);
+                        send_to_all_clients_in_chan(channel[0], RPL_TOPIC(channel[0]));
+                    }
+                    else
+                    {
+                        APPEND_CLIENT_TO_SEND(ERR_CHANOPRIVSNEEDED());
+                    }
+                }
+                else
                 {
                     this->_channels[channel[0]].set_topic(channel[1]);
-                    // cout << "TEST 4" << endl;
                     send_to_all_clients_in_chan(channel[0], RPL_TOPIC(channel[0]));
-                    APPEND_CLIENT_TO_SEND(RPL_TOPIC(channel[0]));
                 }
             }
         }

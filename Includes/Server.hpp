@@ -44,6 +44,7 @@ private:
     void send_to_all_clients_in_chan_except(int const &clientFd, string const &channelName, string const &message);
 
     void quit_all_channels(int const &clientFd);
+    bool channel_exist(string const &channelName);
 
     void join_channels(int const &clientFd, string const &channelToJoin, string const &password);
 
@@ -60,7 +61,6 @@ private:
     void CHANNELS(int const &clientFd, vector<string> const &words);
     void KICK(int const &clientFd, vector<string> const &words);
     void INVITE(int const &clientFd, vector<string> const &words);
-
 
     bool handle_mode_cases(int const &clientFd, vector<string> const &words);
     void handle_i(int const &clientFd, vector<string> const &words, vec_pair::const_iterator const &it);
@@ -79,5 +79,5 @@ public:
     bool start(int ac, char **av);
 };
 
-#define APPEND_USER_TO_SEND(fd,buff) this->_clients[fd].append_to_send(buff)
+#define APPEND_USER_TO_SEND(fd, buff) this->_clients[fd].append_to_send(buff)
 #define APPEND_CLIENT_TO_SEND(buff) CLIENT.append_to_send(buff)
