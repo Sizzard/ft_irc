@@ -63,7 +63,11 @@ Server::~Server()
 
 void Server::accept_new_client()
 {
-
+    if (this->_clients.size() > 100)
+    {
+        cerr << RED << "Too many clients in server, cannot accept another one" << endl;
+        return;
+    }
     sockaddr_in clientAddress;
     clientAddress.sin_family = AF_INET;
     socklen_t len = sizeof(clientAddress);
@@ -127,7 +131,14 @@ void Server::send_to_all_clients_in_chan(string const &channelName, string const
     for (mapPair::const_iterator m = this->_channels[channelName].get_users().begin(); m != this->_channels[channelName].get_users().end(); m++)
     {
         this->_clients[m->second.first].append_to_send(message);
-        this->_clients[m->second.first].add_epollout(this->_epoll_fd);
+        try
+        {
+            this->_clients[m->second.first].add_epollout(this->_epoll_fd);
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << endl;
+        }
     }
 }
 
@@ -138,7 +149,14 @@ void Server::send_to_all_clients_in_chan_except(int const &clientFd, string cons
         if (m->second.first != clientFd)
         {
             this->_clients[m->second.first].append_to_send(message);
-            this->_clients[m->second.first].add_epollout(this->_epoll_fd);
+            try
+            {
+                this->_clients[m->second.first].add_epollout(this->_epoll_fd);
+            }
+            catch (const std::exception &e)
+            {
+                std::cerr << e.what() << endl;
+            }
         }
     }
 }
