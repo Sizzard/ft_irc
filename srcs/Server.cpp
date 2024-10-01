@@ -61,27 +61,6 @@ Server::~Server()
     return;
 }
 
-bool set_socket_non_blocking(int const &fd)
-{
-    int flags = fcntl(fd, F_GETFL, 0);
-
-    if (flags == -1)
-    {
-        cerr << "fcntl" << endl;
-        return FAILURE;
-    }
-
-    flags |= O_NONBLOCK;
-
-    if (fcntl(fd, F_SETFL, flags) == -1)
-    {
-        cerr << "fcntl" << endl;
-        return FAILURE;
-    }
-
-    return SUCCESS;
-}
-
 void Server::accept_new_client()
 {
 
@@ -93,14 +72,23 @@ void Server::accept_new_client()
 
     string ip = inet_ntoa(clientAddress.sin_addr);
 
-    set_socket_non_blocking(clientSocket);
+    if (fcntl(this->_servSocket, F_SETFL, O_NONBLOCK) == -1)
+    {
+        disconnect_client(clientSocket);
+        return;
+    }
 
     epoll_event clientEvent;
     clientEvent.data.fd = clientSocket;
     clientEvent.events = EPOLLIN | EPOLLRDHUP;
-    epoll_ctl(this->_epoll_fd, EPOLL_CTL_ADD, clientSocket, &clientEvent);
+    if (epoll_ctl(this->_epoll_fd, EPOLL_CTL_ADD, clientSocket, &clientEvent) == -1)
+    {
+        disconnect_client(clientSocket);
+        return;
+    }
 
-    cout << GREEN << "New client detected : " + ip + " on socket : " << clientSocket << RESET << endl;
+    cout
+        << GREEN << "New client detected : " + ip + " on socket : " << clientSocket << RESET << endl;
     this->_clients[clientSocket] = Client(clientSocket, ip, clientEvent);
 }
 
@@ -247,8 +235,7 @@ bool Server::init_servAdrress(int const &port)
 
     if (bind(this->_servSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress)))
     {
-        cerr << RED << "Address already in use" << RESET << endl;
-        return (FAILURE);
+        throw std::runtime_error("Address already in use");
     }
     return SUCCESS;
 }
@@ -423,10 +410,12 @@ bool Server::launch_server(int const &port, char const *password)
 
     cout << GREEN << "Launching IRC server on port " << port << " on socket : " << this->_servSocket << RESET << endl;
 
-    set_socket_non_blocking(this->_servSocket);
+    if (fcntl(this->_servSocket, F_SETFL, O_NONBLOCK) == -1)
+        throw std::runtime_error("fcntl error\n");
 
     int opt = 1;
-    setsockopt(this->_servSocket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+    if (setsockopt(this->_servSocket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1)
+        throw std::runtime_error("setsockopt error\n");
 
     if (init_servAdrress(port))
     {
@@ -439,10 +428,7 @@ bool Server::launch_server(int const &port, char const *password)
 
     this->_epoll_fd = epoll_create1(0);
     if (this->_epoll_fd == -1)
-    {
-        cerr << "epoll_create" << endl;
-        return FAILURE;
-    }
+        throw std::runtime_error("setsockopt error\n");
 
     epoll_event event;
 
