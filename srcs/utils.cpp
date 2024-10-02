@@ -28,7 +28,7 @@ vector<string> split(string const &line, string const &to_split)
     for (size_t i = 0; end != string::npos; i++)
     {
         size_t begin = line.find_first_not_of(to_split, i);
-        end = line.find_first_of(to_split, begin);
+        end = line.find(to_split, begin);
         if (begin > line.length())
             break;
         string word = line.substr(begin, end - begin);
@@ -46,7 +46,7 @@ vector<string> split_first_word(string const &line, string const &to_split)
         return v;
 
     size_t begin = line.find_first_not_of(to_split, 0);
-    size_t end = line.find_first_of(to_split, begin);
+    size_t end = line.find(to_split, begin);
     if (begin > line.length())
         return v;
     string word = line.substr(begin, end - begin);

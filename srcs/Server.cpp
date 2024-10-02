@@ -242,9 +242,6 @@ void Server::send_message(int const &clientFd)
         CLIENT.remove_epollout(this->_epoll_fd);
     }
 
-    // cout << "Bytes sent : " << bytesSent << endl
-    //      << "rest to send : " << CLIENT.get_to_send() << endl;
-
     if (bytesSent == -1 || bytesSent != toSend)
     {
         cerr << "Can't send all data" << endl;
@@ -276,8 +273,6 @@ bool Server::init_servAdrress(int const &port)
 void Server::first_connection(int const &clientFd)
 {
     vector<string> v = split(CLIENT.get_buffer(), "\r\n");
-
-    // cout << "Vector size is : " << v.size() << endl;
 
     if (v.size() == 0)
     {
@@ -328,7 +323,7 @@ void Server::first_connection(int const &clientFd)
     if (CLIENT.get_is_valid_pass() == true && CLIENT.get_NICK().empty() == false && CLIENT.get_USER().empty() == false)
     {
         CLIENT.set_is_identified(true);
-        APPEND_CLIENT_TO_SEND(RPL_WELCOME() + RPL_YOURHOST() + RPL_CREATED() + RPL_MYINFO() + RPL_MOTDSTART() + RPL_MOTD() + RPL_ENDOFMOTD());
+        APPEND_CLIENT_TO_SEND(RPL_WELCOME() + RPL_YOURHOST() + RPL_CREATED() + RPL_MYINFO() + RPL_ISSUPORT() + RPL_MOTDSTART() + RPL_MOTD() + RPL_ENDOFMOTD());
     }
     return;
 }
@@ -336,8 +331,6 @@ void Server::first_connection(int const &clientFd)
 void Server::normal_request(int const &clientFd)
 {
     vector<string> v = split(CLIENT.get_buffer(), "\r\n");
-
-    // cout << "Vector size is : " << v.size() << endl;
 
     if (v.size() == 0)
     {
@@ -441,6 +434,9 @@ bool Server::launch_server(int const &port, char const *password)
 {
     this->_servSocket = socket(AF_INET, SOCK_STREAM, 0);
 
+    if (this->_servSocket == -1)
+        throw std::runtime_error("socket error");
+
     cout << GREEN << "Launching IRC server on port " << port << " on socket : " << this->_servSocket << RESET << endl;
 
     if (fcntl(this->_servSocket, F_SETFL, O_NONBLOCK) == -1)
@@ -457,9 +453,11 @@ bool Server::launch_server(int const &port, char const *password)
 
     this->_creationTime = get_time();
 
-    listen(this->_servSocket, 5);
+    if (listen(this->_servSocket, 5) == -1)
+        throw std::runtime_error("listen error");
 
     this->_epoll_fd = epoll_create1(0);
+
     if (this->_epoll_fd == -1)
         throw std::runtime_error("setsockopt error\n");
 
@@ -499,6 +497,9 @@ bool check_port(char *str)
 
 bool check_pwd(char *str)
 {
+    if (!str || !str[0])
+        return FAILURE;
+
     for (size_t i = 0; str[i]; i++)
     {
         if (isprint(str[i]) == 0 || str[i] == ' ')
