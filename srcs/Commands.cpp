@@ -20,7 +20,7 @@ void Server::PASS(int const &clientFd, vector<string> const &words)
 {
     if (CLIENT.get_is_valid_pass() == true)
         return;
-    
+
     // CLIENT.set_is_valid_pass(false);
 
     if (words.size() != 2)
@@ -613,6 +613,11 @@ void Server::KICK(int const &clientFd, vector<string> const &words)
                     send_to_all_clients_in_chan(words[1], ":" + CLIENT_SOURCE + " KICK " + words[1] + " " + users_to_kick.front() + " " + default_msg + "\r\n");
                     it->second.remove_users(words[2]);
                     CLIENT.remove_from_channelList(words[1]);
+                    if (CHANNEL(words[1]).get_users().empty() == true)
+                    {
+                        cout << RED << "Nobody in channel " << words[1] << " anymore, deleting it" << RESET << endl;
+                        this->_channels.erase(words[1]);
+                    }
                 }
                 else
                     APPEND_CLIENT_TO_SEND(ERR_USERNOTINCHANNEL(words[1], users_to_kick.front()));
