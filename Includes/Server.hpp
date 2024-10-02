@@ -43,6 +43,7 @@ private:
     void send_to_all_clients_in_chan(string const &channelName, string const &message);
     void send_to_all_clients_in_chan_except(int const &clientFd, string const &channelName, string const &message);
 
+    void uninvite_client(int const &clientFd);
     void quit_all_channels(int const &clientFd);
     bool channel_exist(string const &channelName);
 

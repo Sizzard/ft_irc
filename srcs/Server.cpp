@@ -161,9 +161,24 @@ void Server::send_to_all_clients_in_chan_except(int const &clientFd, string cons
     }
 }
 
+
+
+void Server::uninvite_client(int const &clientFd)
+{
+    for (map<string, Channels>::iterator it = this->_channels.begin(); it != this->_channels.end(); it++)
+    {
+        vector<int>::const_iterator its = std::find(it->second.get_invitedUsers().begin(), it->second.get_invitedUsers().end(), clientFd);
+        if(its != it->second.get_invitedUsers().end())
+        {
+            it->second.remove_invited_user(clientFd);
+        }
+    }
+}
+
 void Server::disconnect_client(int const &clientFd)
 {
     cout << RED << "Client disconnected on socket : " << clientFd << RESET << endl;
+    uninvite_client(clientFd);
     quit_all_channels(clientFd);
     epoll_ctl(this->_epoll_fd, EPOLL_CTL_DEL, clientFd, &this->_clients[clientFd].get_epoll_event());
     close(clientFd);

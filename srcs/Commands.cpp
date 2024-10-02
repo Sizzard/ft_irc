@@ -156,7 +156,7 @@ void Server::join_channels(int const &clientFd, string const &channelToJoin, str
             return;
         }
     }
-    if (it->second.mode_contains('l') && static_cast<std::size_t>(it->second.get_limit()) <= it->second.get_users().size())
+    if (static_cast<std::size_t>(it->second.get_limit()) <= it->second.get_users().size())
     {
         APPEND_CLIENT_TO_SEND(ERR_CHANNELISFULL(channelToJoin));
         return;

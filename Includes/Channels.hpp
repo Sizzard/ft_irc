@@ -43,12 +43,14 @@ public:
     void remove_users(string const &clientNick);
     void change_nick(string const &oldNick, string const &newNick);
 
-    void invite_user(int const &clientfd);
 
     mapPair const &get_users();
     string const append_all_users() const;
 
     vector<int> const &get_invitedUsers();
+    void invite_user(int const &clientfd);
+    void remove_invited_user(int const &clientfd);
+
 
     void add_operator(string const &clientNick);
     void remove_operator(string const &clientNick);

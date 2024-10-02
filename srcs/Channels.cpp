@@ -171,6 +171,19 @@ vector<int> const &Channels::get_invitedUsers()
     return this->_invitedUsers;
 }
 
+
+void Channels::remove_invited_user(int const &clientfd)
+{
+    for (vector<int>::iterator it = this->_invitedUsers.begin(); it != this->_invitedUsers.end(); it++)
+    {
+        if (*it == clientfd)
+        {
+            this->_invitedUsers.erase(it);
+            return;
+        }
+    }
+}
+
 string const Channels::append_all_users() const
 {
     string str;
