@@ -62,6 +62,7 @@ string const get_epoch_time(time_t time);
 #define RPL_YOURHOST() ":" + CLIENT_SOURCE + " 002 " + CLIENT.get_NICK() + " :Your host is " + CLIENT.get_ip() + ", running version 1.0" + "\r\n"
 #define RPL_CREATED() ":" + CLIENT_SOURCE + " 003 " + CLIENT.get_NICK() + " :This server was created on " + this->_creationTime + "\r\n"
 #define RPL_MYINFO() ":" + CLIENT_SOURCE + " 004 " + CLIENT.get_NICK() + " :Version 1.0 itkol" + "\r\n"
+#define RPL_ISSUPORT() ":" + CLIENT_SOURCE + " 005 " + CLIENT.get_NICK() + " NETWORK=IrcServ CHANTYPES=# CHANLIMIT=#:100 PREFIX=@ CASEMAPPING=ascii :are available on this server\r\n"
 #define RPL_UMODEIS() ":" + CLIENT_SOURCE + " 221 " + CLIENT.get_NICK() + " + " + "\r\n"
 #define RPL_CHANNELMODEIS(channelName) ":" + CLIENT_SOURCE + " 324 " + CLIENT.get_NICK() + " " + channelName + " " + this->_channels[channelName].get_mode() + "\r\n"
 #define RPL_CREATIONTIME(channelName) ":" + CLIENT_SOURCE + " 329 " + CLIENT.get_NICK() + " " + channelName + " " + get_epoch_time(this->_channels[channelName].get_creationTime()) + "\r\n"

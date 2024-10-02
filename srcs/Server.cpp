@@ -308,7 +308,7 @@ void Server::first_connection(int const &clientFd)
     if (CLIENT.get_is_valid_pass() == true && CLIENT.get_NICK().empty() == false && CLIENT.get_USER().empty() == false)
     {
         CLIENT.set_is_identified(true);
-        APPEND_CLIENT_TO_SEND(RPL_WELCOME() + RPL_YOURHOST() + RPL_CREATED() + RPL_MYINFO() + RPL_MOTDSTART() + RPL_MOTD() + RPL_ENDOFMOTD());
+        APPEND_CLIENT_TO_SEND(RPL_WELCOME() + RPL_YOURHOST() + RPL_CREATED() + RPL_MYINFO() + RPL_ISSUPORT() + RPL_MOTDSTART() + RPL_MOTD() + RPL_ENDOFMOTD());
     }
     return;
 }
