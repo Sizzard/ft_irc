@@ -205,17 +205,18 @@ void Server::JOIN(int const &clientFd, vector<string> const &words)
 
 void Server::PRIVMSG(int const &clientFd, vector<string> const &words)
 {
+    std::cout << words.size() << std::endl;
+    try
+    {
+        this->_clients[clientFd].add_epollout(this->_epoll_fd);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << endl;
+    }
     if (words.size() < 2 || words[1].empty() == true)
     {
         APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
-        try
-        {
-            CLIENT.add_epollout(this->_epoll_fd);
-        }
-        catch (const std::exception &e)
-        {
-            std::cerr << e.what() << '\n';
-        }
         return;
     }
 
@@ -223,19 +224,10 @@ void Server::PRIVMSG(int const &clientFd, vector<string> const &words)
     if (channel_message.size() < 2)
     {
         APPEND_CLIENT_TO_SEND(ERR_NEEDMOREPARAMS());
-        try
-        {
-            CLIENT.add_epollout(this->_epoll_fd);
-        }
-        catch (const std::exception &e)
-        {
-            std::cerr << e.what() << '\n';
-        }
         return;
     }
 
     vector<string> toSend = split(channel_message[0], ",");
-
     for (vector<string>::iterator ite = toSend.begin(); ite != toSend.end(); ite++)
     {
         map<string, Channels>::iterator it = this->_channels.find(*ite);
@@ -247,14 +239,6 @@ void Server::PRIVMSG(int const &clientFd, vector<string> const &words)
                 if (it->second.get_NICK() == *ite)
                 {
                     this->_clients[it->first].append_to_send(":" + CLIENT_SOURCE + " PRIVMSG " + *ite + " " + channel_message[1] + "\r\n");
-                    try
-                    {
-                        this->_clients[it->first].add_epollout(this->_epoll_fd);
-                    }
-                    catch (const std::exception &e)
-                    {
-                        std::cerr << e.what() << endl;
-                    }
                     clientExist = true;
                 }
             }
@@ -263,9 +247,13 @@ void Server::PRIVMSG(int const &clientFd, vector<string> const &words)
                 APPEND_CLIENT_TO_SEND(ERR_NOSUCHNICK(channel_message[0]));
             }
         }
+        else if(it->second.get_users().find(CLIENT.get_NICK()) == it->second.get_users().end())
+        {
+            APPEND_CLIENT_TO_SEND(ERR_CANNOTSENDTOCHAN(*ite));
+        }
         else
         {
-            send_to_all_clients_in_chan_except(clientFd, *ite, ":" + CLIENT_SOURCE + " PRIVMSG " + *ite + " " + channel_message[1] + "\r\n");
+            send_to_all_clients_in_chan_except(clientFd,*ite, ":" + CLIENT_SOURCE + " PRIVMSG " + *ite + " " + channel_message[1] + "\r\n");
         }
     }
 }
