@@ -247,7 +247,14 @@ void Server::send_message(int const &clientFd)
 
     if (toSend < BUFFER_SIZE)
     {
-        CLIENT.remove_epollout(this->_epoll_fd);
+        try
+        {
+            CLIENT.remove_epollout(this->_epoll_fd);
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
     }
 
     if (bytesSent == -1 || bytesSent != toSend)

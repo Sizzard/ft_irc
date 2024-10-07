@@ -238,8 +238,16 @@ void Server::PRIVMSG(int const &clientFd, vector<string> const &words)
             {
                 if (it->second.get_NICK() == *ite)
                 {
-                    this->_clients[it->first].append_to_send(":" + CLIENT_SOURCE + " PRIVMSG " + *ite + " " + channel_message[1] + "\r\n");
-                    clientExist = true;
+                    try
+                    {
+                        it->second.add_epollout(this->_epoll_fd);
+                    }
+                    catch (const std::exception &e)
+                    {
+                        std::cerr << e.what() << endl;
+                    }
+                        this->_clients[it->first].append_to_send(":" + CLIENT_SOURCE + " PRIVMSG " + *ite + " " + channel_message[1] + "\r\n");
+                        clientExist = true;
                 }
             }
             if (clientExist == false)
