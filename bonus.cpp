@@ -8,12 +8,20 @@
 #include <unistd.h>
 
 bool g_sigint = false;
+bool g_sigtstp = false;
 
 void sigint_handler(int signal)
 {
     (void)signal;
     g_sigint = true;
     cout << RED << "SIGINT DETECTED " << RESET << endl;
+}
+
+void sigtstp_handler(int signal)
+{
+    (void)signal;
+    g_sigtstp = true;
+    cout << RED << "SIGTSTP DETECTED " << RESET << endl;
 }
 
 vector<string> split(string const &line, string const &to_split)
@@ -65,8 +73,9 @@ int main(void)
     std::string line;
 
     signal(SIGINT, sigint_handler);
+    signal(SIGTSTP, sigtstp_handler);
 
-    while (!g_sigint)
+    while (!g_sigint && !g_sigtstp)
     {
         FD_ZERO(&readfds);
         FD_SET(clientSocket, &readfds);

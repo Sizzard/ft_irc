@@ -58,6 +58,8 @@ bool ends_with(std::string const &str, std::string const &ends);
 std::string get_time();
 string const get_epoch_time(time_t time);
 
+
+
 #define RPL_WELCOME() ":" + CLIENT_SOURCE + " 001 " + CLIENT.get_NICK() + " :Welcome to my IRC server Network, " + CLIENT.get_NICK() + "!" + CLIENT.get_USER() + "@" + CLIENT.get_ip() + "\r\n"
 #define RPL_YOURHOST() ":" + CLIENT_SOURCE + " 002 " + CLIENT.get_NICK() + " :Your host is " + CLIENT.get_ip() + ", running version 1.0" + "\r\n"
 #define RPL_CREATED() ":" + CLIENT_SOURCE + " 003 " + CLIENT.get_NICK() + " :This server was created on " + this->_creationTime + "\r\n"

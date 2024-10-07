@@ -65,6 +65,7 @@ public:
     void set_network(string const &newNetwork);
     string const &get_network();
 
+
     void remove_epollout(int const &epoll_fd);
     void add_epollout(int const &epoll_fd);
     epoll_event &get_epoll_event();

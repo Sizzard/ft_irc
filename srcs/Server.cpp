@@ -1,11 +1,19 @@
 #include "../Includes/Server.hpp"
 
 bool g_sigint = false;
+bool g_sigtstp = false;
 
 void sigint_handler(int signal)
 {
     g_sigint = true;
     cout << RED << "SIGINT detected " << RESET << endl;
+    (void)signal;
+}
+
+void sigtstp_handler(int signal)
+{
+    g_sigtstp = true;
+    cout << RED << "SIGTSTP detected " << RESET << endl;
     (void)signal;
 }
 
@@ -382,11 +390,12 @@ void Server::handle_request(int const &clientFd)
     return;
 }
 
+
 void Server::loop_server(vector<epoll_event> events)
 {
     cout << "Waiting on connection ..." << endl;
 
-    while (g_sigint == false)
+    while (g_sigint == false && g_sigtstp == false)
     {
         int n = epoll_wait(this->_epoll_fd, events.data(), events.size(), 10);
 
@@ -425,6 +434,7 @@ void Server::loop_server(vector<epoll_event> events)
 
                     cout << "Waiting on connection ..." << endl;
                 }
+    
             }
         }
     }
@@ -530,6 +540,8 @@ bool Server::init_server(int ac, char **av)
     }
 
     signal(SIGINT, sigint_handler);
+    signal(SIGTSTP, sigtstp_handler);
+
     return SUCCESS;
 }
 

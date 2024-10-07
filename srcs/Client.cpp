@@ -143,6 +143,7 @@ bool const &Client::get_is_identified()
     return this->_isIdentified;
 }
 
+
 void Client::add_to_channelList(string newInChannel)
 {
     this->_channelList.push_back(newInChannel);
